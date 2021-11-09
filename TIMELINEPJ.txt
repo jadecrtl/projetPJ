@@ -1,0 +1,60 @@
+# Creation de l'arbre MAVEN
+mvn archetype:generate
+mvn archetype:generate -DgroupId=goodnightkiss.training -DartifactId=sample-project
+# c'est cette ligne que j'ai lancé, en interactif des demandes annexes répondues par [ENTER] à chaque fois
+
+
+# a la racine du depot, essayer
+mvn test
+# ca ne fonctionnera pas car il faut être à la racine du projet qui est un cran en dessous
+cd sample-project
+mvn test
+
+# on remarque le telechargement de tout un tas de package issus du depot central de maven
+# et au final le test par defaut qui passe
+# on essaie une deuxieme fois
+mvn test
+# on constate qu'il n'y a plus de téléchargement (tout est stocké dans le .m2 de notre profil
+
+# ajout de la dependance assertj dans le fichier pom.xml
+<dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.21.0</version>
+      <scope>test</scope>
+</dependency>
+# en consequence des nouveaux telechargements
+Downloading from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.21.0/assertj-core-3.21.0.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.21.0/assertj-core-3.21.0.pom (29 kB at 24 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-parent-pom/2.2.13/assertj-parent-pom-2.2.13.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-parent-pom/2.2.13/assertj-parent-pom-2.2.13.pom (24 kB at 160 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.8.0/junit-bom-5.8.0.pom
+Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.8.0/junit-bom-5.8.0.pom (5.6 kB at 91 kB/s)
+Downloading from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.21.0/assertj-core-3.21.0.jar
+Downloaded from central: https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.21.0/assertj-core-3.21.0.jar (5.0 MB at 2.1 MB/s)
+
+# on peut alors ecrire une deuxieme classe de test (attention a la convention maven Test* *Test *TestCase)
+# et utiliser assertj (regarder dans le fichier App2Test.java)
+
+# Maintenant ajoutons JUnit5 a notre projet (junit-jupiter) dans pom.xml
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.8.1</version>
+      <scope>test</scope>
+    </dependency>
+# un simple commande pour verifier que c'est bien accepté
+mvn validate
+
+# on modifie les classes de test pour utiliser la nouvelle version de JUnit
+# il semble bien que maven n'utilise plus qu'une seule dependance de JUnit dans notre cas, la bonne
+# pour éviter les ennuis il vaudra mieux virer celle par défaut et conserver jupiter uniquement
+# les classes utilisant junit4 ne sont plus lancées car l'import n'est plus fait
+mvn test
+
+# ensuite on peut donc oublier d'impacter la classe de depart en junit4 et retirer la dépendance dans le pom.xml
+# auparavant les tests n'étaient plus lancés mais ça compilait
+# maintenant ça ne compile plus, il faut impacter la classe de départ quand on a nettoyé le pom.xml
+mvn test
+
+
