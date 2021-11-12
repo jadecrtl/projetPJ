@@ -23,4 +23,5 @@
 hs_err_pid*
 
 # ignore l'arbre target
-target/*
+catane/target/*
+catane/.vscode
