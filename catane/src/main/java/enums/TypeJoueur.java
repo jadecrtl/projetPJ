@@ -1,5 +1,5 @@
 package enums;
 
 public enum TypeJoueur {
-    HUMAIN, IA;
+    HUMAIN, IA
 }
