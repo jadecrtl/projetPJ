@@ -20,7 +20,7 @@
 
 
 3. Dans le projet il faudra une classe pour :
-- [ ] Plateau.java qui aura un attribut de type enum pour le type de la case (champ, foret, pre, montagne, colline, desert);
+- [ ] Plateau.java qui aura un attribut de type enum pour le type de la tuile (champ, foret, pre, montagne, colline, desert);
 - [ ] Joueur.java qui aura un attribut de type enum pour la couleur (bleu, blanc, rouge); couleur des colonies, routes et villes
 - [ ] Ressources.java qui aura un attribut de type enum pour le type de la ressource (ble, bois, laine, minerai, argile);
 - [ ] De.java qui s'occupera de lancer un dé pour obtenir un chiffre entre 1 et 6;
@@ -30,7 +30,7 @@
 - [ ] Colonie.java;
 - [ ] Ville.java;
 - [ ] Voleur.java qui héritera de la classe Joueur.java;
-- [ ] Case.java ? (pour chaque espace du tableau? champ - foret - pre - montagne - colline - desert)
+- [ ] TuileCarree.java 
 
 
 
