@@ -21,16 +21,19 @@
 
 3. Dans le projet il faudra une classe pour :
 - [ ] Plateau.java qui aura un attribut de type enum pour le type de la tuile (champ, foret, pre, montagne, colline, desert);
+- [ ] Jeu.java qui gerera tout les tours et ce que peux faire le joueur et ce qu'il obtiendra
 - [ ] Joueur.java qui aura un attribut de type enum pour la couleur (bleu, blanc, rouge); couleur des colonies, routes et villes
 - [ ] Ressources.java qui aura un attribut de type enum pour le type de la ressource (ble, bois, laine, minerai, argile);
-- [ ] De.java qui s'occupera de lancer un dé pour obtenir un chiffre entre 1 et 6;
+- [ ] De6Faces.java qui s'occupera de lancer un dé pour obtenir un chiffre entre 1 et 6;
 - [ ] TypeDeveloppement.java qui est une classe enum pour les cartes de développement;
 - [ ] IA.java qui est une classe pour gérer ce que fait l'IA;
-- [ ] Route.java;
-- [ ] Colonie.java;
-- [ ] Ville.java;
+- [ ] interface Piece qui aura un attribut enum Couleur et un int pv et autres méthodes;
+- [ ] Route.java qui implemente l'interface Piece;
+- [ ] Colonie.java qui implemente l'interface Piece;
+- [ ] Ville.java qui implemente l'interface Piece;
 - [ ] Voleur.java qui héritera de la classe Joueur.java;
-- [ ] TuileCarree.java 
+- [ ] TuileCarree.java qui a un attribut int jeton;
+- [ ] PocheDeJetons.java il faut trouver le nombres de jeton de chaques chiffres comme dans le vrai jeu catan et après on pioche dedans
 
 
 
