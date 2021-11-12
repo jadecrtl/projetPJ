@@ -30,6 +30,7 @@
 - [ ] Colonie.java;
 - [ ] Ville.java;
 - [ ] Voleur.java qui héritera de la classe Joueur.java;
+- [ ] Case.java ? (pour chaque espace du tableau? champ - foret - pre - montagne - colline - desert)
 
 
 
@@ -49,9 +50,3 @@
 - [ ] Pouvoir acheter, stocker et utiliser des cartes spéciales de développement
 - [ ] Au bout d'une suite de 5 routes recevoir la fiche "route la plus longue" (a voir)
 - [ ] Faire le bonus de sauvegarder et charger notre partie
-
-
-
-
-
-
