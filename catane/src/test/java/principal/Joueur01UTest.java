@@ -23,6 +23,14 @@ public class Joueur01UTest {
         assertThat(jade.getPointVictoire()).isEqualTo(0);
     }    
 
+    @Test
+    public void modifierPointVictoire() {
+        Joueur paris = new Joueur("Paris", 22, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        assertThat(paris.getPointVictoire()).isEqualTo(0);
+        paris.ajouterPointVictoire(7);
+        assertThat(paris.getPointVictoire()).isEqualTo(7);
+    }
+
 
 
 }
