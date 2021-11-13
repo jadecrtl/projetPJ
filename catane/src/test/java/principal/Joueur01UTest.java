@@ -17,6 +17,11 @@ public class Joueur01UTest {
         assertThatThrownBy(() -> new Joueur("Jade", -1, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC)).isInstanceOf(IllegalArgumentException.class);
     }    
 
+    @Test
+    public void creationJoueurScoreZero() {
+        Joueur jade = new Joueur("Jade", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        assertThat(jade.getPointVictoire()).isEqualTo(0);
+    }    
 
 
 
