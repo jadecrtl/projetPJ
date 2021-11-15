@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JeuUTest {
+public class Jeu01CreationUTest {
 
     @Test
     public void creationJeuSansRien() {
@@ -34,7 +34,7 @@ public class JeuUTest {
         joueurs.add(j2); 
         joueurs.add(j3);
         Jeu maPartie = new Jeu(joueurs);
-        assertThat(maPartie.getJeuTermine()).isFalse();
+        assertThat(maPartie.isJeuTermine()).isFalse();
     }
 
     @Test
@@ -49,7 +49,7 @@ public class JeuUTest {
         joueurs.add(j3);
         joueurs.add(j4);
         Jeu maPartie = new Jeu(joueurs);
-        assertThat(maPartie.getJeuTermine()).isFalse();
+        assertThat(maPartie.isJeuTermine()).isFalse();
     }
 
     @Test
