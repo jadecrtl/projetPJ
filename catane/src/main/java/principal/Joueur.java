@@ -30,6 +30,10 @@ public class Joueur {
         this.pointVictoire = pointVictoire;
     }
 
+    public void ajouterPointVictoire(int i) {
+        this.setPointVictoire(pointVictoire + i);
+    }
+
     public String getNom() {
         return nom;
     }
@@ -62,9 +66,6 @@ public class Joueur {
         this.couleur = couleur;
     }
 
-    public void ajouterPointVictoire(int i) {
-        this.pointVictoire = pointVictoire + i;
-    }
 
 
 

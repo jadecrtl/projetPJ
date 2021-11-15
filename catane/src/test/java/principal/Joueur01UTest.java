@@ -1,7 +1,6 @@
 package principal;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -29,6 +28,8 @@ public class Joueur01UTest {
         assertThat(paris.getPointVictoire()).isEqualTo(0);
         paris.ajouterPointVictoire(7);
         assertThat(paris.getPointVictoire()).isEqualTo(7);
+        paris.ajouterPointVictoire(2);
+        assertThat(paris.getPointVictoire()).isEqualTo(9);
     }
 
 
