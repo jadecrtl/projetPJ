@@ -143,11 +143,25 @@ public class Joueur {
     }
 
     public void ajouterRessources(int i, Production production) {
-        if (production == Production.BOIS) {
-            this.setInventaireBois(getInventaireBois()+i);
+        if (i < 0) {
+            throw new IllegalArgumentException("On ne peut pas ajouter en négatif!!");
         }
-        if (production == Production.ARGILE) {
-            this.setInventaireArgile(getInventaireArgile()+i);
+        else { 
+            if (production == Production.BOIS) {
+                this.setInventaireBois(getInventaireBois()+i);
+            }
+            if (production == Production.ARGILE) {
+                this.setInventaireArgile(getInventaireArgile()+i);
+            }
+            if (production == Production.BLE) {
+                this.setInventaireBle(getInventaireBle()+i);
+            }
+            if (production == Production.MINERAI) {
+                this.setInventaireMinerai(getInventaireMinerai()+i);
+            }      
+            if (production == Production.LAINE) {
+                this.setInventaireLaine(getInventaireLaine()+i);
+            }
         }
     }
 
@@ -168,14 +182,78 @@ public class Joueur {
                 this.setInventaireArgile(getInventaireArgile()-i);
             }
         }        
+        if (production == Production.MINERAI) {
+            if (this.getInventaireMinerai() < i) {
+                this.setInventaireMinerai(0);
+            }
+            else {
+                this.setInventaireMinerai(getInventaireMinerai()-i);
+            }
+        }        
+        if (production == Production.BLE) {
+            if (this.getInventaireBle() < i) {
+                this.setInventaireBle(0);
+            }
+            else {
+                this.setInventaireBle(getInventaireBle()-i);
+            }
+        }        
+        if (production == Production.LAINE) {
+            if (this.getInventaireLaine() < i) {
+                this.setInventaireLaine(0);
+            }
+            else {
+                this.setInventaireLaine(getInventaireLaine()-i);
+            }
+        }        
     }
 
     public boolean peutAcheterRoute() {
         if (getInventaireBois() > 0 && getInventaireArgile() > 0) {
             return true;
         }
-        return false;
+        else {
+            return false;
+        }
     }
+
+    public boolean peutAcheterColonie() {
+        if (getInventaireArgile() > 0 && getInventaireBle() > 0 && getInventaireBois() > 0 && getInventaireLaine() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean peutAcheterVille() {
+        if (getInventaireBle() > 1 && getInventaireMinerai() > 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean peutAcheterCarteDev() {
+        if (getInventaireBle() > 0 && getInventaireLaine() > 0 && getInventaireMinerai() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public boolean peutCommerceSansPort() {
+        if (getInventaireArgile() > 3 || getInventaireBle() > 3 || getInventaireBois() > 3 || getInventaireLaine() > 3 || getInventaireMinerai() > 3) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
 
 }

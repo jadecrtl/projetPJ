@@ -3,8 +3,6 @@ package principal;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.LinkedList;
-import java.util.List;
 import enums.Production;
 
 public class Joueur02ActionUTest {
@@ -32,23 +30,65 @@ public class Joueur02ActionUTest {
         assertThat(j1.getInventaireArgile()).isEqualTo(0);
     }
 
-/*
     @Test
-    public void 
-        j2.setInventaireBois(1);
-        j2.setInventaireArgile(1);
-        j2.setInventaireBle(1);
-        j2.setInventaireLaine(1);
-        j2.setInventaireMinerai(1);
-        assertThat(j1.isAcheterRoute()).isTrue;
-        assertThat(j1.isAcheterColonie()).isTrue;
-        assertThat(j2.isCommerceSansPort()).isFalse;
-
-
+    public void colonie1Joueur() {
+        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j2.ajouterRessources(5, enums.Production.BOIS);
+        j2.ajouterRessources(3, enums.Production.ARGILE);
+        j2.ajouterRessources(2, enums.Production.BLE);
+        j2.ajouterRessources(1, enums.Production.LAINE);
+        assertThat(j2.peutAcheterColonie()).isTrue();
+        j2.enleverRessources(1, enums.Production.LAINE);
+        assertThat(j2.peutAcheterColonie()).isFalse();
     }
 
+    @Test
+    public void colonie2Joueur() {
+        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j2.ajouterRessources(3, enums.Production.ARGILE);
+        j2.ajouterRessources(2, enums.Production.BLE);
+        j2.ajouterRessources(1, enums.Production.LAINE);
+        assertThat(j2.peutAcheterColonie()).isFalse();
+        j2.ajouterRessources(1, enums.Production.BOIS);
+        assertThat(j2.peutAcheterColonie()).isTrue();
+        j2.enleverRessources(1, enums.Production.LAINE);
+        assertThat(j2.peutAcheterColonie()).isFalse();
+    }
 
-*/
+    @Test
+    public void villeJoueur() {
+        Joueur j3 = new Joueur("j3", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j3.ajouterRessources(1, enums.Production.MINERAI);
+        j3.ajouterRessources(2, enums.Production.BLE);
+        assertThat(j3.peutAcheterVille()).isFalse();
+        j3.ajouterRessources(2, enums.Production.MINERAI);
+        assertThat(j3.peutAcheterVille()).isTrue();
+        j3.enleverRessources(2, enums.Production.BLE);
+        assertThat(j3.peutAcheterVille()).isFalse();
+        assertThat(j3.getInventaireBle()).isEqualTo(0);
+    }
+
+    @Test
+    public void carteDevJoueur() {
+        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j2.ajouterRessources(2, enums.Production.BLE);
+        j2.ajouterRessources(1, enums.Production.LAINE);
+        assertThat(j2.peutAcheterCarteDev()).isFalse();
+        j2.ajouterRessources(1, enums.Production.MINERAI);
+        assertThat(j2.peutAcheterCarteDev()).isTrue();
+    }
+
+    @Test
+    public void commerceSansPort() {
+        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j2.ajouterRessources(2, enums.Production.BLE);
+        assertThat(j2.peutCommerceSansPort()).isFalse();
+        j2.ajouterRessources(2, enums.Production.BLE);
+        assertThat(j2.peutCommerceSansPort()).isTrue();
+        j2.enleverRessources(2, enums.Production.BLE);
+        assertThat(j2.peutCommerceSansPort()).isFalse();
+    }
+
 
 
 
