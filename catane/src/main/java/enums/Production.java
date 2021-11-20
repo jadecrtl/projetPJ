@@ -1,5 +1,5 @@
 package enums;
 
-enum Production {
+public enum Production {
     BOIS, ARGILE, LAINE, BLE, MINERAI, RIEN
 }
