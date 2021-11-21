@@ -6,17 +6,17 @@ import java.util.List;
 public class Tuile {
     
     private int idTuile;
-    private List<Croisement> croisementsVoisins;
+    private List<Integer> croisementsVoisins;
 
     public Tuile(int idTuile) {
         if (idTuile < 0) {
             throw new IllegalArgumentException("On ne crée pas de tuile avec un id négatif.");
         }
         this.idTuile = idTuile;
-        croisementsVoisins = new LinkedList<Croisement>();
+        croisementsVoisins = new LinkedList<Integer>();
     }
 
-    public List<Croisement> getCroisementsVoisins() {
+    public List<Integer> getCroisementsVoisins() {
         return croisementsVoisins;
     }
 
@@ -24,7 +24,9 @@ public class Tuile {
         return idTuile;
     }
 
-    
+    public void setCroisementsVoisins(int idPoint) {
+        this.croisementsVoisins.add(idPoint);
+    }
 
 
     
