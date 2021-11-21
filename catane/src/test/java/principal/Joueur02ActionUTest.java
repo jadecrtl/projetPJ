@@ -8,7 +8,7 @@ import enums.Production;
 public class Joueur02ActionUTest {
 
     @Test
-    public void route1Joueur() {
+    public void verifieQueJoueurPeutAcheterUneRoute1() {
         Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
         j1.ajouterRessources(1, enums.Production.BOIS);
         j1.ajouterRessources(2, enums.Production.ARGILE);
@@ -19,7 +19,7 @@ public class Joueur02ActionUTest {
     }
 
     @Test
-    public void route2Joueur() {
+    public void verifieQueJoueurPeutAcheterUneRoute2() {
         Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
         j1.ajouterRessources(5, enums.Production.BOIS);
         j1.ajouterRessources(4, enums.Production.ARGILE);
@@ -31,11 +31,11 @@ public class Joueur02ActionUTest {
     }
 
     @Test
-    public void colonie1Joueur() {
+    public void verifieQueJoueurPeutAcheterUneColonie1() {
         Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        j2.ajouterRessources(5, enums.Production.BOIS);
-        j2.ajouterRessources(3, enums.Production.ARGILE);
-        j2.ajouterRessources(2, enums.Production.BLE);
+        j2.ajouterRessources(1, enums.Production.BOIS);
+        j2.ajouterRessources(1, enums.Production.ARGILE);
+        j2.ajouterRessources(1, enums.Production.BLE);
         j2.ajouterRessources(1, enums.Production.LAINE);
         assertThat(j2.peutAcheterColonie()).isTrue();
         j2.enleverRessources(1, enums.Production.LAINE);
@@ -43,10 +43,10 @@ public class Joueur02ActionUTest {
     }
 
     @Test
-    public void colonie2Joueur() {
+    public void verifieQueJoueurPeutAcheterUneColonie2() {
         Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        j2.ajouterRessources(3, enums.Production.ARGILE);
-        j2.ajouterRessources(2, enums.Production.BLE);
+        j2.ajouterRessources(1, enums.Production.ARGILE);
+        j2.ajouterRessources(1, enums.Production.BLE);
         j2.ajouterRessources(1, enums.Production.LAINE);
         assertThat(j2.peutAcheterColonie()).isFalse();
         j2.ajouterRessources(1, enums.Production.BOIS);
@@ -56,7 +56,7 @@ public class Joueur02ActionUTest {
     }
 
     @Test
-    public void villeJoueur() {
+    public void verifieQueJoueurPeutAcheterUneVille1() {
         Joueur j3 = new Joueur("j3", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
         j3.ajouterRessources(1, enums.Production.MINERAI);
         j3.ajouterRessources(2, enums.Production.BLE);
@@ -69,7 +69,7 @@ public class Joueur02ActionUTest {
     }
 
     @Test
-    public void carteDevJoueur() {
+    public void verifieQueJoueurPeutAcheterUneCarteDeDeveloppement() {
         Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
         j2.ajouterRessources(2, enums.Production.BLE);
         j2.ajouterRessources(1, enums.Production.LAINE);
@@ -79,18 +79,57 @@ public class Joueur02ActionUTest {
     }
 
     @Test
-    public void commerceSansPort() {
+    public void verifieQueJoueurPeutFaireDuCommerceSansPort() {
         Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
         j2.ajouterRessources(2, enums.Production.BLE);
         assertThat(j2.peutCommerceSansPort()).isFalse();
         j2.ajouterRessources(2, enums.Production.BLE);
         assertThat(j2.peutCommerceSansPort()).isTrue();
-        j2.enleverRessources(2, enums.Production.BLE);
+        j2.enleverRessources(3, enums.Production.BLE);
+        assertThat(j2.peutCommerceSansPort()).isFalse();
+        j2.enleverRessources(3, enums.Production.BLE);
         assertThat(j2.peutCommerceSansPort()).isFalse();
     }
 
+    @Test
+    public void verifieQueJoueurPeutFaireDuCommerceAvecPort() {
+        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j2.ajouterRessources(1, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPort()).isFalse();
+        j2.ajouterRessources(2, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPort()).isTrue();
+        j2.enleverRessources(3, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPort()).isFalse();
+        j2.enleverRessources(3, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPort()).isFalse();
+    }
 
+    @Test
+    public void verifieQueJoueurPeutFaireDuCommerceAvecPortSpecialise1() {
+        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j2.ajouterRessources(1, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.BLE)).isFalse();
+        j2.ajouterRessources(1, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.BLE)).isTrue();
+        j2.enleverRessources(2, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.BLE)).isFalse();
+        j2.enleverRessources(2, enums.Production.BLE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.BLE)).isFalse();
+    }
 
+    @Test
+    public void verifieQueJoueurPeutFaireDuCommerceAvecPortSpecialise2() {
+        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        j2.ajouterRessources(1, enums.Production.ARGILE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.ARGILE)).isFalse();
+        j2.ajouterRessources(1, enums.Production.ARGILE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.ARGILE)).isTrue();
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.BLE)).isFalse();
+        j2.enleverRessources(2, enums.Production.ARGILE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.ARGILE)).isFalse();
+        j2.enleverRessources(2, enums.Production.ARGILE);
+        assertThat(j2.peutCommerceAvecPortSpe(enums.Production.ARGILE)).isFalse();
+    }
 
 
 

@@ -254,6 +254,58 @@ public class Joueur {
         }
     }
 
+    public boolean peutCommerceAvecPort() {
+        if (getInventaireArgile() > 2 || getInventaireBle() > 2 || getInventaireBois() > 2 || getInventaireLaine() > 2 || getInventaireMinerai() > 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean peutCommerceAvecPortSpe(Production production) {
+        if (production == Production.BOIS) {
+            if (getInventaireBois() > 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        if (production == Production.BLE) {
+            if (getInventaireBle() > 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        if (production == Production.MINERAI) {
+            if (getInventaireMinerai() > 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        if (production == Production.ARGILE) {
+            if (getInventaireArgile() > 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        if (production == Production.LAINE) {
+            if (getInventaireLaine() > 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;
+    }
 
 
 }
