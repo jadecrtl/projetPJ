@@ -1,11 +1,16 @@
 package principal;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class AireDeJeu {
     public static final int HORIZONTALEMIN = 5;
     public static final int VERTCALEMIN = 5;
 
     private int horizontale;
     private int verticale;
+    private List<Tuile> tuiles;
+    private List<Croisement> croisements;
 
     public AireDeJeu(int horizontale, int verticale) {
         if (horizontale < HORIZONTALEMIN && verticale < VERTCALEMIN) {
@@ -13,6 +18,16 @@ public class AireDeJeu {
         }
         this.horizontale = horizontale;
         this.verticale = verticale;
+        tuiles = new LinkedList<Tuile>();
+        croisements = new LinkedList<Croisement>();
+    }
+
+    public List<Croisement> getCroisements() {
+        return croisements;
+    }
+
+    public List<Tuile> getTuiles() {
+        return tuiles;
     }
 
     public int getVerticale() {
