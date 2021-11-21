@@ -18,10 +18,11 @@ public class AireDeJeu01CreationUTest {
 
     @Test
     public void creationAireDeJeu() {
-        AireDeJeu aireDeJeu = new AireDeJeu(5, 5);
-        assertThat(aireDeJeu.getTuiles().size()).isEqualTo(0);
-        assertThat(aireDeJeu.getCroisements().size()).isEqualTo(0);
+        AireDeJeu aireDeJeu = new AireDeJeu(7, 5);
+        assertThat(aireDeJeu.getTuiles().size()).isEqualTo(7 * 5);
+        assertThat(aireDeJeu.getCroisements().size()).isEqualTo(8 * 6);
     }
+
 
 
 }

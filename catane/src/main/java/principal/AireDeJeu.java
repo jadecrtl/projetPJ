@@ -20,6 +20,8 @@ public class AireDeJeu {
         this.verticale = verticale;
         tuiles = new LinkedList<Tuile>();
         croisements = new LinkedList<Croisement>();
+        remplirTuiles();
+        remplirCroisements();
     }
 
     public List<Croisement> getCroisements() {
@@ -38,6 +40,19 @@ public class AireDeJeu {
         return horizontale;
     }
     
+    private void remplirTuiles() {
+        for (int i = 0; i < (this.horizontale * this.verticale); i++) {
+            Tuile t = new Tuile(i);
+            tuiles.add(t);
+        }
+    }
+
+    private void remplirCroisements() {
+        for (int i = 0; i < ((this.horizontale + 1) * (this.verticale + 1)); i++) {
+            Croisement c = new Croisement(i);
+            croisements.add(c);
+        }
+    }
 
 
 }
