@@ -3,6 +3,7 @@ package enums;
 public enum Couleur {
     BLEU,
     BLANC, 
-    ROUGE,
-    VERT
+    ROUGE, 
+    VERT, 
+    JAUNE
 }
