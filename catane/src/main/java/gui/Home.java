@@ -11,7 +11,8 @@ public class Home {
         JFrame frame = new JFrame("Catane");
         JLabel label = new JLabel("Hello World!");
         frame.add(label);
-        // frame.setVisible(true);
+        frame.setSize(300,300);
+        frame.setVisible(true);
     }
 
     
