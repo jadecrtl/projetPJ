@@ -110,7 +110,7 @@ public class AireDeJeu {
 
     private void traceLigneDeCroisementsEtRoutesHorizontales(int depart) {
         for (int idCroisement = depart; idCroisement < depart + horizontale + 1; idCroisement++) {
-            terminal.print(fondAireDeJeu.getCrayon(), idCroisement + "");
+            terminal.printInt(fondAireDeJeu.getCrayon(), idCroisement);
             if (idCroisement < depart + horizontale) {
                 terminal.print(fondAireDeJeu.getCrayon(), " ---- ");
             }
@@ -120,14 +120,28 @@ public class AireDeJeu {
 
     private void traceColonneDeRoutesVerticalesEtTuiles(int depart) {
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "|  ");
-            terminal.print(fondAireDeJeu.getCrayon(), idTuile + "   ");
+            terminal.print(fondAireDeJeu.getCrayon(), "|       ");
             if (idTuile == depart + horizontale - 1) {
-                terminal.print(fondAireDeJeu.getCrayon(), "|  ");
+                terminal.print(fondAireDeJeu.getCrayon(), "|");
             }
         }
         terminal.nouvelleLigne();
-        //terminal.println(fondAireDeJeu.getCrayon(), "colonne " + ligne);
+        for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
+            terminal.print(fondAireDeJeu.getCrayon(), "|   ");
+            terminal.printInt(fondAireDeJeu.getCrayon(), idTuile);
+            terminal.print(fondAireDeJeu.getCrayon(), "  ");
+            if (idTuile == depart + horizontale - 1) {
+                terminal.print(fondAireDeJeu.getCrayon(), "|");
+            }
+        }
+        terminal.nouvelleLigne();
+        for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
+            terminal.print(fondAireDeJeu.getCrayon(), "|       ");
+            if (idTuile == depart + horizontale - 1) {
+                terminal.print(fondAireDeJeu.getCrayon(), "|");
+            }
+        }
+        terminal.nouvelleLigne();
     }
 
 }
