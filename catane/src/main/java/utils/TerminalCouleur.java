@@ -20,6 +20,15 @@ public class TerminalCouleur {
         }
     }
 
+    public void printInt(String decoration, int n) {
+        if (n < 10) {
+            print(decoration, n + " ");
+        }
+        else {
+            print(decoration, n + "");
+        }
+    }
+
     public void nouvelleLigne() {
         System.out.println();
     }
