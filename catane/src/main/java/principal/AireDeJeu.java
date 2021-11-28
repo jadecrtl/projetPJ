@@ -6,7 +6,9 @@ import java.util.List;
 
 import enums.Couleur;
 import enums.Terrain;
+import enums.TypeCroisement;
 import utils.TerminalCouleur;
+import utils.TirageJeton;
 
 public class AireDeJeu {
     public static final int HORIZONTALEMIN = 5;
@@ -31,7 +33,7 @@ public class AireDeJeu {
             croisements = new LinkedList<Croisement>();
             remplirTuiles();
             remplirCroisements();
-            assigneTerrainsAuxTuiles();
+            assigneTerrainsEtJetonsAuxTuiles();
             remplirCroisementsVoisins();
             remplirTuilesVoisines();
 
@@ -115,7 +117,7 @@ public class AireDeJeu {
 
     private void traceLigneDeCroisementsEtRoutesHorizontales(int depart) {
         for (int idCroisement = depart; idCroisement < depart + horizontale + 1; idCroisement++) {
-            terminal.printInt(fondAireDeJeu.getCrayon(), idCroisement);
+            traceCroisement(idCroisement);
             if (idCroisement < depart + horizontale) {
                 terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
             }
@@ -134,7 +136,7 @@ public class AireDeJeu {
 
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
             terminal.print(fondAireDeJeu.getCrayon(), "|    ");
-            terminal.printInt(tuiles.get(idTuile).getCouleurTuile().getCrayon(), idTuile);
+            terminal.printInt(tuiles.get(idTuile).getCouleurTuile().getCrayon(), tuiles.get(idTuile).getJeton());
             terminal.print(fondAireDeJeu.getCrayon(), "    ");
             if (idTuile == depart + horizontale - 1) {
                 terminal.print(fondAireDeJeu.getCrayon(), "|");
@@ -161,17 +163,35 @@ public class AireDeJeu {
         terminal.nouvelleLigne();
     }
 
-    private void assigneTerrainsAuxTuiles() {
+    public void traceCroisement(int idCroisement) {
+        if (croisements.get(idCroisement).getProprietaire() == null) {
+            terminal.printInt(fondAireDeJeu.getCrayon(), idCroisement);
+        }
+        else {
+            if (croisements.get(idCroisement).getTypeCroisement() == TypeCroisement.COLONIE) {
+                terminal.printInt(croisements.get(idCroisement).getProprietaire().getCouleur().getCrayon(), idCroisement);
+            }
+            else {
+                terminal.printInt(croisements.get(idCroisement).getProprietaire().getCouleur().getStabilo(), idCroisement);
+            }
+        }
+    }
+
+    private void assigneTerrainsEtJetonsAuxTuiles() {
+
         //assignation du desert au milieu
         int idTuileMilieu = ((horizontale * verticale) - 1) / 2;
         tuiles.get(idTuileMilieu).setTerrain(Terrain.DESERT);
+
         //assignation des tuiles sans assigner celle du milieu
         Random r = new Random();
         for (int i = 0; i < idTuileMilieu; i++) {
             tuiles.get(i).setTerrain(Terrain.getTerrain(r.nextInt(5)));
+            tuiles.get(i).setJeton(new TirageJeton().tirage());
         }
         for (int i = idTuileMilieu + 1; i < horizontale * verticale; i++) {
             tuiles.get(i).setTerrain(Terrain.getTerrain(r.nextInt(5)));
+            tuiles.get(i).setJeton(new TirageJeton().tirage());
         }
     }
 

@@ -11,6 +11,7 @@ public class Tuile {
     private int idTuile;
     private List<Integer> croisementsVoisins;
     private Terrain terrain;
+    private int jeton;
 
     public Tuile(int idTuile) {
         if (idTuile < 0) {
@@ -18,6 +19,14 @@ public class Tuile {
         }
         this.idTuile = idTuile;
         croisementsVoisins = new LinkedList<Integer>();
+    }
+
+    public int getJeton() {
+        return jeton;
+    }
+
+    public void setJeton(int jeton) {
+        this.jeton = jeton;
     }
 
     public Couleur getCouleurTuile() {
