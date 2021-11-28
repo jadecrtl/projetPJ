@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import enums.Couleur;
+import enums.Terrain;
 import utils.TerminalCouleur;
 
 public class AireDeJeu {
@@ -24,12 +25,15 @@ public class AireDeJeu {
         if ((horizontale % 2 == 1) && (verticale % 2 == 1)) {
             this.horizontale = horizontale;
             this.verticale = verticale;
+
             tuiles = new LinkedList<Tuile>();
             croisements = new LinkedList<Croisement>();
             remplirTuiles();
             remplirCroisements();
+            assigneTerrainsAuxTuiles();
             remplirCroisementsVoisins();
             remplirTuilesVoisines();
+
             terminal = new TerminalCouleur();
             fondAireDeJeu = Couleur.MAUVE;
         }
@@ -128,7 +132,7 @@ public class AireDeJeu {
         terminal.nouvelleLigne();
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
             terminal.print(fondAireDeJeu.getCrayon(), "|   ");
-            terminal.printInt(fondAireDeJeu.getCrayon(), idTuile);
+            terminal.printInt(tuiles.get(idTuile).getCouleurTuile().getCrayon(), idTuile);
             terminal.print(fondAireDeJeu.getCrayon(), "  ");
             if (idTuile == depart + horizontale - 1) {
                 terminal.print(fondAireDeJeu.getCrayon(), "|");
@@ -142,6 +146,13 @@ public class AireDeJeu {
             }
         }
         terminal.nouvelleLigne();
+    }
+
+    private void assigneTerrainsAuxTuiles() {
+        //assignation du desert au milieu
+        int idTuileMilieu = ((horizontale * verticale) - 1) / 2;
+        tuiles.get(idTuileMilieu).setTerrain(Terrain.DESERT);
+        
     }
 
 }
