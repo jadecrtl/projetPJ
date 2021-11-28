@@ -17,6 +17,13 @@ public class AireDeJeu01CreationUTest {
     }
 
     @Test
+    public void creationAireDeJeuDeTaillePair() {
+        assertThatThrownBy(() -> new AireDeJeu(6, 5)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new AireDeJeu(5, 8)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new AireDeJeu(6, 8)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new AireDeJeu(10, 10)).isInstanceOf(IllegalArgumentException.class);    }
+
+    @Test
     public void creationAireDeJeu() {
         AireDeJeu aireDeJeu = new AireDeJeu(7, 5);
         assertThat(aireDeJeu.getTuiles().size()).isEqualTo(7 * 5);

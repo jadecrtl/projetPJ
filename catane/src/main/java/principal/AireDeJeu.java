@@ -16,14 +16,19 @@ public class AireDeJeu {
         if (horizontale < HORIZONTALEMIN && verticale < VERTCALEMIN) {
             throw new IllegalArgumentException("Pas d'aire de jeu trop petite.");
         }
-        this.horizontale = horizontale;
-        this.verticale = verticale;
-        tuiles = new LinkedList<Tuile>();
-        croisements = new LinkedList<Croisement>();
-        remplirTuiles();
-        remplirCroisements();
-        remplirCroisementsVoisins();
-        remplirTuilesVoisines();
+        if ((horizontale % 2 == 1) && (verticale % 2 == 1)) {
+            this.horizontale = horizontale;
+            this.verticale = verticale;
+            tuiles = new LinkedList<Tuile>();
+            croisements = new LinkedList<Croisement>();
+            remplirTuiles();
+            remplirCroisements();
+            remplirCroisementsVoisins();
+            remplirTuilesVoisines();
+        }
+        else {
+            throw new IllegalArgumentException("L'aire de jeu doit etre de taille impair!!");
+        }
     }
 
     public List<Croisement> getCroisements() {
