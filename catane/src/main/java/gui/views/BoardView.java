@@ -1,28 +1,35 @@
 package gui.views;
 
 import javax.swing.JFrame;
-
-import gui.models.*;
-import gui.controllers.*;
+import principal.AireDeJeu;
 
 /* 
 Board view.
-It's currently empty. It will have the AireDeJeu, Tuiles and Croisement.
 */
 
 public class BoardView extends JFrame{
+    private AireDeJeuView aireDeJeuView;
 
     public BoardView() {
         super("Board");
-        // Testing only
-        int x = 5; 
-        int y = 5;
-        AireDeJeuModel aireDeJeu = new AireDeJeuModel(x, y);
-        AireDeJeuController.fillAireDeJeu(aireDeJeu);
-        add(aireDeJeu);
+
+        AireDeJeu aireDeJeu = new AireDeJeu(5, 5);
+        AireDeJeuView aireDeJeuView = new AireDeJeuView(aireDeJeu);
+
+        this.setAireDeJeuView(aireDeJeuView);
+
+        add(aireDeJeuView);
         setSize(500, 500);
         setResizable(true);
         setVisible(true);
+    }
+
+    public AireDeJeuView getAireDeJeuView() {
+        return aireDeJeuView;
+    }
+
+    public void setAireDeJeuView(AireDeJeuView aireDeJeuView) {
+        this.aireDeJeuView = aireDeJeuView;
     }
 
 }
