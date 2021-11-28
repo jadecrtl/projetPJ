@@ -1,5 +1,6 @@
 package principal;
 
+import java.util.Random;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -116,7 +117,7 @@ public class AireDeJeu {
         for (int idCroisement = depart; idCroisement < depart + horizontale + 1; idCroisement++) {
             terminal.printInt(fondAireDeJeu.getCrayon(), idCroisement);
             if (idCroisement < depart + horizontale) {
-                terminal.print(fondAireDeJeu.getCrayon(), " ---- ");
+                terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
             }
         }
         terminal.nouvelleLigne();
@@ -124,23 +125,35 @@ public class AireDeJeu {
 
     private void traceColonneDeRoutesVerticalesEtTuiles(int depart) {
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "|       ");
+            terminal.print(fondAireDeJeu.getCrayon(), "|          ");
             if (idTuile == depart + horizontale - 1) {
                 terminal.print(fondAireDeJeu.getCrayon(), "|");
             }
         }
         terminal.nouvelleLigne();
+
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "|   ");
+            terminal.print(fondAireDeJeu.getCrayon(), "|    ");
             terminal.printInt(tuiles.get(idTuile).getCouleurTuile().getCrayon(), idTuile);
-            terminal.print(fondAireDeJeu.getCrayon(), "  ");
+            terminal.print(fondAireDeJeu.getCrayon(), "    ");
             if (idTuile == depart + horizontale - 1) {
                 terminal.print(fondAireDeJeu.getCrayon(), "|");
             }
         }
         terminal.nouvelleLigne();
+
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "|       ");
+            terminal.print(fondAireDeJeu.getCrayon(), "| ");
+            terminal.print(tuiles.get(idTuile).getCouleurTuile().getCrayon(), tuiles.get(idTuile).getTerrain().getNomTerrain());
+            terminal.print(fondAireDeJeu.getCrayon(), " ");
+            if (idTuile == depart + horizontale - 1) {
+                terminal.print(fondAireDeJeu.getCrayon(), "|");
+            }
+        }
+        terminal.nouvelleLigne();
+
+        for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
+            terminal.print(fondAireDeJeu.getCrayon(), "|          ");
             if (idTuile == depart + horizontale - 1) {
                 terminal.print(fondAireDeJeu.getCrayon(), "|");
             }
@@ -152,7 +165,14 @@ public class AireDeJeu {
         //assignation du desert au milieu
         int idTuileMilieu = ((horizontale * verticale) - 1) / 2;
         tuiles.get(idTuileMilieu).setTerrain(Terrain.DESERT);
-        
+        //assignation des tuiles sans assigner celle du milieu
+        Random r = new Random();
+        for (int i = 0; i < idTuileMilieu; i++) {
+            tuiles.get(i).setTerrain(Terrain.getTerrain(r.nextInt(5)));
+        }
+        for (int i = idTuileMilieu + 1; i < horizontale * verticale; i++) {
+            tuiles.get(i).setTerrain(Terrain.getTerrain(r.nextInt(5)));
+        }
     }
 
 }
