@@ -4,6 +4,9 @@ import javax.swing.*;
 
 import gui.controllers.AireDeJeuController;
 import principal.AireDeJeu;
+import principal.Tuile;
+import gui.views.*;
+import enums.*;
 
 import java.awt.*;
 /* 
@@ -32,7 +35,11 @@ public class AireDeJeuView extends JPanel{
     public void addTuiles() {
         setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
         for (int i =0; i<(this.aireDeJeu.getVerticale()*this.aireDeJeu.getHorizontale()); i++){
-            JLabel tuile = new JLabel("Tuile: "+i);  // Todo: add tuile component.
+            // JLabel tuile = new JLabel("Tuile: "+i);  // Todo: add tuile component.
+            Tuile tuileModel = new Tuile(2);
+            tuileModel.setJeton(5);
+            tuileModel.setTerrain(Terrain.DESERT);
+            JPanel tuile = new TuilesView(tuileModel);
             tuile.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             add(tuile);
         }

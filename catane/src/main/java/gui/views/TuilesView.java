@@ -23,12 +23,12 @@ public class TuilesView extends JPanel {
         this.tuile = tuile;
         this.jetonLabel.setText(String.valueOf(this.tuile.getJeton()));
         this.tuileLayout = new BorderLayout();
-        try {
-            this.tuileBackground = new JLabel(new ImageIcon(ImageIO.read(new File("static/backgroundRock.jpg"))));
-            add(tuileBackground);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     // this.tuileBackground = new JLabel(new ImageIcon(ImageIO.read(new File("src/static/backgroundRock.jpg"))));
+        //     add(tuileBackground);
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
         add(this.jetonLabel, BorderLayout.CENTER);
     }
 
