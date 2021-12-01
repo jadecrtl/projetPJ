@@ -15,15 +15,15 @@ public class AireDeJeuView extends JPanel{
     // Controleur
     private AireDeJeuController aireDeJeuController;
     // Layout
-    private GridLayout cataneGrid;
+    private GridLayout aireDeJeuGrid;
 
     public AireDeJeuView(AireDeJeu aireDeJeu) {
         // Set View attributes
         this.aireDeJeu = aireDeJeu;
         // Creation du Grid
-        this.cataneGrid = new GridLayout(this.aireDeJeu.getHorizontale(), this.aireDeJeu.getVerticale());
+        this.aireDeJeuGrid = new GridLayout(this.aireDeJeu.getHorizontale(), this.aireDeJeu.getVerticale());
         // Mise en place du Layout
-        this.setLayout(cataneGrid);
+        this.setLayout(aireDeJeuGrid);
         // Ajout des tuilles
         this.addTuiles();
     }
