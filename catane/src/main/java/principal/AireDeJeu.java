@@ -128,14 +128,16 @@ public class AireDeJeu {
     public void traceAireDeJeu() {
         int pointDepartCroisement = 0;
         int pointDepartTuile = 0;
+        int numeroLigne = 0;
         for (int ligne = 0; ligne < ((this.verticale*2)+1); ligne++) {
             if(ligne % 2 == 0) {
                 traceLigneDeCroisementsEtRoutesHorizontales(pointDepartCroisement);
                 pointDepartCroisement = pointDepartCroisement + horizontale + 1;
             }
             else {
-                traceColonneDeRoutesVerticalesEtTuiles(pointDepartTuile);
+                traceColonneDeRoutesVerticalesEtTuiles(pointDepartTuile, numeroLigne);
                 pointDepartTuile = pointDepartTuile + horizontale;
+                numeroLigne++;
             }
         }
     }
@@ -162,50 +164,62 @@ public class AireDeJeu {
         }
     }
 
-    private void traceColonneDeRoutesVerticalesEtTuiles(int depart) {
+    private void traceColonneDeRoutesVerticalesEtTuiles(int depart, int numeroLigne) {
+
+        //premiere ligne de l'affichage des colonnes
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            traceRouteVerticale(depart, depart + horizontale + 1);
+            traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
             terminal.print(fondAireDeJeu.getCrayon(), "          ");
             if (idTuile == depart + horizontale - 1) {
-                traceRouteVerticale(depart, depart + horizontale + 1);
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
 
+        //affichage ligne des colonnes et des jetons
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            traceRouteVerticale(depart, depart + horizontale + 1);
+            traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
             terminal.print(fondAireDeJeu.getCrayon(), "    ");
             terminal.printInt(tuiles.get(idTuile).getCouleurTuile().getCrayon(), tuiles.get(idTuile).getJeton());
             terminal.print(fondAireDeJeu.getCrayon(), "    ");
             if (idTuile == depart + horizontale - 1) {
-                traceRouteVerticale(depart, depart + horizontale + 1);
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
 
+        //affcihage ligne des colonnes et des terrains
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            traceRouteVerticale(depart, depart + horizontale + 1);
+            traceRouteVerticale(idTuile + numeroLigne, idTuile+ horizontale + 1 + numeroLigne);
             terminal.print(fondAireDeJeu.getCrayon(), " ");
             terminal.print(tuiles.get(idTuile).getCouleurTuile().getCrayon(), tuiles.get(idTuile).getTerrain().getNomTerrain());
             terminal.print(fondAireDeJeu.getCrayon(), " ");
             if (idTuile == depart + horizontale - 1) {
-                traceRouteVerticale(depart, depart + horizontale + 1);
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
 
+        //affichage derniere ligne des colonnes
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            traceRouteVerticale(depart, depart + horizontale + 1);
+            traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
             terminal.print(fondAireDeJeu.getCrayon(), "          ");
             if (idTuile == depart + horizontale - 1) {
-                traceRouteVerticale(depart, depart + horizontale + 1);
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
     }
 
     public void traceRouteVerticale(int idCroisementA, int idCroisementB) {
-        terminal.print(fondAireDeJeu.getCrayon(), "|");
+        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB, null));
+        //terminal.print(fondAireDeJeu.getCrayon(), idCroisementA + "/" + idCroisementB);
+        if (proprietaire == null) {
+            terminal.print(fondAireDeJeu.getCrayon(), "|");
+        }
+        else {
+            terminal.print(proprietaire.getCouleur().getStabilo(), "|");
+        }
     }
 
     public void traceCroisement(int idCroisement) {
