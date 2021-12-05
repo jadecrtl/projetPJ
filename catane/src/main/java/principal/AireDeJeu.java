@@ -19,6 +19,7 @@ public class AireDeJeu {
     private int verticale;
     private List<Tuile> tuiles;
     private List<Croisement> croisements;
+    private List<Route> routesOccupees;
     private Couleur fondAireDeJeu;
 
     public AireDeJeu(int horizontale, int verticale) {
@@ -31,6 +32,7 @@ public class AireDeJeu {
 
             tuiles = new LinkedList<Tuile>();
             croisements = new LinkedList<Croisement>();
+            setRoutesOccupees(new LinkedList<Route>());
             remplirTuiles();
             remplirCroisements();
             assigneTerrainsEtJetonsAuxTuiles();
@@ -44,6 +46,29 @@ public class AireDeJeu {
             throw new IllegalArgumentException("L'aire de jeu doit etre de taille impair!!");
         }
     }
+
+    public List<Route> getRoutesOccupees() {
+        return routesOccupees;
+    }
+
+    public void setRoutesOccupees(List<Route> routesOccupees) {
+        this.routesOccupees = routesOccupees;
+    }
+
+    public Joueur getProprietaireRoute(Route route) {
+        if (routesOccupees.isEmpty()) {
+            return null;
+        }
+        else {
+            for (int i = 0; i < routesOccupees.size(); i++) {
+                if (routesOccupees.get(i).getIdCroisementA() == route.getIdCroisementA() && routesOccupees.get(i).getIdCroisementB() == route.getIdCroisementB()) {
+                    return routesOccupees.get(i).getProprietaire();
+                }
+            }
+            return null;
+        }
+    }
+
 
     public List<Croisement> getCroisements() {
         return croisements;
@@ -119,10 +144,14 @@ public class AireDeJeu {
         for (int idCroisement = depart; idCroisement < depart + horizontale + 1; idCroisement++) {
             traceCroisement(idCroisement);
             if (idCroisement < depart + horizontale) {
-                terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
+                traceRouteHorizontale(idCroisement, idCroisement + 1);
             }
         }
         terminal.nouvelleLigne();
+    }
+
+    private void traceRouteHorizontale(int idCroisementA, int idCroisementB) {
+        terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
     }
 
     private void traceColonneDeRoutesVerticalesEtTuiles(int depart) {

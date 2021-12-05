@@ -307,5 +307,19 @@ public class Joueur {
         return false;
     }
 
+    public boolean acheteRoute(AireDeJeu aire, Route route) {
+        if (peutAcheterRoute() && aire.getProprietaireRoute(route) == null) {
+            aire.getRoutesOccupees().add(route);
+            this.enleverRessources(1, Production.BOIS);
+            this.enleverRessources(1, Production.ARGILE);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
 
 }
