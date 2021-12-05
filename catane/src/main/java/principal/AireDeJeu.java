@@ -69,7 +69,6 @@ public class AireDeJeu {
         }
     }
 
-
     public List<Croisement> getCroisements() {
         return croisements;
     }
@@ -151,7 +150,15 @@ public class AireDeJeu {
     }
 
     private void traceRouteHorizontale(int idCroisementA, int idCroisementB) {
-        terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
+        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB, null));
+        if (proprietaire == null) {
+            terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
+        }
+        else {
+            terminal.print(fondAireDeJeu.getCrayon(), " ");
+            terminal.print(proprietaire.getCouleur().getStabilo(), "-------");
+            terminal.print(fondAireDeJeu.getCrayon(), " ");
+        }
     }
 
     private void traceColonneDeRoutesVerticalesEtTuiles(int depart) {
