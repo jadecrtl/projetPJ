@@ -3,6 +3,7 @@ package principal;
 import enums.TypeJoueur;
 import enums.Couleur;
 import enums.Production;
+import enums.TypeCroisement;
 
 public class Joueur {
     
@@ -312,6 +313,21 @@ public class Joueur {
             aire.getRoutesOccupees().add(route);
             this.enleverRessources(1, Production.BOIS);
             this.enleverRessources(1, Production.ARGILE);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean acheteColonie(AireDeJeu aire , Croisement croisement) {
+        if (peutAcheterColonie() && aire.getCroisements().get(croisement.getIdCroisement()).getProprietaire() == null) {
+            aire.getCroisements().get(croisement.getIdCroisement()).setProprietaire(this, TypeCroisement.COLONIE);
+            this.enleverRessources(1, Production.BOIS);
+            this.enleverRessources(1, Production.BLE);
+            this.enleverRessources(1, Production.ARGILE);
+            this.enleverRessources(1, Production.LAINE);
+            this.ajouterPointVictoire(1);
             return true;
         }
         else {
