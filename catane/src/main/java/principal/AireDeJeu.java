@@ -19,6 +19,7 @@ public class AireDeJeu {
     private int verticale;
     private List<Tuile> tuiles;
     private List<Croisement> croisements;
+    private List<Route> routesOccupees;
     private Couleur fondAireDeJeu;
 
     public AireDeJeu(int horizontale, int verticale) {
@@ -31,6 +32,7 @@ public class AireDeJeu {
 
             tuiles = new LinkedList<Tuile>();
             croisements = new LinkedList<Croisement>();
+            routesOccupees = new LinkedList<Route>();
             remplirTuiles();
             remplirCroisements();
             assigneTerrainsEtJetonsAuxTuiles();
@@ -44,6 +46,29 @@ public class AireDeJeu {
             throw new IllegalArgumentException("L'aire de jeu doit etre de taille impair!!");
         }
     }
+
+    public List<Route> getRoutesOccupees() {
+        return routesOccupees;
+    }
+
+    public void setRoutesOccupees(List<Route> routesOccupees) {
+        this.routesOccupees = routesOccupees;
+    }
+
+    public Joueur getProprietaireRoute(Route route) {
+        if (routesOccupees.isEmpty()) {
+            return null;
+        }
+        else {
+            for (int i = 0; i < routesOccupees.size(); i++) {
+                if (routesOccupees.get(i).getIdCroisementA() == route.getIdCroisementA() && routesOccupees.get(i).getIdCroisementB() == route.getIdCroisementB()) {
+                    return routesOccupees.get(i).getProprietaire();
+                }
+            }
+            return null;
+        }
+    }
+
 
     public List<Croisement> getCroisements() {
         return croisements;
@@ -103,14 +128,16 @@ public class AireDeJeu {
     public void traceAireDeJeu() {
         int pointDepartCroisement = 0;
         int pointDepartTuile = 0;
+        int numeroLigne = 0;
         for (int ligne = 0; ligne < ((this.verticale*2)+1); ligne++) {
             if(ligne % 2 == 0) {
                 traceLigneDeCroisementsEtRoutesHorizontales(pointDepartCroisement);
                 pointDepartCroisement = pointDepartCroisement + horizontale + 1;
             }
             else {
-                traceColonneDeRoutesVerticalesEtTuiles(pointDepartTuile);
+                traceColonneDeRoutesVerticalesEtTuiles(pointDepartTuile, numeroLigne);
                 pointDepartTuile = pointDepartTuile + horizontale;
+                numeroLigne++;
             }
         }
     }
@@ -119,48 +146,80 @@ public class AireDeJeu {
         for (int idCroisement = depart; idCroisement < depart + horizontale + 1; idCroisement++) {
             traceCroisement(idCroisement);
             if (idCroisement < depart + horizontale) {
-                terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
+                traceRouteHorizontale(idCroisement, idCroisement + 1);
             }
         }
         terminal.nouvelleLigne();
     }
 
-    private void traceColonneDeRoutesVerticalesEtTuiles(int depart) {
+    private void traceRouteHorizontale(int idCroisementA, int idCroisementB) {
+        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB, null));
+        if (proprietaire == null) {
+            terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
+        }
+        else {
+            terminal.print(fondAireDeJeu.getCrayon(), " ");
+            terminal.print(proprietaire.getCouleur().getStabilo(), "-------");
+            terminal.print(fondAireDeJeu.getCrayon(), " ");
+        }
+    }
+
+    private void traceColonneDeRoutesVerticalesEtTuiles(int depart, int numeroLigne) {
+
+        //premiere ligne de l'affichage des colonnes
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "|          ");
+            traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
+            terminal.print(fondAireDeJeu.getCrayon(), "          ");
             if (idTuile == depart + horizontale - 1) {
-                terminal.print(fondAireDeJeu.getCrayon(), "|");
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
 
+        //affichage ligne des colonnes et des jetons
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "|    ");
+            traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
+            terminal.print(fondAireDeJeu.getCrayon(), "    ");
             terminal.printInt(tuiles.get(idTuile).getCouleurTuile().getCrayon(), tuiles.get(idTuile).getJeton());
             terminal.print(fondAireDeJeu.getCrayon(), "    ");
             if (idTuile == depart + horizontale - 1) {
-                terminal.print(fondAireDeJeu.getCrayon(), "|");
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
 
+        //affcihage ligne des colonnes et des terrains
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "| ");
+            traceRouteVerticale(idTuile + numeroLigne, idTuile+ horizontale + 1 + numeroLigne);
+            terminal.print(fondAireDeJeu.getCrayon(), " ");
             terminal.print(tuiles.get(idTuile).getCouleurTuile().getCrayon(), tuiles.get(idTuile).getTerrain().getNomTerrain());
             terminal.print(fondAireDeJeu.getCrayon(), " ");
             if (idTuile == depart + horizontale - 1) {
-                terminal.print(fondAireDeJeu.getCrayon(), "|");
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
 
+        //affichage derniere ligne des colonnes
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
-            terminal.print(fondAireDeJeu.getCrayon(), "|          ");
+            traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
+            terminal.print(fondAireDeJeu.getCrayon(), "          ");
             if (idTuile == depart + horizontale - 1) {
-                terminal.print(fondAireDeJeu.getCrayon(), "|");
+                traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
         }
         terminal.nouvelleLigne();
+    }
+
+    public void traceRouteVerticale(int idCroisementA, int idCroisementB) {
+        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB, null));
+        //terminal.print(fondAireDeJeu.getCrayon(), idCroisementA + "/" + idCroisementB);
+        if (proprietaire == null) {
+            terminal.print(fondAireDeJeu.getCrayon(), "|");
+        }
+        else {
+            terminal.print(proprietaire.getCouleur().getStabilo(), "|");
+        }
     }
 
     public void traceCroisement(int idCroisement) {
@@ -193,6 +252,40 @@ public class AireDeJeu {
             tuiles.get(i).setTerrain(Terrain.getTerrain(r.nextInt(5)));
             tuiles.get(i).setJeton(new TirageJeton().tirage());
         }
+    }
+
+    public boolean isRouteValide(int idCroisementA, int idCroisementB) {
+        if (idCroisementA < 0 || idCroisementB > ((this.horizontale + 1) * (this.verticale + 1))) {
+            //System.out.println("Cas 1");
+            return false;
+        }        
+        if (idCroisementA > ((this.horizontale + 1) * (this.verticale + 1))|| idCroisementB < 0) {
+            //System.out.println("Cas 2");
+            return false;
+        }
+        if (idCroisementA == idCroisementB) {
+            //System.out.println("Cas 3");
+            return false;
+        }
+        if (idCroisementA > idCroisementB) {
+            //System.out.println("Cas 4");
+            return false;
+        }
+        //cas ou B n'est pas sur le bord gauche dans le cas d'un segment horizontal
+        if (idCroisementB == idCroisementA + 1 && idCroisementB % (horizontale + 1) == 0) {
+            //System.out.println("Cas 5");
+            return false;
+        }
+        if (idCroisementB == idCroisementA + 1) {
+            //System.out.println("Cas 6");
+            return true;
+        }
+        if (idCroisementB == idCroisementA + horizontale + 1) {
+            //System.out.println("Cas 7");
+            return true;
+        }
+        //System.out.println("Cas non encore traite");
+        return false;
     }
 
 }
