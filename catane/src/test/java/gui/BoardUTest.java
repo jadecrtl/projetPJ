@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import gui.views.Window;
 public class BoardUTest {
     BoardUTest() {
-        Window window = new Window();
+        new Window();
     }
 
     @Test

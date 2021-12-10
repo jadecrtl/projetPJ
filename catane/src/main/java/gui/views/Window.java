@@ -12,34 +12,30 @@ public class Window extends JFrame{
 
     public Window() {
         this.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        this.getContentPane().setLayout(new BorderLayout());
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		
         
         openBoard();
-		
-		this.setVisible(true); // On affiche la fenetre.
-
+		this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void openBoard() {
         // Models
-        AireDeJeu aireDeJeu = new AireDeJeu(5, 5);
+        AireDeJeu aireDeJeu = new AireDeJeu(7, 7);
         // Views
         BoardView boardView = new BoardView();
         AireDeJeuView aireDeJeuView = new AireDeJeuView(aireDeJeu);
         // Controllers
         AireDeJeuController aireDeJeuController = new AireDeJeuController();
-
         // Setters
         aireDeJeuView.setControleur(aireDeJeuController);
-
         // Add content to inside Panels
-        // boardView.setSize(width, height);
-        boardView.add(aireDeJeuView);
-
+        boardView.add(aireDeJeuView, BorderLayout.CENTER);
 		this.getContentPane().removeAll();
-		this.getContentPane().add(boardView);
+		this.getContentPane().add(boardView, BorderLayout.CENTER);
 		this.revalidate();
 		this.repaint();
 	}
