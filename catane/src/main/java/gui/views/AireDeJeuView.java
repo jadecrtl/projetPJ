@@ -25,6 +25,8 @@ public class AireDeJeuView extends JPanel{
         this.aireDeJeu = aireDeJeu;
         // Creation du Grid
         this.aireDeJeuGrid = new GridLayout(this.aireDeJeu.getHorizontale(), this.aireDeJeu.getVerticale());
+        aireDeJeuGrid.setVgap(10);
+        aireDeJeuGrid.setHgap(10);
         // Mise en place du Layout
         this.setLayout(aireDeJeuGrid);
         // Ajout des tuilles
@@ -35,7 +37,7 @@ public class AireDeJeuView extends JPanel{
     public void addTuiles() {
         setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
         for (int i =0; i<(this.aireDeJeu.getVerticale()*this.aireDeJeu.getHorizontale()); i++){
-            // FIXME: Use a proper method from backend
+            // FIXME: Use a proper method from back-end
             Tuile tuileModel = new Tuile(2);            
             tuileModel.setJeton(5);
             tuileModel.setTerrain(Terrain.DESERT);
