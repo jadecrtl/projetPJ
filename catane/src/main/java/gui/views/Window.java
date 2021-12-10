@@ -24,14 +24,16 @@ public class Window extends JFrame{
 
     public void openBoard() {
         // Models
-        AireDeJeu aireDeJeu = new AireDeJeu(7, 7);
+        AireDeJeu aireDeJeuModel = new AireDeJeu(7, 7);
         // Views
         BoardView boardView = new BoardView();
-        AireDeJeuView aireDeJeuView = new AireDeJeuView(aireDeJeu);
+        AireDeJeuView aireDeJeuView = new AireDeJeuView();
         // Controllers
         AireDeJeuController aireDeJeuController = new AireDeJeuController();
         // Setters
+        aireDeJeuView.setModel(aireDeJeuModel);
         aireDeJeuView.setControleur(aireDeJeuController);
+
         // Add content to inside Panels
         boardView.add(aireDeJeuView, BorderLayout.CENTER);
 		this.getContentPane().removeAll();

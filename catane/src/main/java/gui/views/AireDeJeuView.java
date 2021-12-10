@@ -1,43 +1,22 @@
 package gui.views;
-
-import javax.swing.*;
-
-import gui.controllers.AireDeJeuController;
-import principal.AireDeJeu;
-import principal.Tuile;
-// import gui.views.*;
+import gui.controllers.*;
+import principal.*;
 import enums.*;
-
+import javax.swing.*;
 import java.awt.*;
-/* 
-Aire de Jeu view.
-*/
+
 public class AireDeJeuView extends JPanel{
-    // Model 
-    private AireDeJeu aireDeJeu;
-    // Controleur
+    private AireDeJeu aireDeJeuModel;
     private AireDeJeuController aireDeJeuController;
-    // Layout
     private GridLayout aireDeJeuGrid;
 
-    public AireDeJeuView(AireDeJeu aireDeJeu) {
-        // Set View attributes
-        this.aireDeJeu = aireDeJeu;
-        // Creation du Grid
-        this.aireDeJeuGrid = new GridLayout(this.aireDeJeu.getHorizontale(), this.aireDeJeu.getVerticale());
-        aireDeJeuGrid.setVgap(10);
-        aireDeJeuGrid.setHgap(10);
-        // Mise en place du Layout
-        this.setLayout(aireDeJeuGrid);
-        // Ajout des tuilles
-        this.addTuiles();
+    public AireDeJeuView() {
+
     }
 
-    // Méthodes d'ajout de contenu dans JPanel
     public void addTuiles() {
         setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-        for (int i =0; i<(this.aireDeJeu.getVerticale()*this.aireDeJeu.getHorizontale()); i++){
-            // FIXME: Use a proper method from back-end
+        for (int i =0; i<(this.aireDeJeuModel.getVerticale()*this.aireDeJeuModel.getHorizontale()); i++){
             Tuile tuileModel = new Tuile(2);            
             tuileModel.setJeton(5);
             tuileModel.setTerrain(Terrain.DESERT);
@@ -50,16 +29,33 @@ public class AireDeJeuView extends JPanel{
             JPanel tuile = new TuilesView(tuileModel);
             tuile.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             add(tuile);
-            // ENDFIXME
         }
     }
 
-    // Setters
     public void setControleur(AireDeJeuController aireDeJeuController) {
         this.aireDeJeuController = aireDeJeuController;
+    }
+
+    public void setModel(AireDeJeu aireDeJeu) {
+        this.aireDeJeuModel = aireDeJeu;
+        this.setLayout(aireDeJeu);
+        this.addTuiles();
     }
 
     public AireDeJeuController getControleur() {
         return this.aireDeJeuController;
     }
+
+    public AireDeJeu getAireDeJeuModel() {
+        return this.aireDeJeuModel;
+    }
+
+    public void setLayout(AireDeJeu aireDeJeu) {
+        this.aireDeJeuGrid = new GridLayout(this.aireDeJeuModel.getHorizontale(), this.aireDeJeuModel.getVerticale());
+        aireDeJeuGrid.setVgap(10);
+        aireDeJeuGrid.setHgap(10);
+        this.setLayout(aireDeJeuGrid);
+    }
+
+
 }
