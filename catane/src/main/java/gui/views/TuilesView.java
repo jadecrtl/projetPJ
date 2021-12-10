@@ -1,7 +1,6 @@
 package gui.views;
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 import gui.controllers.TuilesController;
 import principal.Tuile;
@@ -10,8 +9,12 @@ public class TuilesView extends JPanel {
 
     private JLabel jetonLabel = new JLabel();
     private JLabel terrain = new JLabel();
+    private JLabel topLeftcroisement = new JLabel();
+    private JLabel topRightcroisement = new JLabel();
+    private JLabel bottomLeftcroisement = new JLabel();
+    private JLabel bottomRightcroisement = new JLabel();
+
     private Tuile tuile;
-    
     private TuilesController tuilleController;
     private GridLayout tuileLayout = new GridLayout(0, 3);
 
@@ -22,33 +25,32 @@ public class TuilesView extends JPanel {
         this.jetonLabel.setText(String.valueOf(this.tuile.getJeton()));
         this.jetonLabel.setHorizontalAlignment(JLabel.CENTER);
 
+      
+        topLeftcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(0))); // topLeft Croisement
+        topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
+
         this.terrain.setText(String.valueOf(this.tuile.getTerrain()));
         this.terrain.setHorizontalAlignment(JLabel.CENTER);
 
-        JLabel one = new JLabel("1");
-        one.setHorizontalAlignment(JLabel.LEFT);
 
-        JLabel two = new JLabel("2");
-        two.setHorizontalAlignment(JLabel.CENTER);
+        topRightcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(1))); // topRight Croisement
+        topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
 
-        JLabel three = new JLabel("3");
-        three.setHorizontalAlignment(JLabel.RIGHT);
+        bottomLeftcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
+        bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
 
-        JLabel four = new JLabel("4");
-        four.setHorizontalAlignment(JLabel.LEFT);
+        this.jetonLabel.setText(String.valueOf(this.tuile.getJeton()));
+        this.jetonLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        JLabel five = new JLabel("5");
-        five.setHorizontalAlignment(JLabel.CENTER);
+        bottomRightcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(3))); // bottomRight Croisement
+        bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
 
-        JLabel six = new JLabel("6");
-        six.setHorizontalAlignment(JLabel.RIGHT);
+        add(topLeftcroisement);
+        add(terrain);
+        add(topRightcroisement);
 
-        add(one);
-        add(two);
-        add(three);
-        add(four);
-        add(five);
-        add(six);
-        
+        add(bottomLeftcroisement);
+        add(jetonLabel);
+        add(bottomRightcroisement);   
     }
 }
