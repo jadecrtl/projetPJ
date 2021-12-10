@@ -22,16 +22,24 @@ public class TuilesView extends JPanel {
         this.tuile = tuile;
         this.setLayout(tuileLayout);
 
-        this.jetonLabel.setText(String.valueOf(this.tuile.getJeton()));
-        this.jetonLabel.setHorizontalAlignment(JLabel.CENTER);
+        setTextAndPosition();
+        setCroisementTextandPosition();
+        addComponents();   
+    }
 
-      
+    private void addComponents() {
+        add(topLeftcroisement);
+        add(terrain);
+        add(topRightcroisement);
+
+        add(bottomLeftcroisement);
+        add(jetonLabel);
+        add(bottomRightcroisement);
+    }
+
+    private void setCroisementTextandPosition() {
         topLeftcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(0))); // topLeft Croisement
         topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
-
-        this.terrain.setText(String.valueOf(this.tuile.getTerrain()));
-        this.terrain.setHorizontalAlignment(JLabel.CENTER);
-
 
         topRightcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(1))); // topRight Croisement
         topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
@@ -39,18 +47,19 @@ public class TuilesView extends JPanel {
         bottomLeftcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
         bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
 
+        bottomRightcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(3))); // bottomRight Croisement
+        bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
+    }
+
+    private void setTextAndPosition() {
+        /*
+          Set Jeton and Terain JLabels attributes
+        */
+
         this.jetonLabel.setText(String.valueOf(this.tuile.getJeton()));
         this.jetonLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        bottomRightcroisement.setText(String.valueOf(tuile.getCroisementsVoisins().get(3))); // bottomRight Croisement
-        bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
-
-        add(topLeftcroisement);
-        add(terrain);
-        add(topRightcroisement);
-
-        add(bottomLeftcroisement);
-        add(jetonLabel);
-        add(bottomRightcroisement);   
+        this.terrain.setText(String.valueOf(this.tuile.getTerrain()));
+        this.terrain.setHorizontalAlignment(JLabel.CENTER);
     }
 }

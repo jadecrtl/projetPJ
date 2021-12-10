@@ -41,6 +41,12 @@ public class AireDeJeuView extends JPanel{
             Tuile tuileModel = new Tuile(2);            
             tuileModel.setJeton(5);
             tuileModel.setTerrain(Terrain.DESERT);
+            
+            tuileModel.setCroisementsVoisins(5);
+            tuileModel.setCroisementsVoisins(6);
+            tuileModel.setCroisementsVoisins(7);
+            tuileModel.setCroisementsVoisins(8);
+
             JPanel tuile = new TuilesView(tuileModel);
             tuile.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             add(tuile);
