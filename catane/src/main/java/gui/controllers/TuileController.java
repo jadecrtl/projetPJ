@@ -25,7 +25,7 @@ public class TuileController {
 
         public void mouseEntered(MouseEvent evt) {
             this.buttonSize = jButton.getFont().getSize();
-            this.jButton.setForeground(new Color(219, 35, 35));
+            this.jButton.setForeground(new Color(249, 65, 68));
             this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 25));
 
 

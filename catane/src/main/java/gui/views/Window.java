@@ -2,12 +2,14 @@ package gui.views;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import gui.controllers.AireDeJeuController;
 import principal.AireDeJeu;
 
 public class Window extends JFrame{
     static final String TITLE = "Palette";
-    static final int WIDTH = 800;
+    static final int WIDTH = 1100;
     static final int HEIGHT = 600;
 
     public Window() {
@@ -15,8 +17,7 @@ public class Window extends JFrame{
         this.getContentPane().setLayout(new BorderLayout());
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
-		
-        
+	
         openBoard();
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +40,11 @@ public class Window extends JFrame{
 
         // Add content to inside Panels
         boardView.add(aireDeJeuView, BorderLayout.CENTER);
+
+        int padding = 35;
+		((JComponent) this.getContentPane()).setBorder(new EmptyBorder(padding, padding, padding, padding));
+        this.getContentPane().setBackground(new Color(39, 125, 161)); 
+
 		this.getContentPane().removeAll();
 		this.getContentPane().add(boardView, BorderLayout.CENTER);
 		this.revalidate();

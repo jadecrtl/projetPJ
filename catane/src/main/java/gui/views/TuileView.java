@@ -114,10 +114,23 @@ public class TuileView extends JPanel {
         this.jetonLabel.setText(String.valueOf(this.tuileModel.getJeton()));
         this.jetonLabel.setHorizontalAlignment(JLabel.CENTER);
         this.jetonLabel.setFont(this.customFont);
+        this.jetonLabel.setForeground(new Color(243, 114, 44));
 
-        this.terrain.setText(String.valueOf(this.tuileModel.getTerrain()));
+
+
+        try {
+
+            String path = getIconPath(String.valueOf(this.tuileModel.getTerrain()));
+            this.terrain.setIcon(createIcon(path));
+            this.terrain.setOpaque(false);
+
+
+        } catch(Exception e) {
+            this.terrain.setText(String.valueOf(this.tuileModel.getTerrain()));
+            this.terrain.setFont(this.customFont);
+        }
         this.terrain.setHorizontalAlignment(JLabel.CENTER);
-        this.terrain.setFont(this.customFont);
+       
 
     }
 
@@ -144,5 +157,39 @@ public class TuileView extends JPanel {
     }
     public Font getCustomFont() {
         return this.customFont;
+    }
+
+    private static Icon createIcon(String icon_path) {
+        Icon icon = new ImageIcon(icon_path);
+        Image image = ((ImageIcon) icon).getImage(); // transform it 
+        Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        icon = new ImageIcon(newimg);  // transform it back
+        return icon;
+    }
+
+    private static String getIconPath(String terrain) {
+        String path = "";
+        switch (terrain) {
+            case ("FORET"):
+                path =  "catane/src/static/forest.png";
+                break;
+            case ("COLLINE"):
+                path =  "catane/src/static/colline.png";
+                break;
+            case ("PRE"):
+                path =  "catane/src/static/pre.png";
+                break;
+
+            case ("CHAMP"):
+                path =  "catane/src/static/champ.png";
+                break;
+            case ("DESERT"):
+                path =  "catane/src/static/desert.png";
+                break;
+            case ("MONTAGNE"):
+                path =  "catane/src/static/montagne.png";
+                break;
+        }
+        return path;
     }
 }
