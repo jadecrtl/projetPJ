@@ -21,6 +21,7 @@ public class TuileView extends JPanel {
     private GridLayout tuileLayout = new GridLayout(0, 3);
 
     private void addComponents() {
+        
         add(topLeftcroisement);
         add(terrain);
         add(topRightcroisement);
@@ -31,17 +32,23 @@ public class TuileView extends JPanel {
     }
 
     private void setCroisementTextandPosition() {
+        
         topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
         topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
+        topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
 
         topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
         topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
+        topRightcroisement.setVerticalAlignment(JLabel.NORTH);
 
         bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
         bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
+        bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
+
 
         bottomRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(3))); // bottomRight Croisement
         bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
+        bottomRightcroisement.setVerticalAlignment(JLabel.BOTTOM);
     }
 
     private void setTextAndPosition() {
