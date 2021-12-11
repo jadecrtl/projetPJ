@@ -14,7 +14,7 @@ public class AireDeJeuView extends JPanel{
     private final int HORIZONTAL_GAP = 10;
     private final int VERTICAL_GAP = 10;
     private List<JPanel> tuiles = new ArrayList<JPanel>();
-    private Color backGroundColor = new Color(255, 187, 51);
+    private Color backGroundColor = new Color(102, 92, 247);
 
     public void setTuiles() {
         setBorder(BorderFactory.createEmptyBorder(2,2,2,2));

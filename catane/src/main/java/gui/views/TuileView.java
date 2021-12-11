@@ -2,7 +2,6 @@ package gui.views;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 
 import gui.controllers.TuileController;
 import principal.Tuile;
@@ -38,58 +37,58 @@ public class TuileView extends JPanel {
 
     private void setCroisements() {
 
-        topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
-        topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
-        topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
-        topLeftcroisement.setFont(this.customFont);
+        this.topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
+        this.topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
+        this.topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
+        this.topLeftcroisement.setFont(this.customFont);
 
 
-        topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement));
-        topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topLeftcroisement);});
+        this.topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement));
+        this.topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topLeftcroisement);});
        
-        topLeftcroisement.setOpaque(false);
-        topLeftcroisement.setContentAreaFilled(false);
-        topLeftcroisement.setBorderPainted(false);
+        this.topLeftcroisement.setOpaque(false);
+        this.topLeftcroisement.setContentAreaFilled(false);
+        this.topLeftcroisement.setBorderPainted(false);
 
 
-        topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
-        topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
-        topRightcroisement.setVerticalAlignment(JLabel.NORTH);
-        topRightcroisement.setFont(this.customFont);
+        this.topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
+        this.topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
+        this.topRightcroisement.setVerticalAlignment(JLabel.NORTH);
+        this.topRightcroisement.setFont(this.customFont);
 
 
-        topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement));
+        this.topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement));
 
-        topRightcroisement.setOpaque(false);
-        topRightcroisement.setContentAreaFilled(false);
-        topRightcroisement.setBorderPainted(false);
-
-
-        bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
-        bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
-        bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
-        bottomLeftcroisement.setFont(this.customFont);
-
-        bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement));
-
-        bottomLeftcroisement.setOpaque(false);
-        bottomLeftcroisement.setContentAreaFilled(false);
-        bottomLeftcroisement.setBorderPainted(false);
+        this.topRightcroisement.setOpaque(false);
+        this.topRightcroisement.setContentAreaFilled(false);
+        this.topRightcroisement.setBorderPainted(false);
 
 
+        this.bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
+        this.bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
+        this.bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
+        this.bottomLeftcroisement.setFont(this.customFont);
 
-        bottomRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(3))); // bottomRight Croisement
-        bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
-        bottomRightcroisement.setVerticalAlignment(JLabel.BOTTOM);
-        bottomRightcroisement.setFont(this.customFont);
+        this.bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement));
+
+        this.bottomLeftcroisement.setOpaque(false);
+        this.bottomLeftcroisement.setContentAreaFilled(false);
+        this.bottomLeftcroisement.setBorderPainted(false);
 
 
-        bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement));
+
+        this.bottomRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(3))); // bottomRight Croisement
+        this.bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
+        this.bottomRightcroisement.setVerticalAlignment(JLabel.BOTTOM);
+        this.bottomRightcroisement.setFont(this.customFont);
 
 
-        bottomRightcroisement.setOpaque(false);
-        bottomRightcroisement.setContentAreaFilled(false);
-        bottomRightcroisement.setBorderPainted(false);
+        this.bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement));
+
+
+        this.bottomRightcroisement.setOpaque(false);
+        this.bottomRightcroisement.setContentAreaFilled(false);
+        this.bottomRightcroisement.setBorderPainted(false);
 
     }
 
@@ -114,9 +113,12 @@ public class TuileView extends JPanel {
 
         this.jetonLabel.setText(String.valueOf(this.tuileModel.getJeton()));
         this.jetonLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.jetonLabel.setFont(this.customFont);
 
         this.terrain.setText(String.valueOf(this.tuileModel.getTerrain()));
         this.terrain.setHorizontalAlignment(JLabel.CENTER);
+        this.terrain.setFont(this.customFont);
+
     }
 
     public void setModel(Tuile tuileModel) {
