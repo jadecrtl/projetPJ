@@ -13,10 +13,10 @@ public class TuileView extends JPanel {
     private JLabel jetonLabel = new JLabel();
     private JLabel terrain = new JLabel();
 
-    private JLabel topLeftcroisement = new JLabel();
-    private JLabel topRightcroisement = new JLabel();
-    private JLabel bottomLeftcroisement = new JLabel();
-    private JLabel bottomRightcroisement = new JLabel();
+    private JButton topLeftcroisement = new JButton();
+    private JButton topRightcroisement = new JButton();
+    private JButton bottomLeftcroisement = new JButton();
+    private JButton bottomRightcroisement = new JButton();
 
     private GridLayout tuileLayout = new GridLayout(0, 3);
 
@@ -32,23 +32,52 @@ public class TuileView extends JPanel {
     }
 
     private void setCroisementTextandPosition() {
-        
+
         topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
         topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
+
+        topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement));
+       
+        topLeftcroisement.setOpaque(false);
+        topLeftcroisement.setContentAreaFilled(false);
+        topLeftcroisement.setBorderPainted(false);
+
 
         topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
         topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         topRightcroisement.setVerticalAlignment(JLabel.NORTH);
 
+        topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement));
+
+        topRightcroisement.setOpaque(false);
+        topRightcroisement.setContentAreaFilled(false);
+        topRightcroisement.setBorderPainted(false);
+
+
         bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
         bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
+
+        bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement));
+
+        bottomLeftcroisement.setOpaque(false);
+        bottomLeftcroisement.setContentAreaFilled(false);
+        bottomLeftcroisement.setBorderPainted(false);
+
 
 
         bottomRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(3))); // bottomRight Croisement
         bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         bottomRightcroisement.setVerticalAlignment(JLabel.BOTTOM);
+
+        bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement));
+
+
+        bottomRightcroisement.setOpaque(false);
+        bottomRightcroisement.setContentAreaFilled(false);
+        bottomRightcroisement.setBorderPainted(false);
+
     }
 
     private void setTextAndPosition() {
