@@ -116,14 +116,11 @@ public class TuileView extends JPanel {
         this.jetonLabel.setFont(this.customFont);
         this.jetonLabel.setForeground(new Color(243, 114, 44));
 
-
-
         try {
 
             String path = getIconPath(String.valueOf(this.tuileModel.getTerrain()));
-            this.terrain.setIcon(createIcon(path));
+            this.terrain.setIcon(createIcon(path, 40, 40));
             this.terrain.setOpaque(false);
-
 
         } catch(Exception e) {
             this.terrain.setText(String.valueOf(this.tuileModel.getTerrain()));
@@ -159,10 +156,10 @@ public class TuileView extends JPanel {
         return this.customFont;
     }
 
-    private static Icon createIcon(String icon_path) {
+    public static Icon createIcon(String icon_path, int x, int y) {
         Icon icon = new ImageIcon(icon_path);
         Image image = ((ImageIcon) icon).getImage(); // transform it 
-        Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        Image newimg = image.getScaledInstance(x, y,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         icon = new ImageIcon(newimg);  // transform it back
         return icon;
     }

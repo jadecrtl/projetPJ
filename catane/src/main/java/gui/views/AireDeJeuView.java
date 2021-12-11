@@ -25,14 +25,18 @@ public class AireDeJeuView extends JPanel{
 
             tuileView.setControleur(tuileController);
             tuileView.setModel(this.aireDeJeuModel.getTuiles().get(i));
-            // tuileView.setBorder(BorderFactory.createLineBorder(new Color(4, 142, 182)));
 
+            // Example of possible use of borders : 
+            if (this.aireDeJeuModel.getTuiles().get(i).getIdTuile()==13){
+                tuileView.setBorder(BorderFactory.createMatteBorder(0, 40, 0, 0, TuileView.createIcon("catane/src/static/house.png", 40, 40)));
+            }
 
             tuileController.setView(tuileView);
             tuileController.setModel(this.aireDeJeuModel.getTuiles().get(i));
 
             this.tuiles.add(tuileView);
             add(tuileView);
+            
         }
     }
     public void setControleur(AireDeJeuController aireDeJeuController) {
