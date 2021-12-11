@@ -4,6 +4,8 @@ import principal.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.*;
+
 
 public class AireDeJeuView extends JPanel{
     private AireDeJeu aireDeJeuModel;
@@ -11,6 +13,7 @@ public class AireDeJeuView extends JPanel{
     private GridLayout aireDeJeuGrid;
     private final int HORIZONTAL_GAP = 10;
     private final int VERTICAL_GAP = 10;
+    private List<JPanel> tuiles = new ArrayList<JPanel>();
     private Color backGroundColor = new Color(255, 187, 51);
 
     public void setTuiles() {
@@ -18,6 +21,7 @@ public class AireDeJeuView extends JPanel{
         for (int i =0; i<this.aireDeJeuModel.getTuiles().size(); i++){
             JPanel tuile = new TuilesView(this.aireDeJeuModel.getTuiles().get(i));
             tuile.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            this.tuiles.add(tuile);
             add(tuile);
         }
     }
