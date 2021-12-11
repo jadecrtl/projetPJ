@@ -19,10 +19,19 @@ public class AireDeJeuView extends JPanel{
     public void setTuiles() {
         setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
         for (int i =0; i<this.aireDeJeuModel.getTuiles().size(); i++){
-            JPanel tuile = new TuilesView(this.aireDeJeuModel.getTuiles().get(i));
-            tuile.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            this.tuiles.add(tuile);
-            add(tuile);
+
+            TuileView tuileView = new TuileView();
+            TuileController tuileController = new TuileController();
+
+            tuileView.setControleur(tuileController);
+            tuileView.setModel(this.aireDeJeuModel.getTuiles().get(i));
+            tuileView.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            tuileController.setView(tuileView);
+            tuileController.setModel(this.aireDeJeuModel.getTuiles().get(i));
+
+            this.tuiles.add(tuileView);
+            add(tuileView);
         }
     }
     public void setControleur(AireDeJeuController aireDeJeuController) {

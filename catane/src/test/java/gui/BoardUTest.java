@@ -2,9 +2,8 @@ package gui;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-
 import gui.views.Window;
+
 public class BoardUTest {
     BoardUTest() {
         new Window();
