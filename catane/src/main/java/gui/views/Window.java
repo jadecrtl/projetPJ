@@ -24,7 +24,7 @@ public class Window extends JFrame{
 
     public void openBoard() {
         // Models
-        AireDeJeu aireDeJeuModel = new AireDeJeu(7, 7);
+        AireDeJeu aireDeJeuModel = new AireDeJeu(5, 5);
         // Views
         BoardView boardView = new BoardView();
         AireDeJeuView aireDeJeuView = new AireDeJeuView();
@@ -33,6 +33,9 @@ public class Window extends JFrame{
         // Setters
         aireDeJeuView.setModel(aireDeJeuModel);
         aireDeJeuView.setControleur(aireDeJeuController);
+
+        aireDeJeuController.setModel(aireDeJeuModel);
+        aireDeJeuController.setView(aireDeJeuView);
 
         // Add content to inside Panels
         boardView.add(aireDeJeuView, BorderLayout.CENTER);
