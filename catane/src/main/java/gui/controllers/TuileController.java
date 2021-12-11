@@ -8,7 +8,19 @@ import principal.Tuile;
 
 public class TuileController {
     Tuile tuileModel;
-    TuileView tuilesView;
+    TuileView tuileView;
+
+    public void croisementPressed(JButton button) {
+        // Do something...
+        Font[] fonts;
+        fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+        for (int i = 0; i < fonts.length; i++) {
+            System.out.print(fonts[i].getFontName() + " : ");
+            System.out.print(fonts[i].getFamily() + " : ");
+            System.out.print(fonts[i].getName());
+            System.out.println();
+        }
+    }
 
     public class Selection extends MouseAdapter {
         JButton jButton;
@@ -21,14 +33,14 @@ public class TuileController {
 
         public void mouseEntered(MouseEvent evt) {
             this.buttonSize = jButton.getFont().getSize();
-            this.jButton.setForeground(Color.RED);
-            this.jButton.setFont(new Font("Arial", Font.PLAIN, 25));
+            this.jButton.setForeground(Color.BLUE);
+            this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 25));
 
 
         }
         public void mouseExited(MouseEvent evt) {
             this.jButton.setForeground(Color.BLACK);
-            this.jButton.setFont(new Font("Arial", Font.PLAIN, this.buttonSize));
+            this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
         }
     }
 
@@ -36,8 +48,8 @@ public class TuileController {
         this.tuileModel = tuileModel;
     }
 
-    public void setView(TuileView tuilesView) {
-        this.tuilesView = tuilesView;
+    public void setView(TuileView tuileView) {
+        this.tuileView = tuileView;
     }
 
 

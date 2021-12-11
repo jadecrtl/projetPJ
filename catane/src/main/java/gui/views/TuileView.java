@@ -1,6 +1,8 @@
 package gui.views;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 import gui.controllers.TuileController;
 import principal.Tuile;
@@ -20,6 +22,9 @@ public class TuileView extends JPanel {
 
     private GridLayout tuileLayout = new GridLayout(0, 3);
 
+    private Font customFont;
+
+    
     private void addComponents() {
         
         add(topLeftcroisement);
@@ -31,13 +36,16 @@ public class TuileView extends JPanel {
         add(bottomRightcroisement);
     }
 
-    private void setCroisementTextandPosition() {
+    private void setCroisements() {
 
         topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
         topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
+        topLeftcroisement.setFont(this.customFont);
+
 
         topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement));
+        topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topLeftcroisement);});
        
         topLeftcroisement.setOpaque(false);
         topLeftcroisement.setContentAreaFilled(false);
@@ -47,6 +55,8 @@ public class TuileView extends JPanel {
         topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
         topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         topRightcroisement.setVerticalAlignment(JLabel.NORTH);
+        topRightcroisement.setFont(this.customFont);
+
 
         topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement));
 
@@ -58,6 +68,7 @@ public class TuileView extends JPanel {
         bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
         bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
+        bottomLeftcroisement.setFont(this.customFont);
 
         bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement));
 
@@ -70,6 +81,8 @@ public class TuileView extends JPanel {
         bottomRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(3))); // bottomRight Croisement
         bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         bottomRightcroisement.setVerticalAlignment(JLabel.BOTTOM);
+        bottomRightcroisement.setFont(this.customFont);
+
 
         bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement));
 
@@ -78,6 +91,20 @@ public class TuileView extends JPanel {
         bottomRightcroisement.setContentAreaFilled(false);
         bottomRightcroisement.setBorderPainted(false);
 
+    }
+
+    private void setNewFont() {
+        try {
+
+            this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("catane/src/static/Poppins-Medium.ttf")).deriveFont(15f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+
+        } catch (Exception e) {
+
+            this.customFont = new Font(Font.SERIF, Font.PLAIN,  10);
+        }
+       
     }
 
     private void setTextAndPosition() {
@@ -93,10 +120,13 @@ public class TuileView extends JPanel {
     }
 
     public void setModel(Tuile tuileModel) {
+
         this.tuileModel = tuileModel;
         this.setLayout(tuileLayout);
+
+        setNewFont();
         setTextAndPosition();
-        setCroisementTextandPosition();
+        setCroisements();
         addComponents();
     }
     
@@ -109,5 +139,8 @@ public class TuileView extends JPanel {
     }
     public TuileController getController() {
         return this.tuilleController;
+    }
+    public Font getCustomFont() {
+        return this.customFont;
     }
 }
