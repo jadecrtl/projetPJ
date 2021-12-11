@@ -26,11 +26,6 @@ public class AireDeJeuView extends JPanel{
             tuileView.setControleur(tuileController);
             tuileView.setModel(this.aireDeJeuModel.getTuiles().get(i));
 
-            // Example of possible use of borders : 
-            if (this.aireDeJeuModel.getTuiles().get(i).getIdTuile()==13){
-                tuileView.setBorder(BorderFactory.createMatteBorder(0, 40, 0, 0, TuileView.createIcon("catane/src/static/house.png", 40, 40)));
-            }
-
             tuileController.setView(tuileView);
             tuileController.setModel(this.aireDeJeuModel.getTuiles().get(i));
 
@@ -46,7 +41,7 @@ public class AireDeJeuView extends JPanel{
     public void setModel(AireDeJeu aireDeJeu) {
         this.aireDeJeuModel = aireDeJeu;
         setTuiles();
-        this.setLayout(aireDeJeu);
+        this.setViewLayout(aireDeJeu);
         this.setBackgroundColor();
     }
 
@@ -58,7 +53,7 @@ public class AireDeJeuView extends JPanel{
         return this.aireDeJeuModel;
     }
 
-    public void setLayout(AireDeJeu aireDeJeu) {
+    public void setViewLayout(AireDeJeu aireDeJeu) {
         this.aireDeJeuGrid = new GridLayout(this.aireDeJeuModel.getHorizontale(), this.aireDeJeuModel.getVerticale());
         aireDeJeuGrid.setVgap(VERTICAL_GAP);
         aireDeJeuGrid.setHgap(HORIZONTAL_GAP);

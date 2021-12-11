@@ -1,5 +1,7 @@
 package gui.views;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.io.File;
 
@@ -135,7 +137,8 @@ public class TuileView extends JPanel {
 
         this.tuileModel = tuileModel;
         this.setLayout(tuileLayout);
-
+        int padding = 5;
+		this.setBorder(new EmptyBorder(padding, 0, 0, 0));
         setNewFont();
         setTextAndPosition();
         setCroisements();
