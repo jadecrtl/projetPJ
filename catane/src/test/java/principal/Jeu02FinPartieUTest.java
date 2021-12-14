@@ -1,12 +1,20 @@
 package principal;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import utils.De6Faces;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Jeu02FinPartieUTest {
+
+    De6Faces de1 = new De6Faces();
+    De6Faces de2 = new De6Faces();
+
 
     @Test
     public void victoireJeuTroisJoueurs() {
@@ -17,7 +25,7 @@ public class Jeu02FinPartieUTest {
         joueurs.add(j1);
         joueurs.add(j2); 
         joueurs.add(j3);
-        Jeu maPartie = new Jeu(joueurs);
+        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2);
         assertThat(maPartie.isJeuTermine()).isFalse();
         j1.ajouterPointVictoire(5);
         j2.ajouterPointVictoire(8);
@@ -39,7 +47,7 @@ public class Jeu02FinPartieUTest {
         joueurs.add(j2); 
         joueurs.add(j3);
         joueurs.add(j4);        
-        Jeu maPartie = new Jeu(joueurs);
+        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2);
         assertThat(maPartie.isJeuTermine()).isFalse();
         j1.ajouterPointVictoire(5);
         j2.ajouterPointVictoire(8);
