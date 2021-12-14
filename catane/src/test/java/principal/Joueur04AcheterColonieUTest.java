@@ -12,7 +12,7 @@ public class Joueur04AcheterColonieUTest {
     
     @Test
     public void acheterColonie() {
-        AireDeJeu aire = new AireDeJeu(5, 3);
+        AireDeJeu aire = new AireDeJeu(5, 3, null);
         Joueur j1 = new Joueur("j1", 21, TypeJoueur.HUMAIN, Couleur.BLEU);
         
         j1.ajouterRessources(1, Production.ARGILE);

@@ -10,7 +10,7 @@ public class Route02ValideUTest {
 
     @BeforeAll
     public static void declarations() {
-        aire = new AireDeJeu(5,3);
+        aire = new AireDeJeu(5,3, null);
         aire.traceAireDeJeu();        
     }
 

@@ -10,7 +10,7 @@ public class AireDeJeu05AssignationTerrainTuilesUTest {
 
     @Test
     public void verifieDesertAuMilieu() {
-        AireDeJeu aire = new AireDeJeu(5, 5);
+        AireDeJeu aire = new AireDeJeu(5, 5, null);
         assertThat(aire.getTuiles().get(12).getTerrain()).isEqualTo(Terrain.DESERT);
     }
 

@@ -14,7 +14,7 @@ public class Jeu01CreationUTest {
 
     @Test
     public void creationJeuSansRien() {
-        assertThatThrownBy(() -> new Jeu(null, 0, 0, null, null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Jeu(null, 0, 0, null, null, null)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -24,7 +24,7 @@ public class Jeu01CreationUTest {
         List<Joueur> joueurs = new LinkedList<Joueur>();
         joueurs.add(j1);
         joueurs.add(j2); 
-        assertThatThrownBy(() -> new Jeu(joueurs, 0, 0, null, null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Jeu(joueurs, 0, 0, null, null, null)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class Jeu01CreationUTest {
         joueurs.add(j1);
         joueurs.add(j2); 
         joueurs.add(j3);
-        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2);
+        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
         assertThat(maPartie.isJeuTermine()).isFalse();
         assertThat(maPartie.getAire().getTuiles().size()).isEqualTo(15);
     }
@@ -56,7 +56,7 @@ public class Jeu01CreationUTest {
         joueurs.add(j2); 
         joueurs.add(j3);
         joueurs.add(j4);
-        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2);
+        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
         assertThat(maPartie.isJeuTermine()).isFalse();
         assertThat(maPartie.getAire().getTuiles().size()).isEqualTo(15);
     }
@@ -76,7 +76,7 @@ public class Jeu01CreationUTest {
         joueurs.add(j3);
         joueurs.add(j4);
         joueurs.add(j5);
-        assertThatThrownBy(() -> new Jeu(joueurs, 5, 3, de1, de2)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Jeu(joueurs, 5, 3, de1, de2, null)).isInstanceOf(IllegalArgumentException.class);
     }
 
 

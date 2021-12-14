@@ -1,5 +1,6 @@
 package principal;
 import java.util.List;
+import java.util.OptionalLong;
 
 import utils.De6Faces;
 
@@ -14,7 +15,7 @@ public class Jeu {
     public static final int JOUEURSMAX = 4;
 
 
-    public Jeu(List<Joueur> joueurs, int horizontale, int verticale, De6Faces de1, De6Faces de2){
+    public Jeu(List<Joueur> joueurs, int horizontale, int verticale, De6Faces de1, De6Faces de2, OptionalLong graine){
         if (joueurs == null) {
             throw new IllegalArgumentException("On ne joue pas si pas de joueurs!");            
         }
@@ -25,7 +26,7 @@ public class Jeu {
             throw new IllegalArgumentException("Catane se joue avec 2 des!!!");
         }
         this.joueurs = joueurs;
-        aire = new AireDeJeu(horizontale, verticale);
+        aire = new AireDeJeu(horizontale, verticale, graine);
     }
 
     public AireDeJeu getAire() {
@@ -34,6 +35,10 @@ public class Jeu {
 
     public void setAire(AireDeJeu aire) {
         this.aire = aire;
+    }
+
+    public int getLancementDes() {
+        return de1.getValeurDe() + de2.getValeurDe();
     }
 
     public boolean isJeuTermine() {

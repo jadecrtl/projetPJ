@@ -38,7 +38,7 @@ public class Catane {
             joueurs.add(new Joueur(nom, age, typeJoueur, couleur));
             terminal.nouvelleLigne();
         }
-        jeu = new Jeu(joueurs, tailleHorizontale, tailleVerticale, de1, de2);
+        jeu = new Jeu(joueurs, tailleHorizontale, tailleVerticale, de1, de2, null);
         
     }
 

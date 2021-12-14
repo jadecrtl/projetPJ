@@ -7,7 +7,7 @@ public class AireDeJeu02CroisementsVoisinsUTest {
 
     @Test
     public void creationAireDeJeuEtCroisementsVoisins() {
-        AireDeJeu aire = new AireDeJeu(7, 5);
+        AireDeJeu aire = new AireDeJeu(7, 5, null);
         assertThat(aire.getTuiles().get(0).getCroisementsVoisins()).containsExactly(0,1,8,9);
         assertThat(aire.getTuiles().get(3).getCroisementsVoisins()).containsExactly(3,4,11,12);
         assertThat(aire.getTuiles().get(6).getCroisementsVoisins()).containsExactly(6,7,14,15);

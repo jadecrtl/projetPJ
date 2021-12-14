@@ -10,7 +10,7 @@ import enums.TypeJoueur;
 public class AireDeJeu04DessineDansConsoleUTest {
     @Test
     public void dessineAireDeJeu() {
-        AireDeJeu aire = new AireDeJeu(7, 5);
+        AireDeJeu aire = new AireDeJeu(7, 5, null);
         Joueur j1 = new Joueur("j1", 50, TypeJoueur.HUMAIN, Couleur.BLEU);
         Joueur j2 = new Joueur("j2", 50, TypeJoueur.HUMAIN, Couleur.BLANC);
         Joueur j3 = new Joueur("j3", 50, TypeJoueur.HUMAIN, Couleur.ROUGE);

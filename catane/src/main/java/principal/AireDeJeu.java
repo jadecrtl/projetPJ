@@ -3,6 +3,7 @@ package principal;
 import java.util.Random;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.OptionalLong;
 
 import enums.Couleur;
 import enums.Terrain;
@@ -21,8 +22,10 @@ public class AireDeJeu {
     private List<Croisement> croisements;
     private List<Route> routesOccupees;
     private Couleur fondAireDeJeu;
+    private OptionalLong graine;
+    private TirageJeton tirageJeton;
 
-    public AireDeJeu(int horizontale, int verticale) {
+    public AireDeJeu(int horizontale, int verticale, OptionalLong graine) {
         if (horizontale < HORIZONTALEMIN && verticale < VERTCALEMIN) {
             throw new IllegalArgumentException("Pas d'aire de jeu trop petite.");
         }
@@ -35,7 +38,12 @@ public class AireDeJeu {
             routesOccupees = new LinkedList<Route>();
             remplirTuiles();
             remplirCroisements();
+
+            this.graine = graine;
+
+            tirageJeton = new TirageJeton(graine);
             assigneTerrainsEtJetonsAuxTuiles();
+            
             remplirCroisementsVoisins();
             remplirTuilesVoisines();
 
@@ -243,14 +251,20 @@ public class AireDeJeu {
         tuiles.get(idTuileMilieu).setTerrain(Terrain.DESERT);
 
         //assignation des tuiles sans assigner celle du milieu
-        Random r = new Random();
+        Random r;
+        if (graine == null) {
+            r = new Random();
+        }
+        else {
+            r = new Random(graine.getAsLong());
+        }
         for (int i = 0; i < idTuileMilieu; i++) {
             tuiles.get(i).setTerrain(Terrain.getTerrain(r.nextInt(5)));
-            tuiles.get(i).setJeton(new TirageJeton().tirage());
+            tuiles.get(i).setJeton(tirageJeton.getTirage());
         }
         for (int i = idTuileMilieu + 1; i < horizontale * verticale; i++) {
             tuiles.get(i).setTerrain(Terrain.getTerrain(r.nextInt(5)));
-            tuiles.get(i).setJeton(new TirageJeton().tirage());
+            tuiles.get(i).setJeton(tirageJeton.getTirage());
         }
     }
 

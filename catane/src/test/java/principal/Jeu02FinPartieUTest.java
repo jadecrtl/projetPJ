@@ -25,7 +25,7 @@ public class Jeu02FinPartieUTest {
         joueurs.add(j1);
         joueurs.add(j2); 
         joueurs.add(j3);
-        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2);
+        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
         assertThat(maPartie.isJeuTermine()).isFalse();
         j1.ajouterPointVictoire(5);
         j2.ajouterPointVictoire(8);
@@ -47,7 +47,7 @@ public class Jeu02FinPartieUTest {
         joueurs.add(j2); 
         joueurs.add(j3);
         joueurs.add(j4);        
-        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2);
+        Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
         assertThat(maPartie.isJeuTermine()).isFalse();
         j1.ajouterPointVictoire(5);
         j2.ajouterPointVictoire(8);

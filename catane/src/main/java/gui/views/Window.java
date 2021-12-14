@@ -25,7 +25,7 @@ public class Window extends JFrame{
 
     public void openBoard() {
         // Models
-        AireDeJeu aireDeJeuModel = new AireDeJeu(5, 5);
+        AireDeJeu aireDeJeuModel = new AireDeJeu(5, 5, null);
         // Views
         BoardView boardView = new BoardView();
         AireDeJeuView aireDeJeuView = new AireDeJeuView();
