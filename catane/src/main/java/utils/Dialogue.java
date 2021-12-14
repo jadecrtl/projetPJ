@@ -20,6 +20,7 @@ public class Dialogue {
                 scanner.next();
                 erreur = true;
                 terminal.println(AnsiColors.ANSI_GREEN, "Entree incorrecte, veuillez reessayer a nouveau svp.");
+
             }
         }
         while (erreur == true);
@@ -38,7 +39,8 @@ public class Dialogue {
                     return saisie;
                 }
                 else {
-                    terminal.print(AnsiColors.ANSI_GREEN, "Entree incorrecte, veuillez choisir parmi la liste proposee svp.");
+                    terminal.println(AnsiColors.ANSI_GREEN, "Entree incorrecte, veuillez choisir parmi la liste proposee svp.");
+                    erreur = true;
                 }
             }
             catch(Exception e) {
@@ -81,7 +83,8 @@ public class Dialogue {
                     return saisie;
                 }
                 else {
-                    terminal.print(AnsiColors.ANSI_GREEN, "Entree incorrecte, veuillez choisir parmi la liste proposee svp.");
+                    terminal.println(AnsiColors.ANSI_GREEN, "Entree incorrecte, veuillez choisir parmi la liste proposee svp.");
+                    erreur = true;
                 }
             }
             catch(Exception e) {
