@@ -1,6 +1,11 @@
 package principal;
 
 import enums.TypeJoueur;
+import utils.Dialogue;
+import utils.TerminalCouleur;
+
+import java.util.Arrays;
+
 import enums.Couleur;
 import enums.Production;
 import enums.TypeCroisement;
@@ -17,6 +22,8 @@ public class Joueur {
     private int inventaireLaine;
     private int inventaireBle;
     private int inventaireMinerai;
+    private Dialogue dialogue = new Dialogue();
+    private TerminalCouleur terminal = new TerminalCouleur();
     
     public Joueur(String nom, int age, TypeJoueur typeJoueur, Couleur couleur) {
         if (nom == null || age == 0 || typeJoueur == null || couleur == null || age < 0) {
@@ -335,7 +342,15 @@ public class Joueur {
         }
     }
 
-
+    public void joue() {
+        int reponse;
+        do {
+            terminal.println(this.getCouleur().getStabilo(), getNom() + " a vous de jouer");                        
+            terminal.println(this.getCouleur().getCrayon(), "0 : passer votre tour");
+            terminal.println(this.getCouleur().getCrayon(), "1 : placer une route");
+            reponse = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Choisissez votre action : ", Arrays.asList(0, 1));
+        } while(reponse != 0);
+    }
 
 
 }

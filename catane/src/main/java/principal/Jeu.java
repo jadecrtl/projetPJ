@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.OptionalLong;
 
 import utils.De6Faces;
+import utils.TerminalCouleur;
 
 public class Jeu {
     
@@ -13,6 +14,7 @@ public class Jeu {
     public static final int VICTOIRE = 10;
     public static final int JOUEURSMIN = 3;
     public static final int JOUEURSMAX = 4;
+    private TerminalCouleur terminal = new TerminalCouleur();
 
 
     public Jeu(List<Joueur> joueurs, int horizontale, int verticale, De6Faces de1, De6Faces de2, OptionalLong graine){
@@ -41,14 +43,28 @@ public class Jeu {
         return de1.getValeurDe() + de2.getValeurDe();
     }
 
-    public boolean isJeuTermine() {
+    public Joueur joueurVainqueur() {
         int nbJoueurs = joueurs.size();
         for (int i = 0; i < nbJoueurs ; i++) {
             if (joueurs.get(i).getPointVictoire() >= VICTOIRE) {
-                return true;
+                return joueurs.get(i);
             }
         }
-        return false;
+        return null;
+    }
+
+    public Joueur lancePartie() {
+        int joueurActif = 0;
+        do {
+            terminal.effaceEcran();
+            aire.traceAireDeJeu();
+            joueurs.get(joueurActif).joue();
+            joueurActif++;
+            if (joueurActif == joueurs.size()) {
+                joueurActif = 0;
+            }
+        } while(joueurVainqueur() == null);
+        return joueurVainqueur();
     }
 
 }

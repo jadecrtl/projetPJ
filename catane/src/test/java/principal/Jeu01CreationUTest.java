@@ -39,7 +39,7 @@ public class Jeu01CreationUTest {
         joueurs.add(j2); 
         joueurs.add(j3);
         Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
-        assertThat(maPartie.isJeuTermine()).isFalse();
+        assertThat(maPartie.joueurVainqueur()).isNull();
         assertThat(maPartie.getAire().getTuiles().size()).isEqualTo(15);
     }
 
@@ -57,7 +57,7 @@ public class Jeu01CreationUTest {
         joueurs.add(j3);
         joueurs.add(j4);
         Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
-        assertThat(maPartie.isJeuTermine()).isFalse();
+        assertThat(maPartie.joueurVainqueur()).isNull();
         assertThat(maPartie.getAire().getTuiles().size()).isEqualTo(15);
     }
 

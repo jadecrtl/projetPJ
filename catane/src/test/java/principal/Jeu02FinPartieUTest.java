@@ -26,14 +26,14 @@ public class Jeu02FinPartieUTest {
         joueurs.add(j2); 
         joueurs.add(j3);
         Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
-        assertThat(maPartie.isJeuTermine()).isFalse();
+        assertThat(maPartie.joueurVainqueur()).isNull();
         j1.ajouterPointVictoire(5);
         j2.ajouterPointVictoire(8);
         j3.ajouterPointVictoire(2);
-        assertThat(maPartie.isJeuTermine()).isFalse();
+        assertThat(maPartie.joueurVainqueur()).isNull();
         j1.ajouterPointVictoire(2);
         j2.ajouterPointVictoire(2);
-        assertThat(maPartie.isJeuTermine()).isTrue();
+        assertThat(maPartie.joueurVainqueur()).isEqualTo(j2);
     }
 
     @Test
@@ -48,14 +48,14 @@ public class Jeu02FinPartieUTest {
         joueurs.add(j3);
         joueurs.add(j4);        
         Jeu maPartie = new Jeu(joueurs, 5, 3, de1, de2, null);
-        assertThat(maPartie.isJeuTermine()).isFalse();
+        assertThat(maPartie.joueurVainqueur()).isNull();
         j1.ajouterPointVictoire(5);
         j2.ajouterPointVictoire(8);
         j3.ajouterPointVictoire(2);
         j4.ajouterPointVictoire(0);
-        assertThat(maPartie.isJeuTermine()).isFalse();
+        assertThat(maPartie.joueurVainqueur()).isNull();
         j1.ajouterPointVictoire(6);
-        assertThat(maPartie.isJeuTermine()).isTrue();
+        assertThat(maPartie.joueurVainqueur()).isEqualTo(j1);
     }
 
 

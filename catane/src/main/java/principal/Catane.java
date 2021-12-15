@@ -39,7 +39,7 @@ public class Catane {
             terminal.nouvelleLigne();
         }
         jeu = new Jeu(joueurs, tailleHorizontale, tailleVerticale, de1, de2, null);
-        
+        jeu.lancePartie();
     }
 
 }
