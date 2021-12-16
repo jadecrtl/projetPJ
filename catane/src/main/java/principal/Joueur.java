@@ -360,7 +360,7 @@ public class Joueur {
     public boolean placeRouteGratuite(AireDeJeu aire, int idCroisementA, int idCroisementB) {
         this.ajouterRessources(1, Production.BOIS);
         this.ajouterRessources(1, Production.ARGILE);
-        Route route = new Route(idCroisementA, idCroisementB); // un peu genant de devoir creer la route avec le proprietaire deja renseigne, ca ne colle pas a l'achat colonie
+        Route route = new Route(idCroisementA, idCroisementB);
         if (acheteRoute(aire, route)) {
             return true;
         }
@@ -375,8 +375,22 @@ public class Joueur {
 
     }
 
-    public void placeColonieGratuite(AireDeJeu aire) {
-
+    public boolean placeColonieGratuite(AireDeJeu aire, int idCroisement) {
+        this.ajouterRessources(1, Production.BOIS);
+        this.ajouterRessources(1, Production.BLE);
+        this.ajouterRessources(1, Production.ARGILE);
+        this.ajouterRessources(1, Production.LAINE);
+        Croisement croisement = new Croisement(idCroisement);
+        if (acheteColonie(aire, croisement)) {
+            return true;
+        }
+        else {
+            this.enleverRessources(1, Production.BOIS);
+            this.enleverRessources(1, Production.BLE);
+            this.enleverRessources(1, Production.ARGILE);
+            this.enleverRessources(1, Production.LAINE);
+            return false;
+        }
     }
 
 

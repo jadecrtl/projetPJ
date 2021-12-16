@@ -1,6 +1,5 @@
 package principal;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import utils.De6Faces;
