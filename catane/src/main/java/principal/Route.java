@@ -5,7 +5,7 @@ public class Route {
     private int idCroisementB;
     private Joueur proprietaire;
 
-    public Route(int idCroisementA, int idCroisementB, Joueur proprietaire) {
+    public Route(int idCroisementA, int idCroisementB) {//, Joueur proprietaire) {
         if (idCroisementA < 0 || idCroisementB < 0) {
             throw new IllegalArgumentException("Pas d'id croisement négatif!");
         }
@@ -20,7 +20,7 @@ public class Route {
             this.idCroisementA = idCroisementA;
             this.idCroisementB = idCroisementB;
         }
-        this.proprietaire = proprietaire;
+        //this.proprietaire = proprietaire;
     }
 
     public int getIdCroisementA() {
@@ -41,6 +41,10 @@ public class Route {
 
     public Joueur getProprietaire() {
         return proprietaire;
+    }
+
+    public void setProprietaire(Joueur proprietaire) {
+        this.proprietaire = proprietaire;
     }
 
 }

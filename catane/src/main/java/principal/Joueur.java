@@ -320,6 +320,7 @@ public class Joueur {
             aire.getRoutesOccupees().add(route);
             this.enleverRessources(1, Production.BOIS);
             this.enleverRessources(1, Production.ARGILE);
+            route.setProprietaire(this);
             return true;
         }
         else {
@@ -359,7 +360,7 @@ public class Joueur {
     public boolean placeRouteGratuite(AireDeJeu aire, int idCroisementA, int idCroisementB) {
         this.ajouterRessources(1, Production.BOIS);
         this.ajouterRessources(1, Production.ARGILE);
-        Route route = new Route(idCroisementA, idCroisementB, this); // un peu genant de devoir creer la route avec le proprietaire deja renseigne, ca ne colle pas a l'achat colonie
+        Route route = new Route(idCroisementA, idCroisementB); // un peu genant de devoir creer la route avec le proprietaire deja renseigne, ca ne colle pas a l'achat colonie
         if (acheteRoute(aire, route)) {
             return true;
         }

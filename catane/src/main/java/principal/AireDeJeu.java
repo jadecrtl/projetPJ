@@ -161,7 +161,7 @@ public class AireDeJeu {
     }
 
     private void traceRouteHorizontale(int idCroisementA, int idCroisementB) {
-        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB, null));
+        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB));
         if (proprietaire == null) {
             terminal.print(fondAireDeJeu.getCrayon(), " ------- ");
         }
@@ -220,7 +220,7 @@ public class AireDeJeu {
     }
 
     public void traceRouteVerticale(int idCroisementA, int idCroisementB) {
-        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB, null));
+        Joueur proprietaire = getProprietaireRoute(new Route(idCroisementA, idCroisementB));
         //terminal.print(fondAireDeJeu.getCrayon(), idCroisementA + "/" + idCroisementB);
         if (proprietaire == null) {
             terminal.print(fondAireDeJeu.getCrayon(), "|");
