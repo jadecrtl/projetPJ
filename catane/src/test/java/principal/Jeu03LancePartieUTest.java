@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import utils.De6Faces;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class Jeu03LancePartieUTest {
     
     @Test
@@ -22,7 +24,11 @@ public class Jeu03LancePartieUTest {
         De6Faces de1 = new De6Faces();
         De6Faces de2 = new De6Faces();
         Jeu jeu = new Jeu(joueurs, 5, 3, de1, de2, OptionalLong.of(123));
-        
+        assertThat(j1.placeRouteGratuite(jeu.getAire(), 7, 8)).isTrue();
+        assertThat(j2.placeRouteGratuite(jeu.getAire(), 13, 14)).isTrue();
+        assertThat(j3.placeRouteGratuite(jeu.getAire(), 9, 10)).isTrue();
+
+        jeu.getAire().traceAireDeJeu();
     }
 
 

@@ -67,4 +67,15 @@ public class Jeu {
         return joueurVainqueur();
     }
 
+    public void preparePartie() {
+        for (int i = 0; i < joueurs.size(); i++) {
+            joueurs.get(i).choisiRouteGratuite(aire);
+            joueurs.get(i).choisiColonieGratuite(aire);
+        }
+        for (int i = joueurs.size() - 1; i >= 0; i--) {
+            joueurs.get(i).choisiRouteGratuite(aire);
+            joueurs.get(i).choisiColonieGratuite(aire);
+        }
+    }
+
 }

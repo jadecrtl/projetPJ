@@ -352,5 +352,31 @@ public class Joueur {
         } while(reponse != 0);
     }
 
+    public void choisiRouteGratuite(AireDeJeu aire) {
+
+    }
+
+    public boolean placeRouteGratuite(AireDeJeu aire, int idCroisementA, int idCroisementB) {
+        this.ajouterRessources(1, Production.BOIS);
+        this.ajouterRessources(1, Production.ARGILE);
+        Route route = new Route(idCroisementA, idCroisementB, this); // un peu genant de devoir creer la route avec le proprietaire deja renseigne, ca ne colle pas a l'achat colonie
+        if (acheteRoute(aire, route)) {
+            return true;
+        }
+        else {
+            this.enleverRessources(1, Production.BOIS);
+            this.enleverRessources(1, Production.ARGILE);                
+            return false;
+        }
+    }
+
+    public void choisiColonieGratuite(AireDeJeu aire) {
+
+    }
+
+    public void placeColonieGratuite(AireDeJeu aire) {
+
+    }
+
 
 }
