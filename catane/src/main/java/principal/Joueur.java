@@ -335,20 +335,20 @@ public class Joueur {
         return true;
     }
 
-    public boolean acheteColonie(AireDeJeu aire , Croisement croisement) {
+    public boolean acheteColonie(AireDeJeu aire , int idCroisement) {
         if (peutAcheterColonie() == false) {
             terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
             return false;
         }
-        if (!aire.isCroisementValidePourUnJoueur(croisement.getIdCroisement(), this)) {
+        if (!aire.isCroisementValidePourUnJoueur(idCroisement, this)) {
             terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
             return false;
         }
-        if (!(aire.getCroisements().get(croisement.getIdCroisement()).getProprietaire() == null)) {
+        if (!(aire.getCroisements().get(idCroisement).getProprietaire() == null)) {
             terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
             return false;
         }
-        aire.getCroisements().get(croisement.getIdCroisement()).setProprietaire(this, TypeCroisement.COLONIE);
+        aire.getCroisements().get(idCroisement).setProprietaire(this, TypeCroisement.COLONIE);
         this.enleverRessources(1, Production.BOIS);
         this.enleverRessources(1, Production.BLE);
         this.enleverRessources(1, Production.ARGILE);
@@ -411,8 +411,7 @@ public class Joueur {
         this.ajouterRessources(1, Production.BLE);
         this.ajouterRessources(1, Production.ARGILE);
         this.ajouterRessources(1, Production.LAINE);
-        Croisement croisement = new Croisement(idCroisement);
-        if (acheteColonie(aire, croisement)) {
+        if (acheteColonie(aire, idCroisement)) {
             return true;
         }
         else {

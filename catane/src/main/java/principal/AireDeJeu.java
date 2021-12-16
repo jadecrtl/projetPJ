@@ -59,6 +59,21 @@ public class AireDeJeu {
         return routesOccupees;
     }
 
+    public Joueur getRoutesOccupeesParCroisements(int idCroisementA, int idCroisementB) {
+        if (routesOccupees.size() == 0) {
+            return null;
+        }
+        for (int i = 0; i < routesOccupees.size(); i++) {
+            if (routesOccupees.get(i).getIdCroisementA() == idCroisementA && routesOccupees.get(i).getIdCroisementB() == idCroisementB) {
+                return routesOccupees.get(i).getProprietaire();
+            }
+            if (routesOccupees.get(i).getIdCroisementA() == idCroisementB && routesOccupees.get(i).getIdCroisementB() == idCroisementA) {
+                return routesOccupees.get(i).getProprietaire();
+            }
+        }
+        return null;
+    }
+
     public void setRoutesOccupees(List<Route> routesOccupees) {
         this.routesOccupees = routesOccupees;
     }
@@ -337,9 +352,23 @@ public class AireDeJeu {
                 return false;
             }
         }
-
-
-        return true;
+        
+        if (getRoutesOccupeesParCroisements(idCroisement, idCroisement + 1) == joueur) {
+            return true;
+        }
+        if (getRoutesOccupeesParCroisements(idCroisement - 1, idCroisement) == joueur) {
+            return true;
+        }
+        if (getRoutesOccupeesParCroisements(idCroisement, idCroisement + horizontale + 1) == joueur) {
+            return true;
+        }
+        if (getRoutesOccupeesParCroisements(idCroisement, idCroisement - horizontale - 1) == joueur) {
+            return true;
+        }
+        terminal.println(Couleur.VERT.getStabilo(), "Aucune route n'arrive a cet emplacement");
+        return false;
     }
+
+
 
 }
