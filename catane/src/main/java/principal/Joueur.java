@@ -340,7 +340,7 @@ public class Joueur {
             terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
             return false;
         }
-        if (!aire.isCroisementValide(croisement.getIdCroisement())) {
+        if (!aire.isCroisementValidePourUnJoueur(croisement.getIdCroisement(), this)) {
             terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
             return false;
         }

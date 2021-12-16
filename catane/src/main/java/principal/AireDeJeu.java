@@ -302,13 +302,43 @@ public class AireDeJeu {
         return false;
     }
 
-    public boolean isCroisementValide(int idCroisement) {
+    public boolean isCroisementValidePourUnJoueur(int idCroisement, Joueur joueur) {
         if (idCroisement < 0) {
             return false;
         }
         if (idCroisement >= getCroisements().size()) {
             return false;
         }
+        if (idCroisement == 0 || idCroisement == horizontale || idCroisement == (horizontale + 1) * verticale || idCroisement == (horizontale + 1) * (verticale + 1)) {
+            terminal.println(Couleur.VERT.getStabilo(), "Il est interdit de poser une colonie sur les coins.");
+            return false;
+        }
+        if (idCroisement - horizontale - 1 > 0) {
+            if (getCroisements().get(idCroisement - horizontale - 1).getProprietaire() == joueur) {
+                terminal.println(Couleur.VERT.getStabilo(), "Trop proche d'une de vos colonies");
+                return false;
+            }
+        }
+        if (idCroisement + horizontale + 1 < getCroisements().size()) {
+            if (getCroisements().get(idCroisement + horizontale + 1).getProprietaire() == joueur) {
+                terminal.println(Couleur.VERT.getStabilo(), "Trop proche d'une de vos colonies");
+                return false;
+            }
+        }
+        if ((idCroisement + 1) % (horizontale + 1) != 0) {
+            if (getCroisements().get(idCroisement + 1).getProprietaire() == joueur) {
+                terminal.println(Couleur.VERT.getStabilo(), "Trop proche d'une de vos colonies");
+                return false;
+            }
+        }
+        if ((idCroisement) % (horizontale + 1) != 0) {
+            if (getCroisements().get(idCroisement - 1).getProprietaire() == joueur) {
+                terminal.println(Couleur.VERT.getStabilo(), "Trop proche d'une de vos colonies");
+                return false;
+            }
+        }
+
+
         return true;
     }
 
