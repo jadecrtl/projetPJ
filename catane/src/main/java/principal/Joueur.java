@@ -316,31 +316,45 @@ public class Joueur {
     }
 
     public boolean acheteRoute(AireDeJeu aire, Route route) {
-        if (peutAcheterRoute() && aire.getProprietaireRoute(route) == null) {
-            aire.getRoutesOccupees().add(route);
-            this.enleverRessources(1, Production.BOIS);
-            this.enleverRessources(1, Production.ARGILE);
-            route.setProprietaire(this);
-            return true;
-        }
-        else {
+        if (peutAcheterRoute() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
             return false;
         }
+        if (!aire.isRouteValide(route.getIdCroisementA(), route.getIdCroisementB())) {
+            terminal.println(Couleur.VERT.getStabilo(), "La route n'est pas valide");            
+            return false;
+        }
+        if (!(aire.getProprietaireRoute(route) == null)) {
+            terminal.println(Couleur.VERT.getStabilo(), "La route est deja occupee");
+            return false;
+        }
+        aire.getRoutesOccupees().add(route);
+        this.enleverRessources(1, Production.BOIS);
+        this.enleverRessources(1, Production.ARGILE);
+        route.setProprietaire(this);
+        return true;
     }
 
     public boolean acheteColonie(AireDeJeu aire , Croisement croisement) {
-        if (peutAcheterColonie() && aire.getCroisements().get(croisement.getIdCroisement()).getProprietaire() == null) {
-            aire.getCroisements().get(croisement.getIdCroisement()).setProprietaire(this, TypeCroisement.COLONIE);
-            this.enleverRessources(1, Production.BOIS);
-            this.enleverRessources(1, Production.BLE);
-            this.enleverRessources(1, Production.ARGILE);
-            this.enleverRessources(1, Production.LAINE);
-            this.ajouterPointVictoire(1);
-            return true;
-        }
-        else {
+        if (peutAcheterColonie() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
             return false;
         }
+        if (!aire.isCroisementValide(croisement.getIdCroisement())) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+            return false;
+        }
+        if (!(aire.getCroisements().get(croisement.getIdCroisement()).getProprietaire() == null)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            return false;
+        }
+        aire.getCroisements().get(croisement.getIdCroisement()).setProprietaire(this, TypeCroisement.COLONIE);
+        this.enleverRessources(1, Production.BOIS);
+        this.enleverRessources(1, Production.BLE);
+        this.enleverRessources(1, Production.ARGILE);
+        this.enleverRessources(1, Production.LAINE);
+        this.ajouterPointVictoire(1);
+        return true;
     }
 
     public void joue() {
@@ -354,7 +368,17 @@ public class Joueur {
     }
 
     public void choisiRouteGratuite(AireDeJeu aire) {
-
+        int idCroisementA;
+        int idCroisementB;
+        terminal.println(this.getCouleur().getStabilo(), getNom() + " choisissez une route gratuite");                        
+        idCroisementA = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point de depart : ");
+        idCroisementB = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point d'arrivee : ");
+        if (placeRouteGratuite(aire, idCroisementA, idCroisementB) == true) {
+            return;
+        }
+        else {
+            choisiRouteGratuite(aire);
+        }
     }
 
     public boolean placeRouteGratuite(AireDeJeu aire, int idCroisementA, int idCroisementB) {
@@ -372,7 +396,14 @@ public class Joueur {
     }
 
     public void choisiColonieGratuite(AireDeJeu aire) {
-
+        int idCroisement;
+        idCroisement = dialogue.demandeInt(this.getCouleur().getCrayon(), "choisissez une colonie gratuite : ");
+        if (placeColonieGratuite(aire, idCroisement) == true) {
+            return;
+        }
+        else {
+            choisiColonieGratuite(aire);
+        }
     }
 
     public boolean placeColonieGratuite(AireDeJeu aire, int idCroisement) {

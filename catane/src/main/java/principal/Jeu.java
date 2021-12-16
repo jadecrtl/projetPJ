@@ -69,11 +69,19 @@ public class Jeu {
 
     public void preparePartie() {
         for (int i = 0; i < joueurs.size(); i++) {
+            terminal.effaceEcran();
+            aire.traceAireDeJeu();
             joueurs.get(i).choisiRouteGratuite(aire);
+            terminal.effaceEcran();
+            aire.traceAireDeJeu();
             joueurs.get(i).choisiColonieGratuite(aire);
         }
         for (int i = joueurs.size() - 1; i >= 0; i--) {
+            terminal.effaceEcran();
+            aire.traceAireDeJeu();
             joueurs.get(i).choisiRouteGratuite(aire);
+            terminal.effaceEcran();
+            aire.traceAireDeJeu();
             joueurs.get(i).choisiColonieGratuite(aire);
         }
     }

@@ -302,4 +302,14 @@ public class AireDeJeu {
         return false;
     }
 
+    public boolean isCroisementValide(int idCroisement) {
+        if (idCroisement < 0) {
+            return false;
+        }
+        if (idCroisement >= getCroisements().size()) {
+            return false;
+        }
+        return true;
+    }
+
 }
