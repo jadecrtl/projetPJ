@@ -25,6 +25,8 @@ public class Jeu03LancePartieUTest {
         joueurs.add(j2); 
         joueurs.add(j3);
         jeu = new Jeu(joueurs, 5, 3, de1, de2, OptionalLong.of(123));
+        assertThat(de1.getValeurDe()).isGreaterThan(0);
+
     }
 
     @Test
@@ -119,6 +121,13 @@ public class Jeu03LancePartieUTest {
         jeu.getAire().traceAireDeJeu();
     }
 
+    @Test 
+    public void lancePartieAvecDes() {
+        assertThat(de1.getValeurDe() + de2.getValeurDe()).isBetween(2, 12);
+        assertThat(jeu.getLancementDes()).isBetween(2, 12);
+        jeu.getAire().traceAireDeJeu();
+        jeu.assigneRessourceTirageDes(11);
+    }
 
 
 
