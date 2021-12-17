@@ -1,7 +1,11 @@
 package principal;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.OptionalLong;
 
+import enums.Production;
+import enums.Terrain;
+import enums.TypeCroisement;
 import utils.De6Faces;
 import utils.TerminalCouleur;
 
@@ -29,6 +33,8 @@ public class Jeu {
         }
         this.joueurs = joueurs;
         aire = new AireDeJeu(horizontale, verticale, graine);
+        this.de1 = de1;
+        this.de2 = de2;
     }
 
     public AireDeJeu getAire() {
@@ -58,6 +64,8 @@ public class Jeu {
         do {
             terminal.effaceEcran();
             aire.traceAireDeJeu();
+            afficheInventaireJoueur();
+            assigneRessourceTirageDes(getLancementDes());
             joueurs.get(joueurActif).joue();
             joueurActif++;
             if (joueurActif == joueurs.size()) {
@@ -71,19 +79,60 @@ public class Jeu {
         for (int i = 0; i < joueurs.size(); i++) {
             terminal.effaceEcran();
             aire.traceAireDeJeu();
+            afficheInventaireJoueur();
             joueurs.get(i).choisiRouteGratuite(aire);
             terminal.effaceEcran();
             aire.traceAireDeJeu();
+            afficheInventaireJoueur();
             joueurs.get(i).choisiColonieGratuite(aire);
         }
         for (int i = joueurs.size() - 1; i >= 0; i--) {
             terminal.effaceEcran();
             aire.traceAireDeJeu();
+            afficheInventaireJoueur();
             joueurs.get(i).choisiRouteGratuite(aire);
             terminal.effaceEcran();
             aire.traceAireDeJeu();
+            afficheInventaireJoueur();
             joueurs.get(i).choisiColonieGratuite(aire);
         }
     }
+
+    public void afficheInventaireJoueur() {
+        for (int i = 0; i < joueurs.size(); i++) {
+            Joueur j = joueurs.get(i);
+            terminal.print(j.getCouleur().getStabilo(), j.getNom() + " " + j.getPointVictoire() + " pts ");
+            terminal.print(j.getCouleur().getCrayon(), "/ Bois : " + j.getInventaireBois());
+            terminal.print(j.getCouleur().getCrayon(), "/ Argile : " + j.getInventaireArgile());
+            terminal.print(j.getCouleur().getCrayon(), "/ Laine : " + j.getInventaireLaine());
+            terminal.print(j.getCouleur().getCrayon(), "/ Ble : " + j.getInventaireBle());
+            terminal.print(j.getCouleur().getCrayon(), "/ Minerai : " + j.getInventaireMinerai());
+            terminal.nouvelleLigne();
+        }
+    }
+
+    public void assigneRessourceTirageDes(int tirageDe) {
+        if (tirageDe == 7) {
+            return;//Ici gestion du voleur prochainement
+        }
+        List<Tuile> listeTuilesTirage = aire.getListeTuileParJeton(tirageDe);
+        if (listeTuilesTirage.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < listeTuilesTirage.size(); i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.println(listeTuilesTirage.get(i).getCroisementsVoisins().get(j));
+                Croisement croisement = aire.getCroisements().get(listeTuilesTirage.get(i).getCroisementsVoisins().get(j)); 
+                if (!(croisement.getProprietaire() == null)) {
+                    //if (listeTuilesTirage.get(i).getTerrain() == Terrain.CHAMP)
+                    //On cherhce le type de terrain et on assigne une variable de Production 
+                    //On cherche le type de croisement (colonie ou ville)
+                    //On ajoute respectivement une fois la production ou deux fois la production dans l'inventaire du joueur
+                }
+            }
+        }
+        joueurs.get(0).ajouterRessources(1, Production.ARGILE);
+    }
+
 
 }

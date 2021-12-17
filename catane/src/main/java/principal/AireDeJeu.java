@@ -369,6 +369,14 @@ public class AireDeJeu {
         return false;
     }
 
-
+    public List<Tuile> getListeTuileParJeton(int jeton) {
+        List<Tuile> res = new LinkedList<>();
+        for (int i = 0; i < tuiles.size(); i++) {
+            if (tuiles.get(i).getJeton() == jeton) {
+                res.add(tuiles.get(i));
+            }
+        }
+        return res;
+    }
 
 }
