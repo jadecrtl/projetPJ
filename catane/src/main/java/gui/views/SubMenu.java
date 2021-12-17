@@ -46,7 +46,7 @@ public class SubMenu extends JPanel{
     public void setNewFont() {
         try {
 
-            this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("catane/src/static/Poppins-Medium.ttf")).deriveFont(15f);
+            this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("catane/src/static/Poppins-Medium.ttf")).deriveFont(12f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
 
@@ -80,21 +80,67 @@ public class SubMenu extends JPanel{
         BoxLayout boxLayout = new BoxLayout(secondPanel, BoxLayout.Y_AXIS);
         secondPanel.setLayout(boxLayout);
         secondPanel.setOpaque(false);
-        secondPanel.add(getJoueurNom("Player: Paris"));
-        secondPanel.add(getJoueurNom("Test: x x x"));
+        secondPanel.add(getJoueurNom("Paris"));
+        secondPanel.add(getActions());
 
 
         panel.add(secondPanel);
         return panel;
     }
 
-    private JLabel getJoueurNom(String description) {
+    private JPanel getJoueurNom(String description) {
         // TODO: use model to get user name and other data...
+        JPanel pan = new JPanel();
         JLabel label = new JLabel();
-        label.setText(description);
+        JLabel label_name = new JLabel();
+
+
+        label.setText("Player:");
         label.setFont(this.customFont);
-        label.setForeground(Color.WHITE);
-        return label;
+        label.setForeground(Color.BLACK);
+
+        label_name.setText("Paris");
+        label_name.setFont(this.customFont);
+        label_name.setForeground(Color.WHITE);
+
+        pan.add(label);
+        pan.add(label_name);
+        pan.setOpaque(false);
+
+        return pan;
+    }
+
+    private JPanel getActions() {
+        // Jpanel with 3 buttons;
+        // TODO: use model to get user name and other data...
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Action:");
+
+        label.setFont(this.customFont);
+        label.setForeground(Color.BLACK);
+
+        panel.add(label);
+
+        JButton city = new JButton("City");
+        JButton village = new JButton("Village");
+        JButton route = new JButton("Route");
+
+        city.setFont(this.customFont);
+        village.setFont(this.customFont);
+        route.setFont(this.customFont);
+
+        city.setFocusPainted(false);
+        village.setFocusPainted(false);
+        route.setFocusPainted(false);
+
+
+        panel.add(city);
+        panel.add(village);
+        panel.add(route);
+
+        panel.setOpaque(false);
+
+        return panel;
     }
 
     public JButton createbButton(String path) {
@@ -103,6 +149,8 @@ public class SubMenu extends JPanel{
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
+
+        button.setPreferredSize(new Dimension(40, 40));
         button.setFocusPainted(false);        
         return button;
     }

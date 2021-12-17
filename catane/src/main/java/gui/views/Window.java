@@ -11,7 +11,7 @@ import principal.AireDeJeu;
 public class Window extends JFrame{
     static final String TITLE = "Palette";
     static final int WIDTH = 1100;
-    static final int HEIGHT = 600;
+    static final int HEIGHT = 800;
 
     public Window() {
         this.setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -51,7 +51,7 @@ public class Window extends JFrame{
         menuHolder.add(subMenu, BorderLayout.CENTER);
         boardView.add(menuHolder, BorderLayout.SOUTH);
 
-        int padding = 35;
+        int padding = 30;
 		((JComponent) this.getContentPane()).setBorder(new EmptyBorder(padding, padding, padding, padding));
         this.getContentPane().setBackground(new Color(39, 125, 161)); // FIXME
 
