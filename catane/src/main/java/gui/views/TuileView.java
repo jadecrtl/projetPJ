@@ -43,6 +43,7 @@ public class TuileView extends JPanel {
         this.topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         this.topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
         this.topLeftcroisement.setFont(this.customFont);
+        this.topLeftcroisement.setFocusPainted(false); 
 
 
         this.topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement));
@@ -57,6 +58,7 @@ public class TuileView extends JPanel {
         this.topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         this.topRightcroisement.setVerticalAlignment(JLabel.NORTH);
         this.topRightcroisement.setFont(this.customFont);
+        this.topRightcroisement.setFocusPainted(false); 
 
 
         this.topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement));
@@ -70,6 +72,7 @@ public class TuileView extends JPanel {
         this.bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         this.bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
         this.bottomLeftcroisement.setFont(this.customFont);
+        this.bottomLeftcroisement.setFocusPainted(false); 
 
         this.bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement));
 
@@ -83,6 +86,7 @@ public class TuileView extends JPanel {
         this.bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         this.bottomRightcroisement.setVerticalAlignment(JLabel.BOTTOM);
         this.bottomRightcroisement.setFont(this.customFont);
+        this.bottomRightcroisement.setFocusPainted(false); 
 
 
         this.bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement));
@@ -94,7 +98,7 @@ public class TuileView extends JPanel {
 
     }
 
-    private void setNewFont() {
+    public void setNewFont() {
         try {
 
             this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("catane/src/static/Poppins-Medium.ttf")).deriveFont(15f);

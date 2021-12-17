@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.EventQueue;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import gui.views.Window;
@@ -17,6 +19,8 @@ public class BoardUTest {
 
     // To visualize use the method below (run main)
     public static void main(String[] args) {
-        new BoardUTest();
+        EventQueue.invokeLater(()-> {
+            new BoardUTest();
+        });
     }
 }

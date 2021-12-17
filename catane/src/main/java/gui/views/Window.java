@@ -2,6 +2,7 @@ package gui.views;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import gui.controllers.AireDeJeuController;
@@ -19,6 +20,7 @@ public class Window extends JFrame{
 		this.setLocationRelativeTo(null);
 	
         openBoard();
+
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -28,6 +30,7 @@ public class Window extends JFrame{
         AireDeJeu aireDeJeuModel = new AireDeJeu(5, 5, null);
         // Views
         BoardView boardView = new BoardView();
+        boardView.setBackground(new Color(39, 125, 161));
         AireDeJeuView aireDeJeuView = new AireDeJeuView();
         // Controllers
         AireDeJeuController aireDeJeuController = new AireDeJeuController();
@@ -41,9 +44,16 @@ public class Window extends JFrame{
         // Add content to inside Panels
         boardView.add(aireDeJeuView, BorderLayout.CENTER);
 
+        SubMenu subMenu = new SubMenu();
+        JPanel menuHolder = new JPanel();
+
+        menuHolder.setLayout(new BorderLayout());
+        menuHolder.add(subMenu, BorderLayout.CENTER);
+        boardView.add(menuHolder, BorderLayout.SOUTH);
+
         int padding = 35;
 		((JComponent) this.getContentPane()).setBorder(new EmptyBorder(padding, padding, padding, padding));
-        this.getContentPane().setBackground(new Color(39, 125, 161)); 
+        this.getContentPane().setBackground(new Color(39, 125, 161)); // FIXME
 
 		this.getContentPane().removeAll();
 		this.getContentPane().add(boardView, BorderLayout.CENTER);

@@ -3,9 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BoardView extends JPanel{
+    private BorderLayout layout = new BorderLayout();
 
     public BoardView() {
-        this.setLayout(new BorderLayout());
-
+        layout.setVgap(10);
+        this.setLayout(layout);
     }
 }
