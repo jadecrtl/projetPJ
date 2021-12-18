@@ -5,8 +5,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import enums.Couleur;
+import enums.TypeJoueur;
 import gui.controllers.AireDeJeuController;
+import gui.controllers.SubMenuController;
 import principal.AireDeJeu;
+import principal.Joueur;
+import utils.De6Faces;
 
 public class Window extends JFrame{
     static final String TITLE = "Palette";
@@ -28,30 +33,50 @@ public class Window extends JFrame{
     public void openBoard() {
         // Models
         AireDeJeu aireDeJeuModel = new AireDeJeu(5, 5, null);
+        Joueur joueur = new Joueur("Paris", 22, TypeJoueur.HUMAIN, Couleur.VERT);
+        De6Faces de = new De6Faces();
+
         // Views
         BoardView boardView = new BoardView();
-        boardView.setBackground(new Color(39, 125, 161));
         AireDeJeuView aireDeJeuView = new AireDeJeuView();
+        SubMenuView subMenuView = new SubMenuView();
+        PlayerHeaderView playerHeaderView = new PlayerHeaderView();
+
         // Controllers
         AireDeJeuController aireDeJeuController = new AireDeJeuController();
+        SubMenuController subMenuController = new SubMenuController();
+
         // Setters
+        boardView.setBackground(new Color(39, 125, 161));
+        
+        subMenuView.setController(subMenuController);
+        subMenuView.setJoueurModel(joueur);
+        subMenuView.setDeModel(de);
+
         aireDeJeuView.setModel(aireDeJeuModel);
         aireDeJeuView.setControleur(aireDeJeuController);
 
         aireDeJeuController.setModel(aireDeJeuModel);
         aireDeJeuController.setView(aireDeJeuView);
 
+        subMenuController.setView(subMenuView);
+
         // Add content to inside Panels
-        boardView.add(aireDeJeuView, BorderLayout.CENTER);
+        JPanel testPanel = new JPanel();
+        testPanel.setLayout(new BorderLayout());
+        testPanel.add(aireDeJeuView, BorderLayout.CENTER);
+        testPanel.setBorder(new EmptyBorder(0, 100, 0, 100));
+        testPanel.setOpaque(false);
 
-        SubMenu subMenu = new SubMenu();
-        JPanel menuHolder = new JPanel();
+        boardView.add(testPanel, BorderLayout.CENTER);
+        boardView.add(playerHeaderView, BorderLayout.NORTH);
 
-        menuHolder.setLayout(new BorderLayout());
-        menuHolder.add(subMenu, BorderLayout.CENTER);
-        boardView.add(menuHolder, BorderLayout.SOUTH);
+        JPanel menuHolderView = new JPanel();// FIXME
+        menuHolderView.setLayout(new BorderLayout());
+        menuHolderView.add(subMenuView, BorderLayout.CENTER);
+        boardView.add(menuHolderView, BorderLayout.SOUTH);
 
-        int padding = 30;
+        int padding = 15;
 		((JComponent) this.getContentPane()).setBorder(new EmptyBorder(padding, padding, padding, padding));
         this.getContentPane().setBackground(new Color(39, 125, 161)); // FIXME
 

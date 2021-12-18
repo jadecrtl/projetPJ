@@ -12,7 +12,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 
-public class SubMenu extends JPanel{
+public class SubMenuView extends JPanel{
 
     private Joueur joueurModel;
     private De6Faces deModel;
@@ -20,28 +20,11 @@ public class SubMenu extends JPanel{
     private SubMenuController controller;
     private Font customFont;
 
-    private GridLayout layout;
     private Color backGroundColor = new Color(39, 125, 161);
-    private int HORIZONTAL_GAP = 10;
     private String CANCEL_ICON = "catane/src/static/cancel.png";
     private String DICE_ICON = "catane/src/static/dice.png";
 
-    // menu panel
-    // dice button
-    // cancel button
 
-    public SubMenu() {
-
-        // this.setLayoutSubMenu();
-        setNewFont();
-        this.add(createMenuPanel());
-        this.add(createbButton(DICE_ICON));
-        this.add(createbButton(CANCEL_ICON));
-
-        // this.add(createButton("Dice", createIcon("dice"), actionDice));
-        // this.add(createButton("Cancel", createIcon("cancel"), actionCancel));
-        this.setBackground(this.backGroundColor);
-    }
     // TODO: extraire method pour tous classes
     public void setNewFont() {
         try {
@@ -78,6 +61,7 @@ public class SubMenu extends JPanel{
         
         JPanel secondPanel = new JPanel();
         BoxLayout boxLayout = new BoxLayout(secondPanel, BoxLayout.Y_AXIS);
+        
         secondPanel.setLayout(boxLayout);
         secondPanel.setOpaque(false);
         secondPanel.add(getJoueurNom("Paris"));
@@ -90,6 +74,7 @@ public class SubMenu extends JPanel{
 
     private JPanel getJoueurNom(String description) {
         // TODO: use model to get user name and other data...
+
         JPanel pan = new JPanel();
         JLabel label = new JLabel();
         JLabel label_name = new JLabel();
@@ -99,7 +84,14 @@ public class SubMenu extends JPanel{
         label.setFont(this.customFont);
         label.setForeground(Color.BLACK);
 
-        label_name.setText("Paris");
+        String playerName;
+        if (this.joueurModel != null) {
+            playerName = this.joueurModel.getNom();
+        } else {
+            playerName = "?";
+        }
+
+        label_name.setText(playerName);
         label_name.setFont(this.customFont);
         label_name.setForeground(Color.WHITE);
 
@@ -114,7 +106,7 @@ public class SubMenu extends JPanel{
         // Jpanel with 3 buttons;
         // TODO: use model to get user name and other data...
         JPanel panel = new JPanel();
-        JLabel label = new JLabel("Action:");
+        JLabel label = new JLabel("Add:");
 
         label.setFont(this.customFont);
         label.setForeground(Color.BLACK);
@@ -124,19 +116,32 @@ public class SubMenu extends JPanel{
         JButton city = new JButton("City");
         JButton village = new JButton("Village");
         JButton route = new JButton("Route");
+        JButton robber = new JButton("Robber");
 
         city.setFont(this.customFont);
         village.setFont(this.customFont);
         route.setFont(this.customFont);
+        robber.setFont(this.customFont);
 
         city.setFocusPainted(false);
         village.setFocusPainted(false);
         route.setFocusPainted(false);
+        robber.setFocusPainted(false);
 
+        city.addActionListener((event)-> {this.controller.addCityPressed();});
+        village.addActionListener((event)-> {this.controller.addVillagePressed();});
+        route.addActionListener((event)-> {this.controller.addRoutePressed();});
+        robber.addActionListener((event)-> {this.controller.addRobberPressed();});
+
+        city.setEnabled(true);
+        village.setEnabled(false);
+        route.setEnabled(false);
+        robber.setEnabled(false);
 
         panel.add(city);
         panel.add(village);
         panel.add(route);
+        panel.add(robber);
 
         panel.setOpaque(false);
 
@@ -150,13 +155,31 @@ public class SubMenu extends JPanel{
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
 
-        button.setPreferredSize(new Dimension(40, 40));
+        button.setPreferredSize(new Dimension(60, 60));
         button.setFocusPainted(false);        
         return button;
     }
 
     public void setJoueurModel(Joueur model) {
         this.joueurModel = model;
+        setNewFont();
+        this.add(createMenuPanel());
+        JButton b1 = createbButton(DICE_ICON);
+        JButton b2 = createbButton(CANCEL_ICON);
+
+        b1.addMouseListener(this.controller.new Selection(b1, DICE_ICON));
+        b1.addActionListener((event)-> {this.controller.subMenuButtonPressed("DICE");});
+
+
+        b2.addMouseListener(this.controller.new Selection(b2, CANCEL_ICON));
+        b2.addActionListener((event)-> {this.controller.subMenuButtonPressed("CANCEL");});
+
+        // b1.setEnabled(false);
+
+
+        this.add(b1);
+        this.add(b2);
+        this.setBackground(this.backGroundColor);
     }
 
     public void setDeModel(De6Faces de) {

@@ -11,13 +11,13 @@ public class AireDeJeuView extends JPanel{
     private AireDeJeu aireDeJeuModel;
     private AireDeJeuController aireDeJeuController;
     private GridLayout aireDeJeuGrid;
-    private final int HORIZONTAL_GAP = 10;
-    private final int VERTICAL_GAP = 10;
+    private final int HORIZONTAL_GAP = 5;
+    private final int VERTICAL_GAP = 5;
     private List<JPanel> tuiles = new ArrayList<JPanel>();
     private Color backGroundColor = new Color(144, 190, 109);
 
     public void setTuiles() {
-        setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
+        setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         for (int i =0; i<this.aireDeJeuModel.getTuiles().size(); i++){
 
             TuileView tuileView = new TuileView();
