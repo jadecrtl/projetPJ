@@ -13,14 +13,25 @@ public class AireDeJeuView extends JPanel{
     private GridLayout aireDeJeuGrid;
     private final int HORIZONTAL_GAP = 5;
     private final int VERTICAL_GAP = 5;
-    private List<JPanel> tuiles = new ArrayList<JPanel>();
+    private List<TuileView> tuiles = new ArrayList<TuileView>();
     private Color backGroundColor = new Color(144, 190, 109);
+
+    public SubMenuView subMenuView;
+
+    public void setSubMenu(SubMenuView sub) {
+        this.subMenuView = sub;
+    }
+
+    public SubMenuView getSub() {
+        return this.subMenuView;
+    }
 
     public void setTuiles() {
         setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         for (int i =0; i<this.aireDeJeuModel.getTuiles().size(); i++){
 
             TuileView tuileView = new TuileView();
+            tuileView.setAireDeJeu(this);
             TuileController tuileController = new TuileController();
 
             tuileView.setControleur(tuileController);
@@ -67,6 +78,11 @@ public class AireDeJeuView extends JPanel{
     public void updateTuiles() {
         this.setTuiles();
     }
+
+    public List<TuileView> getTuiles() {
+        return this.tuiles;
+    }
+    
 
 
 }

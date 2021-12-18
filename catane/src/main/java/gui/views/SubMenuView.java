@@ -16,6 +16,7 @@ public class SubMenuView extends JPanel{
 
     private Joueur joueurModel;
     private De6Faces deModel;
+    private AireDeJeuView aireDeJeuView;
 
     private SubMenuController controller;
     private Font customFont;
@@ -23,6 +24,14 @@ public class SubMenuView extends JPanel{
     private Color backGroundColor = new Color(39, 125, 161);
     private String CANCEL_ICON = "catane/src/static/cancel.png";
     private String DICE_ICON = "catane/src/static/dice.png";
+
+    public JButton city = new JButton("City");
+    public JButton village = new JButton("Village");
+    public JButton route = new JButton("Route");
+    public JButton robber = new JButton("Robber");
+
+    public JButton b1 = createbButton(DICE_ICON);
+    public JButton b2 = createbButton(CANCEL_ICON);
 
 
     // TODO: extraire method pour tous classes
@@ -38,6 +47,14 @@ public class SubMenuView extends JPanel{
             this.customFont = new Font(Font.SERIF, Font.PLAIN,  10);
         }
        
+    }
+
+    public AireDeJeuView getAireDeJeuView() {
+        return aireDeJeuView;
+    }
+
+    public void setAireDeJeuView(AireDeJeuView aireDeJeuView) {
+        this.aireDeJeuView = aireDeJeuView;
     }
 
     public JPanel createMenuPanel() {
@@ -113,10 +130,7 @@ public class SubMenuView extends JPanel{
 
         panel.add(label);
 
-        JButton city = new JButton("City");
-        JButton village = new JButton("Village");
-        JButton route = new JButton("Route");
-        JButton robber = new JButton("Robber");
+        
 
         city.setFont(this.customFont);
         village.setFont(this.customFont);
@@ -131,12 +145,7 @@ public class SubMenuView extends JPanel{
         city.addActionListener((event)-> {this.controller.addCityPressed();});
         village.addActionListener((event)-> {this.controller.addVillagePressed();});
         route.addActionListener((event)-> {this.controller.addRoutePressed();});
-        robber.addActionListener((event)-> {this.controller.addRobberPressed();});
-
-        city.setEnabled(true);
-        village.setEnabled(false);
-        route.setEnabled(false);
-        robber.setEnabled(false);
+        robber.addActionListener((event)-> {this.controller.addRobberPressed(aireDeJeuView);});
 
         panel.add(city);
         panel.add(village);
@@ -164,8 +173,7 @@ public class SubMenuView extends JPanel{
         this.joueurModel = model;
         setNewFont();
         this.add(createMenuPanel());
-        JButton b1 = createbButton(DICE_ICON);
-        JButton b2 = createbButton(CANCEL_ICON);
+
 
         b1.addMouseListener(this.controller.new Selection(b1, DICE_ICON));
         b1.addActionListener((event)-> {this.controller.subMenuButtonPressed("DICE");});

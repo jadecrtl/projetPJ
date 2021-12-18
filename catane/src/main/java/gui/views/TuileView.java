@@ -10,10 +10,12 @@ import principal.Tuile;
 
 public class TuileView extends JPanel {
 
+    public AireDeJeuView aireDeJeuView;
+
     private Tuile tuileModel;
     private TuileController tuilleController;
 
-    private JLabel jetonLabel = new JLabel();
+    private JButton jetonLabel = new JButton();
     private JLabel terrain = new JLabel();
 
     private JButton topLeftcroisement = new JButton();
@@ -25,9 +27,16 @@ public class TuileView extends JPanel {
 
     private Font customFont;
 
+
+    public void setAireDeJeu(AireDeJeuView air) {
+        this.aireDeJeuView = air;
+    }
+
+    public AireDeJeuView getAir() {
+        return this.aireDeJeuView;
+    }
     
     private void addComponents() {
-        
         add(topLeftcroisement);
         add(terrain);
         add(topRightcroisement);
@@ -45,9 +54,7 @@ public class TuileView extends JPanel {
         this.topLeftcroisement.setFont(this.customFont);
         this.topLeftcroisement.setFocusPainted(false); 
 
-
-        this.topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement));
-        this.topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topLeftcroisement);});
+        this.topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement, topLeftcroisement.getForeground()));
        
         this.topLeftcroisement.setOpaque(false);
         this.topLeftcroisement.setContentAreaFilled(false);
@@ -61,7 +68,7 @@ public class TuileView extends JPanel {
         this.topRightcroisement.setFocusPainted(false); 
 
 
-        this.topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement));
+        this.topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement, topRightcroisement.getForeground()));
 
         this.topRightcroisement.setOpaque(false);
         this.topRightcroisement.setContentAreaFilled(false);
@@ -74,7 +81,7 @@ public class TuileView extends JPanel {
         this.bottomLeftcroisement.setFont(this.customFont);
         this.bottomLeftcroisement.setFocusPainted(false); 
 
-        this.bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement));
+        this.bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement, bottomLeftcroisement.getForeground()));
 
         this.bottomLeftcroisement.setOpaque(false);
         this.bottomLeftcroisement.setContentAreaFilled(false);
@@ -89,7 +96,7 @@ public class TuileView extends JPanel {
         this.bottomRightcroisement.setFocusPainted(false); 
 
 
-        this.bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement));
+        this.bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement, bottomRightcroisement.getForeground()));
 
 
         this.bottomRightcroisement.setOpaque(false);
@@ -121,6 +128,14 @@ public class TuileView extends JPanel {
         this.jetonLabel.setHorizontalAlignment(JLabel.CENTER);
         this.jetonLabel.setFont(this.customFont);
         this.jetonLabel.setForeground(new Color(243, 114, 44));
+
+
+        this.jetonLabel.setOpaque(false);
+        this.jetonLabel.setContentAreaFilled(false);
+        this.jetonLabel.setBorderPainted(false);
+        this.jetonLabel.addMouseListener(this.tuilleController.new Selection(jetonLabel, jetonLabel.getForeground()));
+        this.jetonLabel.addActionListener((event)-> {this.tuilleController.jetonPressed(jetonLabel, this.aireDeJeuView, this.aireDeJeuView.getSub());});
+        this.jetonLabel.setEnabled(false);
 
         try {
 
@@ -195,5 +210,30 @@ public class TuileView extends JPanel {
                 break;
         }
         return path;
+    }
+
+    public void updateJetonView() {
+        // Called by controller 
+        // Ask this tuile to check if there is robber
+        // update icon on jeton according to model 
+        // scenario 1 : nothing changed here
+        // scenario 2 : now there is robber -> add jeton with robber icon
+        // scenario 3 : now there is no longer robber -> add normal jeton
+
+    }
+    public JButton getTopLeft() {
+        return this.topLeftcroisement;
+    }
+    public JButton getTopRight() {
+        return this.topRightcroisement;
+    }
+    public JButton getBottomLeft() {
+        return this.bottomLeftcroisement;
+    }
+    public JButton getBottomRight() {
+        return this.bottomRightcroisement;
+    }
+    public JButton getJetonButton() {
+        return this.jetonLabel;
     }
 }

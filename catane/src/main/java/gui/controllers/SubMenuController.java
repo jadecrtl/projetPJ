@@ -3,7 +3,9 @@ import java.awt.*;
 
 import java.awt.event.*;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
+import gui.views.AireDeJeuView;
 import gui.views.SubMenuView;
 import gui.views.TuileView;
 
@@ -28,10 +30,24 @@ public class SubMenuController {
 
     public void addRoutePressed() {
         System.out.println("Route added...");
+
     }
 
-    public void addRobberPressed() {
+    public void addRobberPressed(AireDeJeuView aireDeJeuView) {
         System.out.println("Robber added...");
+        this.subMenuView.city.setEnabled(false);
+        this.subMenuView.route.setEnabled(false);
+        this.subMenuView.village.setEnabled(false);
+        this.subMenuView.b1.setEnabled(false);
+        this.subMenuView.b2.setEnabled(false);
+
+        for (TuileView tuile : aireDeJeuView.getTuiles()) {
+            tuile.getTopLeft().setEnabled(false);
+            tuile.getTopRight().setEnabled(false);
+            tuile.getBottomLeft().setEnabled(false);
+            tuile.getBottomRight().setEnabled(false);
+            tuile.getJetonButton().setEnabled(true);
+        }
     }
 
     public class Selection extends MouseAdapter {

@@ -52,9 +52,12 @@ public class Window extends JFrame{
         subMenuView.setController(subMenuController);
         subMenuView.setJoueurModel(joueur);
         subMenuView.setDeModel(de);
+        subMenuView.setAireDeJeuView(aireDeJeuView);
 
         aireDeJeuView.setModel(aireDeJeuModel);
         aireDeJeuView.setControleur(aireDeJeuController);
+
+        aireDeJeuView.setSubMenu(subMenuView);
 
         aireDeJeuController.setModel(aireDeJeuModel);
         aireDeJeuController.setView(aireDeJeuView);
