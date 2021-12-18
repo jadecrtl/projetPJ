@@ -364,6 +364,28 @@ public class Joueur {
         return true;
     }
 
+    public boolean acheteVille(AireDeJeu aire, int idCroisement) {
+        if (peutAcheterVille() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
+            return false;
+        }
+        if (aire.getCroisements().get(idCroisement).getProprietaire() == null) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas de colonie sur cet emplacement");
+            return false;
+        }
+        if (aire.getCroisements().get(idCroisement).getProprietaire() != this) {
+            terminal.println(Couleur.VERT.getStabilo(), "Cet colonie ne vous appartient pas");
+        }
+        if (aire.getCroisements().get(idCroisement).getTypeCroisement() == TypeCroisement.VILLE) {
+            terminal.println(Couleur.VERT.getStabilo(), "Une ville est deja sur cet emplacement");
+        }
+        aire.getCroisements().get(idCroisement).setTypeCroisement(TypeCroisement.VILLE);
+        this.enleverRessources(3, Production.MINERAI);
+        this.enleverRessources(2, Production.BLE);
+        this.ajouterPointVictoire(1);
+        return true;
+    }
+
     public void joue(Jeu jeu) {
         int actionChoisie;
         boolean resultatActions;
@@ -387,6 +409,9 @@ public class Joueur {
         }
         if (actionChoisie == Action.COLONIE.getIdAction()) {
             lanceAcheteColonie(jeu);
+        }
+        if (actionChoisie == Action.VILLE.getIdAction()) {
+            lanceAcheteVille(jeu);
         }
         return false;
     }
@@ -456,6 +481,9 @@ public class Joueur {
         if (peutAcheterColonie()) {
             res.add(Action.COLONIE.getIdAction());
         }
+        if (peutAcheterVille()) {
+            res.add(Action.VILLE.getIdAction());
+        }
         return res;
     }
 
@@ -511,5 +539,27 @@ public class Joueur {
         }
         acheteColonie(jeu.getAire(), idCroisement);
     }
+
+    public void lanceAcheteVille(Jeu jeu) {
+        if (peutAcheterVille() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        int idCroisement = dialogue.demandeInt(this.getCouleur().getCrayon(), "Selectionner une de vos colonies pour la transformer en ville : ");
+        if (!jeu.getAire().isCroisementValidePourUnJoueur(idCroisement, this)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        if (!(jeu.getAire().getCroisements().get(idCroisement).getProprietaire() == this)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        acheteVille(jeu.getAire(), idCroisement);
+    }
+
+
 
 }

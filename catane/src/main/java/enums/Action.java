@@ -3,7 +3,8 @@ package enums;
 public enum Action {
     PASSE(0, "Passer votre tour"),
     ROUTE(1, "Acheter une route"),
-    COLONIE(2, "Acheter une colonie");
+    COLONIE(2, "Acheter une colonie"),
+    VILLE(3, "Acheter une ville");
 
     private int idAction;
     private String labelAction;
