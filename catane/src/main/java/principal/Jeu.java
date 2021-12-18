@@ -121,17 +121,34 @@ public class Jeu {
         }
         for (int i = 0; i < listeTuilesTirage.size(); i++) {
             for (int j = 0; j < 4; j++) {
-                System.out.println(listeTuilesTirage.get(i).getCroisementsVoisins().get(j));
+                //System.out.println(listeTuilesTirage.get(i).getCroisementsVoisins().get(j));
                 Croisement croisement = aire.getCroisements().get(listeTuilesTirage.get(i).getCroisementsVoisins().get(j)); 
                 if (!(croisement.getProprietaire() == null)) {
-                    //if (listeTuilesTirage.get(i).getTerrain() == Terrain.CHAMP)
-                    //On cherhce le type de terrain et on assigne une variable de Production 
-                    //On cherche le type de croisement (colonie ou ville)
-                    //On ajoute respectivement une fois la production ou deux fois la production dans l'inventaire du joueur
+                    int nbrRessourcesGagnees = 0;
+                    if (croisement.getTypeCroisement() == TypeCroisement.COLONIE) {
+                        nbrRessourcesGagnees = 1;
+                    }
+                    if (croisement.getTypeCroisement() == TypeCroisement.VILLE) {
+                        nbrRessourcesGagnees = 2;
+                    }
+                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.CHAMP) {
+                            croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.BLE);
+                    }
+                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.COLLINE) {
+                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.ARGILE);
+                    }
+                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.FORET) {
+                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.BOIS);
+                    }
+                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.MONTAGNE) {
+                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.MINERAI);
+                    }
+                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.PRE) {
+                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.LAINE);
+                    }
                 }
             }
         }
-        joueurs.get(0).ajouterRessources(1, Production.ARGILE);
     }
 
 
