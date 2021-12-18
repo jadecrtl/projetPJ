@@ -5,7 +5,12 @@ import utils.Dialogue;
 import utils.TerminalCouleur;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.swing.ActionMap;
+
+import enums.Action;
 import enums.Couleur;
 import enums.Production;
 import enums.TypeCroisement;
@@ -24,6 +29,7 @@ public class Joueur {
     private int inventaireMinerai;
     private Dialogue dialogue = new Dialogue();
     private TerminalCouleur terminal = new TerminalCouleur();
+    private List<Integer> listIdActions = new LinkedList<>();
     
     public Joueur(String nom, int age, TypeJoueur typeJoueur, Couleur couleur) {
         if (nom == null || age == 0 || typeJoueur == null || couleur == null || age < 0) {
@@ -39,6 +45,10 @@ public class Joueur {
         this.setInventaireLaine(0);
         this.setInventaireBle(0);
         this.setInventaireMinerai(0);
+    }
+
+    public List<Integer> getListIdActions() {
+        return calculeActions();
     }
 
     public int getInventaireMinerai() {
@@ -357,14 +367,28 @@ public class Joueur {
         return true;
     }
 
-    public void joue() {
-        int reponse;
+    public void joue(Jeu jeu) {
+        int actionChoisie;
+        boolean resultatActions;
         do {
+            terminal.effaceEcran();
+            jeu.getAire().traceAireDeJeu();
+            jeu.afficheInventaireJoueur();
             terminal.println(this.getCouleur().getStabilo(), getNom() + " a vous de jouer");                        
-            terminal.println(this.getCouleur().getCrayon(), "0 : passer votre tour");
-            terminal.println(this.getCouleur().getCrayon(), "1 : placer une route");
-            reponse = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Choisissez votre action : ", Arrays.asList(0, 1));
-        } while(reponse != 0);
+            afficheActions();
+            actionChoisie = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Choisissez votre action : ", getListIdActions());
+            resultatActions = lanceAction(actionChoisie, jeu);
+        } while(resultatActions == false);
+    }
+
+    public boolean lanceAction(int actionChoisie, Jeu jeu) {
+        if (actionChoisie == Action.PASSE.getIdAction()) {
+            return true;
+        }
+        if (actionChoisie == Action.ROUTE.getIdAction()) {
+            lanceAcheteRoute(jeu);
+        }
+        return false;
     }
 
     public void choisiRouteGratuite(AireDeJeu aire) {
@@ -423,5 +447,46 @@ public class Joueur {
         }
     }
 
+    public List<Integer> calculeActions() {
+        List<Integer> res = new LinkedList<>();
+        res.add(Action.PASSE.getIdAction());//Il faut qu'on puisse passer notre tour quoi qu'il arrive
+        if (peutAcheterRoute()) {
+            res.add(Action.ROUTE.getIdAction());
+        }
+        return res;
+    }
+
+    public void afficheActions() {
+        for (int i = 0; i < getListIdActions().size(); i++) {
+            terminal.println(this.getCouleur().getCrayon(), Action.getActionParId(getListIdActions().get(i)).getIdAction() + " " + Action.getActionParId(getListIdActions().get(i)).getLabelAction());
+        }
+    }
+
+    public void lanceAcheteRoute(Jeu jeu) {
+        if (peutAcheterRoute() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        int idCroisementA = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point de depart : ");
+        int idCroisementB = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point d'arrivee : ");
+        if (idCroisementA > idCroisementB) {
+            int tmp = idCroisementA;
+            idCroisementA = idCroisementB;
+            idCroisementB = tmp;
+        }
+        Route route = new Route(idCroisementA, idCroisementB);
+        if (!jeu.getAire().isRouteValide(route.getIdCroisementA(), route.getIdCroisementB())) {
+            terminal.println(Couleur.VERT.getStabilo(), "La route n'est pas valide");            
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        if (!(jeu.getAire().getProprietaireRoute(route) == null)) {
+            terminal.println(Couleur.VERT.getStabilo(), "La route est deja occupee");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        acheteRoute(jeu.getAire(), route);
+    }
 
 }

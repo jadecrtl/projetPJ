@@ -1,5 +1,4 @@
 package principal;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.OptionalLong;
 
@@ -66,7 +65,7 @@ public class Jeu {
             aire.traceAireDeJeu();
             afficheInventaireJoueur();
             assigneRessourceTirageDes(getLancementDes());
-            joueurs.get(joueurActif).joue();
+            joueurs.get(joueurActif).joue(this);
             joueurActif++;
             if (joueurActif == joueurs.size()) {
                 joueurActif = 0;

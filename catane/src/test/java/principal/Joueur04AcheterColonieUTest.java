@@ -7,9 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.OptionalLong;
 
-import enums.Couleur;
 import enums.Production;
-import enums.TypeJoueur;
 import utils.De6Faces;
 
 

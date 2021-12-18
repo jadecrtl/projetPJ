@@ -97,4 +97,9 @@ public class Dialogue {
         return null;
     }
 
+    public void appuyerSurEntree() {
+        terminal.println(AnsiColors.ANSI_GREEN, "Veuillez appuyer sur entree svp.");
+        scanner.nextLine();
+    }
+
 }
