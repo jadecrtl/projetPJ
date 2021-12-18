@@ -12,8 +12,8 @@ public class De6facesUTest {
         int i = 0;
 
         while (i<6000) {
-            d1.lanceDe();
-            assertThat(d1.getValeurDe()).isBetween(1, 6);
+            int de = d1.getValeurDe();
+            assertThat(de).isBetween(1, 6);
             i++;
         }
     }

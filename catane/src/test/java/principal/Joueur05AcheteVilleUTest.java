@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.OptionalLong;
 
 import enums.Production;
+import enums.TypeCroisement;
 import utils.De6Faces;
 
+public class Joueur05AcheteVilleUTest {
 
-public class Joueur04AcheterColonieUTest {
-    
     @Test
     public void acheterColonie() {
     
@@ -31,21 +31,27 @@ public class Joueur04AcheterColonieUTest {
         j1.ajouterRessources(1, Production.LAINE);
         j1.ajouterRessources(2, Production.BOIS);
         j1.ajouterRessources(1, Production.BLE);
-        
 
         assertThat(jeu.getAire().getCroisements().get(2).getProprietaire()).isEqualTo(null);        
         assertThat(j1.getPointVictoire()).isEqualTo(0);
         assertThat(j1.acheteColonie(jeu.getAire(), jeu.getAire().getCroisements().get(2).getIdCroisement())).isFalse();
         assertThat(j1.acheteRoute(jeu.getAire(), new Route(2, 3))).isTrue();
         assertThat(j1.acheteColonie(jeu.getAire(), jeu.getAire().getCroisements().get(2).getIdCroisement())).isTrue();
-        assertThat(jeu.getAire().getCroisements().get(2).getProprietaire()).isEqualTo(j1);        
+        assertThat(jeu.getAire().getCroisements().get(2).getProprietaire()).isEqualTo(j1);
+        assertThat(jeu.getAire().getCroisements().get(2).getTypeCroisement()).isEqualTo(TypeCroisement.COLONIE);        
         assertThat(j1.getInventaireArgile()).isEqualTo(0);
         assertThat(j1.getInventaireLaine()).isEqualTo(0);
         assertThat(j1.getInventaireBois()).isEqualTo(0);
         assertThat(j1.getInventaireBle()).isEqualTo(0);
         assertThat(j1.getPointVictoire()).isEqualTo(1);
-    
-    }
+        
+        j1.ajouterRessources(3, Production.MINERAI);
+        j1.ajouterRessources(2, Production.BLE);
 
-
+        assertThat(j1.acheteVille(jeu.getAire(), 2)).isTrue();
+        assertThat(jeu.getAire().getCroisements().get(2).getTypeCroisement()).isEqualTo(TypeCroisement.VILLE);
+        assertThat(j1.getInventaireMinerai()).isEqualTo(0);
+        assertThat(j1.getInventaireBle()).isEqualTo(0);
+        assertThat(j1.getPointVictoire()).isEqualTo(2);
+    }    
 }

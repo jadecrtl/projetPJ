@@ -4,8 +4,10 @@ import enums.TypeJoueur;
 import utils.Dialogue;
 import utils.TerminalCouleur;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
+import enums.Action;
 import enums.Couleur;
 import enums.Production;
 import enums.TypeCroisement;
@@ -24,6 +26,7 @@ public class Joueur {
     private int inventaireMinerai;
     private Dialogue dialogue = new Dialogue();
     private TerminalCouleur terminal = new TerminalCouleur();
+    private List<Integer> listIdActions = new LinkedList<>();
     
     public Joueur(String nom, int age, TypeJoueur typeJoueur, Couleur couleur) {
         if (nom == null || age == 0 || typeJoueur == null || couleur == null || age < 0) {
@@ -39,6 +42,10 @@ public class Joueur {
         this.setInventaireLaine(0);
         this.setInventaireBle(0);
         this.setInventaireMinerai(0);
+    }
+
+    public List<Integer> getListIdActions() {
+        return calculeActions();
     }
 
     public int getInventaireMinerai() {
@@ -357,14 +364,56 @@ public class Joueur {
         return true;
     }
 
-    public void joue() {
-        int reponse;
+    public boolean acheteVille(AireDeJeu aire, int idCroisement) {
+        if (peutAcheterVille() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
+            return false;
+        }
+        if (aire.getCroisements().get(idCroisement).getProprietaire() == null) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas de colonie sur cet emplacement");
+            return false;
+        }
+        if (aire.getCroisements().get(idCroisement).getProprietaire() != this) {
+            terminal.println(Couleur.VERT.getStabilo(), "Cet colonie ne vous appartient pas");
+        }
+        if (aire.getCroisements().get(idCroisement).getTypeCroisement() == TypeCroisement.VILLE) {
+            terminal.println(Couleur.VERT.getStabilo(), "Une ville est deja sur cet emplacement");
+        }
+        aire.getCroisements().get(idCroisement).setTypeCroisement(TypeCroisement.VILLE);
+        this.enleverRessources(3, Production.MINERAI);
+        this.enleverRessources(2, Production.BLE);
+        this.ajouterPointVictoire(1);
+        return true;
+    }
+
+    public void joue(Jeu jeu) {
+        int actionChoisie;
+        boolean resultatActions;
         do {
+            terminal.effaceEcran();
+            jeu.getAire().traceAireDeJeu();
+            jeu.afficheInventaireJoueur();
             terminal.println(this.getCouleur().getStabilo(), getNom() + " a vous de jouer");                        
-            terminal.println(this.getCouleur().getCrayon(), "0 : passer votre tour");
-            terminal.println(this.getCouleur().getCrayon(), "1 : placer une route");
-            reponse = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Choisissez votre action : ", Arrays.asList(0, 1));
-        } while(reponse != 0);
+            afficheActions();
+            actionChoisie = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Choisissez votre action : ", getListIdActions());
+            resultatActions = lanceAction(actionChoisie, jeu);
+        } while(resultatActions == false);
+    }
+
+    public boolean lanceAction(int actionChoisie, Jeu jeu) {
+        if (actionChoisie == Action.PASSE.getIdAction()) {
+            return true;
+        }
+        if (actionChoisie == Action.ROUTE.getIdAction()) {
+            lanceAcheteRoute(jeu);
+        }
+        if (actionChoisie == Action.COLONIE.getIdAction()) {
+            lanceAcheteColonie(jeu);
+        }
+        if (actionChoisie == Action.VILLE.getIdAction()) {
+            lanceAcheteVille(jeu);
+        }
+        return false;
     }
 
     public void choisiRouteGratuite(AireDeJeu aire) {
@@ -422,6 +471,95 @@ public class Joueur {
             return false;
         }
     }
+
+    public List<Integer> calculeActions() {
+        List<Integer> res = new LinkedList<>();
+        res.add(Action.PASSE.getIdAction());//Il faut qu'on puisse passer notre tour quoi qu'il arrive
+        if (peutAcheterRoute()) {
+            res.add(Action.ROUTE.getIdAction());
+        }
+        if (peutAcheterColonie()) {
+            res.add(Action.COLONIE.getIdAction());
+        }
+        if (peutAcheterVille()) {
+            res.add(Action.VILLE.getIdAction());
+        }
+        return res;
+    }
+
+    public void afficheActions() {
+        for (int i = 0; i < getListIdActions().size(); i++) {
+            terminal.println(this.getCouleur().getCrayon(), Action.getActionParId(getListIdActions().get(i)).getIdAction() + " " + Action.getActionParId(getListIdActions().get(i)).getLabelAction());
+        }
+    }
+
+    public void lanceAcheteRoute(Jeu jeu) {
+        if (peutAcheterRoute() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        int idCroisementA = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point de depart : ");
+        int idCroisementB = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point d'arrivee : ");
+        if (idCroisementA > idCroisementB) {
+            int tmp = idCroisementA;
+            idCroisementA = idCroisementB;
+            idCroisementB = tmp;
+        }
+        Route route = new Route(idCroisementA, idCroisementB);
+        if (!jeu.getAire().isRouteValide(route.getIdCroisementA(), route.getIdCroisementB())) {
+            terminal.println(Couleur.VERT.getStabilo(), "La route n'est pas valide");            
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        if (!(jeu.getAire().getProprietaireRoute(route) == null)) {
+            terminal.println(Couleur.VERT.getStabilo(), "La route est deja occupee");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        acheteRoute(jeu.getAire(), route);
+    }
+
+    public void lanceAcheteColonie(Jeu jeu) {
+        if (peutAcheterColonie() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        int idCroisement = dialogue.demandeInt(this.getCouleur().getCrayon(), "Choisissez l'emplacement : ");
+        if (!jeu.getAire().isCroisementValidePourUnJoueur(idCroisement, this)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        if (!(jeu.getAire().getCroisements().get(idCroisement).getProprietaire() == null)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        acheteColonie(jeu.getAire(), idCroisement);
+    }
+
+    public void lanceAcheteVille(Jeu jeu) {
+        if (peutAcheterVille() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        int idCroisement = dialogue.demandeInt(this.getCouleur().getCrayon(), "Selectionner une de vos colonies pour la transformer en ville : ");
+        if (!jeu.getAire().isCroisementValidePourUnJoueur(idCroisement, this)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        if (!(jeu.getAire().getCroisements().get(idCroisement).getProprietaire() == this)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        acheteVille(jeu.getAire(), idCroisement);
+    }
+
 
 
 }
