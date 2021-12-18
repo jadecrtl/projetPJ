@@ -4,11 +4,8 @@ import enums.TypeJoueur;
 import utils.Dialogue;
 import utils.TerminalCouleur;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.swing.ActionMap;
 
 import enums.Action;
 import enums.Couleur;
@@ -388,6 +385,9 @@ public class Joueur {
         if (actionChoisie == Action.ROUTE.getIdAction()) {
             lanceAcheteRoute(jeu);
         }
+        if (actionChoisie == Action.COLONIE.getIdAction()) {
+            lanceAcheteColonie(jeu);
+        }
         return false;
     }
 
@@ -453,6 +453,9 @@ public class Joueur {
         if (peutAcheterRoute()) {
             res.add(Action.ROUTE.getIdAction());
         }
+        if (peutAcheterColonie()) {
+            res.add(Action.COLONIE.getIdAction());
+        }
         return res;
     }
 
@@ -487,6 +490,26 @@ public class Joueur {
             return;
         }
         acheteRoute(jeu.getAire(), route);
+    }
+
+    public void lanceAcheteColonie(Jeu jeu) {
+        if (peutAcheterColonie() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        int idCroisement = dialogue.demandeInt(this.getCouleur().getCrayon(), "Choisissez l'emplacement : ");
+        if (!jeu.getAire().isCroisementValidePourUnJoueur(idCroisement, this)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        if (!(jeu.getAire().getCroisements().get(idCroisement).getProprietaire() == null)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        acheteColonie(jeu.getAire(), idCroisement);
     }
 
 }
