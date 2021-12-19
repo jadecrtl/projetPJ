@@ -12,6 +12,7 @@ public class Tuile {
     private List<Integer> croisementsVoisins;
     private Terrain terrain;
     private int jeton;
+    private boolean voleurPresent;
 
     public Tuile(int idTuile) {
         if (idTuile < 0) {
@@ -19,6 +20,15 @@ public class Tuile {
         }
         this.idTuile = idTuile;
         croisementsVoisins = new LinkedList<Integer>();
+        setVoleurPresent(false);
+    }
+
+    public boolean isVoleurPresent() {
+        return voleurPresent;
+    }
+
+    public void setVoleurPresent(boolean voleurPresent) {
+        this.voleurPresent = voleurPresent;
     }
 
     public int getJeton() {

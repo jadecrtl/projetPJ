@@ -192,7 +192,15 @@ public class AireDeJeu {
         //premiere ligne de l'affichage des colonnes
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
             traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
-            terminal.print(fondAireDeJeu.getCrayon(), "          ");
+            terminal.print(fondAireDeJeu.getCrayon(), "  ");
+            if (tuiles.get(idTuile).isVoleurPresent()) {
+                terminal.print(Couleur.JAUNE.getCrayon(), "*");
+            }
+            else {
+                terminal.print(fondAireDeJeu.getCrayon(), " ");                
+            }
+            //terminal.print(fondAireDeJeu.getCrayon(), "          ");
+            terminal.print(fondAireDeJeu.getCrayon(), "       ");
             if (idTuile == depart + horizontale - 1) {
                 traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
@@ -264,6 +272,7 @@ public class AireDeJeu {
         //assignation du desert au milieu
         int idTuileMilieu = ((horizontale * verticale) - 1) / 2;
         tuiles.get(idTuileMilieu).setTerrain(Terrain.DESERT);
+        tuiles.get(idTuileMilieu).setVoleurPresent(true);
 
         //assignation des tuiles sans assigner celle du milieu
         Random r;
