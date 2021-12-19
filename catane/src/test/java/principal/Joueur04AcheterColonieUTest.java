@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.OptionalLong;
 
+import enums.Action;
 import enums.Production;
 import utils.De6Faces;
 
@@ -26,12 +27,13 @@ public class Joueur04AcheterColonieUTest {
         joueurs.add(j1);
         joueurs.add(j2); 
         joueurs.add(j3);
-        jeu = new Jeu(joueurs, 5, 3, de1, de2, OptionalLong.of(123));    
+        jeu = new Jeu(joueurs, 5, 3, de1, de2, OptionalLong.of(123)); 
+        assertThat(j1.getListIdActions()).containsOnly(Action.PASSE.getIdAction());   
         j1.ajouterRessources(2, Production.ARGILE);
         j1.ajouterRessources(1, Production.LAINE);
         j1.ajouterRessources(2, Production.BOIS);
         j1.ajouterRessources(1, Production.BLE);
-        
+        assertThat(j1.getListIdActions()).containsOnly(Action.PASSE.getIdAction(), Action.ROUTE.getIdAction(), Action.COLONIE.getIdAction());           
 
         assertThat(jeu.getAire().getCroisements().get(2).getProprietaire()).isEqualTo(null);        
         assertThat(j1.getPointVictoire()).isEqualTo(0);

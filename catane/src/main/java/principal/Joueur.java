@@ -26,8 +26,8 @@ public class Joueur {
     private int inventaireMinerai;
     private Dialogue dialogue = new Dialogue();
     private TerminalCouleur terminal = new TerminalCouleur();
-    private List<Integer> listIdActions = new LinkedList<>();
-    
+    //private List<Integer> listIdActions = new LinkedList<>();
+
     public Joueur(String nom, int age, TypeJoueur typeJoueur, Couleur couleur) {
         if (nom == null || age == 0 || typeJoueur == null || couleur == null || age < 0) {
             throw new IllegalArgumentException("Erreur lors de la creation du joueur.");
@@ -45,7 +45,42 @@ public class Joueur {
     }
 
     public List<Integer> getListIdActions() {
-        return calculeActions();
+        List<Integer> res = new LinkedList<>();
+        res.add(Action.PASSE.getIdAction());//Il faut qu'on puisse passer notre tour quoi qu'il arrive
+        if (peutAcheterRoute()) {
+            res.add(Action.ROUTE.getIdAction());
+        }
+        if (peutAcheterColonie()) {
+            res.add(Action.COLONIE.getIdAction());
+        }
+        if (peutAcheterVille()) {
+            res.add(Action.VILLE.getIdAction());
+        }
+        if (peutCommerceSansPort()) {
+            res.add(Action.COMMERCESANSPORT.getIdAction());
+        }
+        return res;
+    }
+
+    public List<Integer> getListCommerce() {
+        List<Integer> res = new LinkedList<>();
+        if (getInventaireArgile() >= 4) {
+            res.add(Production.ARGILE.getIdProduction());
+        }
+        if (getInventaireBle() >= 4) {
+            res.add(Production.BLE.getIdProduction());
+        }
+        if (getInventaireBois() >= 4) {
+            res.add(Production.BOIS.getIdProduction());
+        }
+        if (getInventaireLaine() >= 4) {
+            res.add(Production.LAINE.getIdProduction());
+        }
+        if (getInventaireMinerai() >= 4) {
+            res.add(Production.MINERAI.getIdProduction());
+        }
+        res.add(Production.RIEN.getIdProduction());//On peut selectionner rien pour pouvoir annuler la transaction
+        return res;
     }
 
     public int getInventaireMinerai() {
@@ -261,7 +296,7 @@ public class Joueur {
     }
 
     public boolean peutCommerceSansPort() {
-        if (getInventaireArgile() > 3 || getInventaireBle() > 3 || getInventaireBois() > 3 || getInventaireLaine() > 3 || getInventaireMinerai() > 3) {
+        if (getInventaireArgile() >= 4 || getInventaireBle() >= 4 || getInventaireBois() >= 4 || getInventaireLaine() >= 4 || getInventaireMinerai() >= 4) {
             return true;
         }
         else {
@@ -270,7 +305,7 @@ public class Joueur {
     }
 
     public boolean peutCommerceAvecPort() {
-        if (getInventaireArgile() > 2 || getInventaireBle() > 2 || getInventaireBois() > 2 || getInventaireLaine() > 2 || getInventaireMinerai() > 2) {
+        if (getInventaireArgile() >= 3 || getInventaireBle() >= 3 || getInventaireBois() >= 3 || getInventaireLaine() >= 3 || getInventaireMinerai() >= 3) {
             return true;
         }
         else {
@@ -280,7 +315,7 @@ public class Joueur {
 
     public boolean peutCommerceAvecPortSpe(Production production) {
         if (production == Production.BOIS) {
-            if (getInventaireBois() > 1) {
+            if (getInventaireBois() >= 2) {
                 return true;
             }
             else {
@@ -288,7 +323,7 @@ public class Joueur {
             }
         }
         if (production == Production.BLE) {
-            if (getInventaireBle() > 1) {
+            if (getInventaireBle() >= 2) {
                 return true;
             }
             else {
@@ -296,7 +331,7 @@ public class Joueur {
             }
         }
         if (production == Production.MINERAI) {
-            if (getInventaireMinerai() > 1) {
+            if (getInventaireMinerai() >= 2) {
                 return true;
             }
             else {
@@ -304,7 +339,7 @@ public class Joueur {
             }
         }
         if (production == Production.ARGILE) {
-            if (getInventaireArgile() > 1) {
+            if (getInventaireArgile() >= 2) {
                 return true;
             }
             else {
@@ -312,7 +347,7 @@ public class Joueur {
             }
         }
         if (production == Production.LAINE) {
-            if (getInventaireLaine() > 1) {
+            if (getInventaireLaine() >= 2) {
                 return true;
             }
             else {
@@ -413,6 +448,9 @@ public class Joueur {
         if (actionChoisie == Action.VILLE.getIdAction()) {
             lanceAcheteVille(jeu);
         }
+        if (actionChoisie == Action.COMMERCESANSPORT.getIdAction()) {
+            lanceCommerceSansPort(jeu);
+        }
         return false;
     }
 
@@ -472,24 +510,15 @@ public class Joueur {
         }
     }
 
-    public List<Integer> calculeActions() {
-        List<Integer> res = new LinkedList<>();
-        res.add(Action.PASSE.getIdAction());//Il faut qu'on puisse passer notre tour quoi qu'il arrive
-        if (peutAcheterRoute()) {
-            res.add(Action.ROUTE.getIdAction());
-        }
-        if (peutAcheterColonie()) {
-            res.add(Action.COLONIE.getIdAction());
-        }
-        if (peutAcheterVille()) {
-            res.add(Action.VILLE.getIdAction());
-        }
-        return res;
-    }
-
     public void afficheActions() {
         for (int i = 0; i < getListIdActions().size(); i++) {
             terminal.println(this.getCouleur().getCrayon(), Action.getActionParId(getListIdActions().get(i)).getIdAction() + " " + Action.getActionParId(getListIdActions().get(i)).getLabelAction());
+        }
+    }
+
+    public void afficheProduction(List<Integer> productionsAAfficher) {
+        for (int i = 0; i < productionsAAfficher.size(); i++) {
+            terminal.println(this.getCouleur().getCrayon(), Production.getProductionParId(productionsAAfficher.get(i)).getIdProduction() + " " + Production.getProductionParId(productionsAAfficher.get(i)).getLabelProduction());
         }
     }
 
@@ -560,6 +589,47 @@ public class Joueur {
         acheteVille(jeu.getAire(), idCroisement);
     }
 
+    public void lanceCommerceSansPort(Jeu jeu) {
+        if (peutCommerceSansPort() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Il vous faut au moins 4 fois la meme ressource");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        afficheProduction(getListCommerce());
+        int ressourceProposee = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Que voulez-vous echanger ? ", getListCommerce());
+        List<Integer> touteLesIdProductions = new LinkedList<>();
+        touteLesIdProductions.add(0);
+        touteLesIdProductions.add(1);
+        touteLesIdProductions.add(2);
+        touteLesIdProductions.add(3);
+        touteLesIdProductions.add(4);
+        touteLesIdProductions.add(99);
+        afficheProduction(touteLesIdProductions);
+        int ressourceEchangee = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Contre quoi ? ", touteLesIdProductions);
+        if (ressourceEchangee == ressourceProposee) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous ne pouvez pas echanger avec la meme ressource");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        if (ressourceEchangee == Production.RIEN.getIdProduction() || ressourceProposee == Production.RIEN.getIdProduction()) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous ne pouvez pas echanger avec rien");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        faireCommerceSansPort(Production.getProductionParId(ressourceProposee),Production.getProductionParId(ressourceEchangee));
+    }
+
+    public void faireCommerceSansPort(Production ressourceProposee, Production ressourceEchangee) {
+        if (ressourceEchangee == ressourceProposee) {
+            return;
+        }
+        if (ressourceEchangee == Production.RIEN || ressourceProposee == Production.RIEN) {
+            return;
+        }
+        this.enleverRessources(4, ressourceProposee);
+        this.ajouterRessources(1, ressourceEchangee);
+
+    } 
 
 
 }

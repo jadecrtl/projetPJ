@@ -192,7 +192,15 @@ public class AireDeJeu {
         //premiere ligne de l'affichage des colonnes
         for (int idTuile = depart; idTuile < depart + horizontale; idTuile++) {
             traceRouteVerticale(idTuile + numeroLigne, idTuile + horizontale + 1 + numeroLigne);
-            terminal.print(fondAireDeJeu.getCrayon(), "          ");
+            terminal.print(fondAireDeJeu.getCrayon(), "  ");
+            if (tuiles.get(idTuile).isVoleurPresent()) {
+                terminal.print(Couleur.JAUNE.getCrayon(), "*");
+            }
+            else {
+                terminal.print(fondAireDeJeu.getCrayon(), " ");                
+            }
+            //terminal.print(fondAireDeJeu.getCrayon(), "          ");
+            terminal.print(fondAireDeJeu.getCrayon(), "       ");
             if (idTuile == depart + horizontale - 1) {
                 traceRouteVerticale(idTuile + 1 + numeroLigne, idTuile + horizontale + 1 + 1 + numeroLigne);
             }
@@ -264,6 +272,7 @@ public class AireDeJeu {
         //assignation du desert au milieu
         int idTuileMilieu = ((horizontale * verticale) - 1) / 2;
         tuiles.get(idTuileMilieu).setTerrain(Terrain.DESERT);
+        tuiles.get(idTuileMilieu).setVoleurPresent(true);
 
         //assignation des tuiles sans assigner celle du milieu
         Random r;
@@ -377,6 +386,27 @@ public class AireDeJeu {
             }
         }
         return res;
+    }
+
+    public Integer getIdTuileVoleur() {
+        for (int i = 0; i < tuiles.size(); i++) {
+            if (tuiles.get(i).isVoleurPresent()) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Integer getIdTuileParCroisementVoisins(List<Integer> croisementsVoisins) {
+        //Appeler l'utilitaire pour trier la liste des croisements voisins
+        //Ou trier les croisements directement ici
+        for (int i = 0; i < tuiles.size(); i++) {
+            Tuile t = tuiles.get(i);
+            if (t.getCroisementsVoisins().get(0) == croisementsVoisins.get(0) && t.getCroisementsVoisins().get(1) == croisementsVoisins.get(1) && t.getCroisementsVoisins().get(2) == croisementsVoisins.get(2) && t.getCroisementsVoisins().get(3) == croisementsVoisins.get(3)) {
+                return i;
+            }
+        }
+        return null;
     }
 
 }
