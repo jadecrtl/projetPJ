@@ -1,12 +1,7 @@
 package gui.controllers;
-import java.awt.*;
-
 import java.awt.event.*;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import gui.views.AireDeJeuView;
 import gui.views.SubMenuView;

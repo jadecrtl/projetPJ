@@ -2,7 +2,6 @@ package gui.views;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import enums.Couleur;

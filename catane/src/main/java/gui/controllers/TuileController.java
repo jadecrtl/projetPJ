@@ -17,6 +17,7 @@ public class TuileController {
 
     public void croisementPressed() {
         // Do something...
+        System.out.println("Croisement Pressed");
     }
 
     public void jetonPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView) {
@@ -43,21 +44,65 @@ public class TuileController {
         JButton jButton;
         int buttonSize;
         Color color;
+        AireDeJeuView aireDeJeuView;
 
 
-        public Selection(JButton jButton, Color color) {
+        public Selection(JButton jButton, Color color, AireDeJeuView aireDeJeuView) {
             this.jButton = jButton;
             this.color = color;
+            this.aireDeJeuView = aireDeJeuView;
         }
 
         public void mouseEntered(MouseEvent evt) {
+            // 1. Get croisement number which is the text of the button
+            // 2. Loop over all tuilesViews and find a button that has the same value 
+            // 3. apply changes to this same button
+            JButton other_button = new JButton();
+            String croisement = this.jButton.getText();
+            for (TuileView tuileView : aireDeJeuView.getTuiles()) {
+                if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(this.jButton)) {
+                    other_button = tuileView.getTopLeft();
+                }
+                if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(this.jButton)) {
+                    other_button = tuileView.getTopRight();
+                }
+                if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(this.jButton)) {
+                    other_button = tuileView.getBottomLeft();
+
+                }
+                if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(this.jButton)) {
+                    other_button = tuileView.getBottomRight();
+
+                }
+                other_button.setForeground(new Color(249, 65, 68));
+                other_button.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 20));
+            }
+
             this.buttonSize = jButton.getFont().getSize();
             this.jButton.setForeground(new Color(249, 65, 68));
             this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 20));
-
-
         }
         public void mouseExited(MouseEvent evt) {
+            JButton other_button = new JButton();
+            String croisement = this.jButton.getText();
+            for (TuileView tuileView : aireDeJeuView.getTuiles()) {
+                if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(this.jButton)) {
+                    other_button = tuileView.getTopLeft();
+                }
+                if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(this.jButton)) {
+                    other_button = tuileView.getTopRight();
+                }
+                if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(this.jButton)) {
+                    other_button = tuileView.getBottomLeft();
+
+                }
+                if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(this.jButton)) {
+                    other_button = tuileView.getBottomRight();
+
+                }
+                other_button.setForeground(this.color);
+                other_button.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
+            }
             this.jButton.setForeground(this.color);
             this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
         }

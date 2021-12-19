@@ -2,7 +2,6 @@ package gui.views;
 
 import java.awt.*;
 import java.io.File;
-import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;

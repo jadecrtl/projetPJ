@@ -47,20 +47,22 @@ public class TuileView extends JPanel {
     }
 
     private void setCroisements() {
-
+        // TOP LEFT
         this.topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
         this.topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         this.topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
         this.topLeftcroisement.setFont(this.customFont);
         this.topLeftcroisement.setFocusPainted(false); 
 
-        this.topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement, topLeftcroisement.getForeground()));
-       
+        this.topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement, topLeftcroisement.getForeground(), aireDeJeuView));
+        this.topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
+
+
         this.topLeftcroisement.setOpaque(false);
         this.topLeftcroisement.setContentAreaFilled(false);
         this.topLeftcroisement.setBorderPainted(false);
 
-
+        // TOP RIGHT
         this.topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
         this.topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         this.topRightcroisement.setVerticalAlignment(JLabel.NORTH);
@@ -68,27 +70,31 @@ public class TuileView extends JPanel {
         this.topRightcroisement.setFocusPainted(false); 
 
 
-        this.topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement, topRightcroisement.getForeground()));
+        this.topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement, topRightcroisement.getForeground(), aireDeJeuView));
+        this.topRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
+
 
         this.topRightcroisement.setOpaque(false);
         this.topRightcroisement.setContentAreaFilled(false);
         this.topRightcroisement.setBorderPainted(false);
 
-
+        // BOTTOM LEFT
         this.bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
         this.bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
         this.bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
         this.bottomLeftcroisement.setFont(this.customFont);
         this.bottomLeftcroisement.setFocusPainted(false); 
 
-        this.bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement, bottomLeftcroisement.getForeground()));
+        this.bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement, bottomLeftcroisement.getForeground(), aireDeJeuView));
+        this.bottomLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
+
 
         this.bottomLeftcroisement.setOpaque(false);
         this.bottomLeftcroisement.setContentAreaFilled(false);
         this.bottomLeftcroisement.setBorderPainted(false);
 
 
-
+        // BOTTOM RIGHT
         this.bottomRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(3))); // bottomRight Croisement
         this.bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
         this.bottomRightcroisement.setVerticalAlignment(JLabel.BOTTOM);
@@ -96,7 +102,8 @@ public class TuileView extends JPanel {
         this.bottomRightcroisement.setFocusPainted(false); 
 
 
-        this.bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement, bottomRightcroisement.getForeground()));
+        this.bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement, bottomRightcroisement.getForeground(), aireDeJeuView));
+        this.bottomRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
 
 
         this.bottomRightcroisement.setOpaque(false);
@@ -133,7 +140,7 @@ public class TuileView extends JPanel {
         this.jetonLabel.setOpaque(false);
         this.jetonLabel.setContentAreaFilled(false);
         this.jetonLabel.setBorderPainted(false);
-        this.jetonLabel.addMouseListener(this.tuilleController.new Selection(jetonLabel, jetonLabel.getForeground()));
+        // this.jetonLabel.addMouseListener(this.tuilleController.new Selection(jetonLabel, jetonLabel.getForeground(), aireDeJeuView));
         this.jetonLabel.addActionListener((event)-> {this.tuilleController.jetonPressed(jetonLabel, this.aireDeJeuView, this.aireDeJeuView.getSub());});
         this.jetonLabel.setEnabled(false);
 

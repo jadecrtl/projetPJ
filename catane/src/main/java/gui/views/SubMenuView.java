@@ -1,7 +1,6 @@
 package gui.views;
 
 import gui.controllers.SubMenuController;
-import gui.views.TuileView;
 import principal.Joueur;
 import utils.De6Faces;
 import java.awt.*;
@@ -9,7 +8,6 @@ import java.io.File;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 
 public class SubMenuView extends JPanel{
