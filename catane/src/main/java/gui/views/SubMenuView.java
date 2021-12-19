@@ -176,13 +176,15 @@ public class SubMenuView extends JPanel{
 
 
         b1.addMouseListener(this.controller.new Selection(b1, DICE_ICON));
-        b1.addActionListener((event)-> {this.controller.subMenuButtonPressed("DICE");});
+        b1.addActionListener((event)-> {
+            this.controller.subMenuButtonPressed(b1,"DICE", aireDeJeuView, b1.getIcon().getIconWidth(), b1.getIcon().getIconHeight(), DICE_ICON);
+        });
 
 
         b2.addMouseListener(this.controller.new Selection(b2, CANCEL_ICON));
-        b2.addActionListener((event)-> {this.controller.subMenuButtonPressed("CANCEL");});
-
-        // b1.setEnabled(false);
+        b2.addActionListener((event)-> {
+            this.controller.subMenuButtonPressed(b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
+        });
 
 
         this.add(b1);
@@ -193,6 +195,10 @@ public class SubMenuView extends JPanel{
     public void setDeModel(De6Faces de) {
         this.deModel = de;
     } 
+
+    public De6Faces getDe() {
+        return this.deModel;
+    }
 
     public void setController(SubMenuController controller) {
         this.controller = controller;

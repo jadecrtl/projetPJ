@@ -2,7 +2,10 @@ package gui.controllers;
 import java.awt.*;
 
 import java.awt.event.*;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import gui.views.AireDeJeuView;
@@ -11,10 +14,20 @@ import gui.views.TuileView;
 
 public class SubMenuController {
     SubMenuView subMenuView;
-
-    public void subMenuButtonPressed(String type) {
+        
+    public void subMenuButtonPressed(JButton button, String type, AireDeJeuView aireDeJeuView, int iconWidth, int iconHeight, String path){
         if (type.equals("DICE")) {
             System.out.println("Throw dice....");
+
+            if (this.subMenuView != null) {
+                int val = subMenuView.getDe().getValeurDe();
+                int val2 = subMenuView.getDe().getValeurDe();
+                int res = val + val2; 
+                // TODO: hen do something in the game... (ask jade)
+                String numberPath = getNumberIconPath(String.valueOf(res));
+                System.out.println(numberPath);
+                button.setIcon(TuileView.createIcon(numberPath, iconWidth, iconHeight));
+            }
         } else if (type.equals("CANCEL")) {
             System.out.println("Cancel round....");
         }
@@ -65,6 +78,7 @@ public class SubMenuController {
             this.iconHeight = jButton.getIcon().getIconWidth();
             this.iconWidth = jButton.getIcon().getIconHeight();
             this.jButton.setIcon(TuileView.createIcon(this.iconPath, 55, 55));
+
         }
         public void mouseExited(MouseEvent evt) {
             this.jButton.setIcon(TuileView.createIcon(this.iconPath, this.iconWidth, this.iconHeight));
@@ -73,5 +87,49 @@ public class SubMenuController {
 
     public void setView(SubMenuView subMenuView) {
         this.subMenuView = subMenuView;
+    }
+
+    private static String getNumberIconPath(String terrain) {
+        String path = "";
+        switch (terrain) {
+            case ("1"):
+                path =  "catane/src/static/1.png";
+                break;
+            case ("2"):
+                path =  "catane/src/static/2.png";
+                break;
+            case ("3"):
+                path =  "catane/src/static/3.png";
+                break;
+
+            case ("4"):
+                path =  "catane/src/static/4.png";
+                break;
+            case ("5"):
+                path =  "catane/src/static/5.png";
+                break;
+            case ("6"):
+                path =  "catane/src/static/6.png";
+                break;
+            case ("7"):
+                path =  "catane/src/static/7.png";
+                break;
+            case ("8"):
+                path =  "catane/src/static/8.png";
+                break;
+            case ("9"):
+                path =  "catane/src/static/9.png";
+                break;
+            case ("10"):
+                path =  "catane/src/static/10.png";
+                break;
+            case ("11"):
+                path =  "catane/src/static/11.png";
+                break;
+            case ("12"):
+                path =  "catane/src/static/12.png";
+                break;
+        }
+        return path;
     }
 }
