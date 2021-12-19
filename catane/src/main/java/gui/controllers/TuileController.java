@@ -107,6 +107,30 @@ public class TuileController {
             this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
         }
     }
+    public class Selection2 extends MouseAdapter {
+        JButton jButton;
+        int buttonSize;
+        Color color;
+        AireDeJeuView aireDeJeuView;
+
+
+        public Selection2(JButton jButton, Color color, AireDeJeuView aireDeJeuView) {
+            this.jButton = jButton;
+            this.color = color;
+            this.aireDeJeuView = aireDeJeuView;
+        }
+
+        public void mouseEntered(MouseEvent evt) {
+            this.buttonSize = jButton.getFont().getSize();
+            this.jButton.setForeground(new Color(243, 114, 44));
+            this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 25));
+        }
+        public void mouseExited(MouseEvent evt) {
+            this.jButton.setForeground(this.color);
+            this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
+        }
+    }
+
 
     public void setModel(Tuile tuileModel) {
         this.tuileModel = tuileModel;

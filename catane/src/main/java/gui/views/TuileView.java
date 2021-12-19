@@ -140,7 +140,7 @@ public class TuileView extends JPanel {
         this.jetonLabel.setOpaque(false);
         this.jetonLabel.setContentAreaFilled(false);
         this.jetonLabel.setBorderPainted(false);
-        // this.jetonLabel.addMouseListener(this.tuilleController.new Selection(jetonLabel, jetonLabel.getForeground(), aireDeJeuView));
+        this.jetonLabel.addMouseListener(this.tuilleController.new Selection2(jetonLabel, jetonLabel.getForeground(), aireDeJeuView));
         this.jetonLabel.addActionListener((event)-> {this.tuilleController.jetonPressed(jetonLabel, this.aireDeJeuView, this.aireDeJeuView.getSub());});
         this.jetonLabel.setEnabled(false);
 
