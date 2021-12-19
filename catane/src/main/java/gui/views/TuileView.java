@@ -1,11 +1,14 @@
 package gui.views;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.io.File;
 
 import gui.controllers.TuileController;
+import gui.controllers.TuileController.Selection;
+import gui.controllers.TuileController.Selection2;
 import principal.Tuile;
 
 public class TuileView extends JPanel {
@@ -54,8 +57,9 @@ public class TuileView extends JPanel {
         this.topLeftcroisement.setFont(this.customFont);
         this.topLeftcroisement.setFocusPainted(false); 
 
-        this.topLeftcroisement.addMouseListener(this.tuilleController.new Selection(topLeftcroisement, topLeftcroisement.getForeground(), aireDeJeuView));
-        this.topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
+        Selection sel = this.tuilleController.new Selection(topLeftcroisement, topLeftcroisement.getForeground(), aireDeJeuView);
+        this.topLeftcroisement.addMouseListener(sel);
+        this.topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topLeftcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel);});
 
 
         this.topLeftcroisement.setOpaque(false);
@@ -69,9 +73,9 @@ public class TuileView extends JPanel {
         this.topRightcroisement.setFont(this.customFont);
         this.topRightcroisement.setFocusPainted(false); 
 
-
-        this.topRightcroisement.addMouseListener(this.tuilleController.new Selection(topRightcroisement, topRightcroisement.getForeground(), aireDeJeuView));
-        this.topRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
+        Selection sel2 = this.tuilleController.new Selection(topRightcroisement, topRightcroisement.getForeground(), aireDeJeuView);
+        this.topRightcroisement.addMouseListener(sel2);
+        this.topRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topRightcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel2);});
 
 
         this.topRightcroisement.setOpaque(false);
@@ -85,8 +89,10 @@ public class TuileView extends JPanel {
         this.bottomLeftcroisement.setFont(this.customFont);
         this.bottomLeftcroisement.setFocusPainted(false); 
 
-        this.bottomLeftcroisement.addMouseListener(this.tuilleController.new Selection(bottomLeftcroisement, bottomLeftcroisement.getForeground(), aireDeJeuView));
-        this.bottomLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
+
+        Selection sel3 = this.tuilleController.new Selection(bottomLeftcroisement, bottomLeftcroisement.getForeground(), aireDeJeuView);
+        this.bottomLeftcroisement.addMouseListener(sel3);
+        this.bottomLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(bottomLeftcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel3);});
 
 
         this.bottomLeftcroisement.setOpaque(false);
@@ -101,14 +107,20 @@ public class TuileView extends JPanel {
         this.bottomRightcroisement.setFont(this.customFont);
         this.bottomRightcroisement.setFocusPainted(false); 
 
-
-        this.bottomRightcroisement.addMouseListener(this.tuilleController.new Selection(bottomRightcroisement, bottomRightcroisement.getForeground(), aireDeJeuView));
-        this.bottomRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed();});
+        Selection sel4 = this.tuilleController.new Selection(bottomRightcroisement, bottomRightcroisement.getForeground(), aireDeJeuView);
+        this.bottomRightcroisement.addMouseListener(sel4);
+        this.bottomRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(bottomRightcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel4);});
 
 
         this.bottomRightcroisement.setOpaque(false);
         this.bottomRightcroisement.setContentAreaFilled(false);
         this.bottomRightcroisement.setBorderPainted(false);
+
+
+        this.topRightcroisement.setEnabled(false);
+        this.topLeftcroisement.setEnabled(false);
+        this.bottomLeftcroisement.setEnabled(false);
+        this.bottomRightcroisement.setEnabled(false);
 
     }
 
@@ -140,8 +152,10 @@ public class TuileView extends JPanel {
         this.jetonLabel.setOpaque(false);
         this.jetonLabel.setContentAreaFilled(false);
         this.jetonLabel.setBorderPainted(false);
-        this.jetonLabel.addMouseListener(this.tuilleController.new Selection2(jetonLabel, jetonLabel.getForeground(), aireDeJeuView));
-        this.jetonLabel.addActionListener((event)-> {this.tuilleController.jetonPressed(jetonLabel, this.aireDeJeuView, this.aireDeJeuView.getSub());});
+        Selection2 jetonListener = this.tuilleController.new Selection2(jetonLabel, jetonLabel.getForeground(), aireDeJeuView);
+
+        this.jetonLabel.addMouseListener(jetonListener);
+        this.jetonLabel.addActionListener((event)-> {this.tuilleController.jetonPressed(jetonLabel, this.aireDeJeuView, this.aireDeJeuView.getSub(), jetonListener);});
         this.jetonLabel.setEnabled(false);
 
         try {
@@ -164,6 +178,7 @@ public class TuileView extends JPanel {
         this.tuileModel = tuileModel;
         this.setLayout(tuileLayout);
         int padding = 5;
+        // this.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.red));
 		this.setBorder(new EmptyBorder(padding, 0, 0, 0));
         setNewFont();
         setTextAndPosition();
@@ -226,6 +241,17 @@ public class TuileView extends JPanel {
         // scenario 1 : nothing changed here
         // scenario 2 : now there is robber -> add jeton with robber icon
         // scenario 3 : now there is no longer robber -> add normal jeton
+
+    }
+
+
+    public void updateCroisementView(String typeOfAction) {
+        // Called by controller 
+        // Ask this tuile to check if there is a village / city 
+        // update icon on croisment according to model 
+        // scenario 1 : nothing changed here
+        // scenario 2 : now there is croisement -> add croisement with number icon
+        // scenario 3 : now there is no longer croisement? -> add normal croisement?
 
     }
     public JButton getTopLeft() {

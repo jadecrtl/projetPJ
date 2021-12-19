@@ -3,6 +3,7 @@ import java.awt.*;
 
 import javax.swing.JButton;
 import java.awt.event.*;
+import java.nio.channels.SelectableChannel;
 
 import gui.views.AireDeJeuView;
 import gui.views.SubMenuView;
@@ -13,14 +14,55 @@ public class TuileController {
     Tuile tuileModel;
     TuileView tuileView;
     JButton previousJeton;
+    public static String typeOfActionCroisement; // City; Village or Route
     
 
-    public void croisementPressed() {
-        // Do something...
-        System.out.println("Croisement Pressed");
+    public void croisementPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView, Selection selection) {
+        if (typeOfActionCroisement.equals("CITY") || typeOfActionCroisement.equals("VILLAGE")) {
+            //  TODO: Insert City if possible in this Tuile (Call model and insert robber if possible)
+            // TODO: Tell tuile to check model if has a city and update the croisement with either a city icon or the number
+            System.out.println("Croisement Pressed");
+            subMenuView.city.setEnabled(true);
+            subMenuView.route.setEnabled(true);
+            subMenuView.village.setEnabled(true);
+            subMenuView.b1.setEnabled(true);
+            subMenuView.b2.setEnabled(true);
+            subMenuView.robber.setEnabled(true);
+
+            JButton other_button = new JButton();
+            String croisement = jbutton.getText();
+
+            for (TuileView tuileView : aireDeJeuView.getTuiles()) {
+                if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
+                    other_button = tuileView.getTopLeft();
+                }
+                if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(jbutton)) {
+                    other_button = tuileView.getTopRight();
+                }
+                if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(jbutton)) {
+                    other_button = tuileView.getBottomLeft();
+
+                }
+                if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(jbutton)) {
+                    other_button = tuileView.getBottomRight();
+
+                }
+                other_button.removeMouseListener(selection);
+                jbutton.removeMouseListener(selection);
+            }
+
+            for (TuileView tuile : aireDeJeuView.getTuiles()) {
+                tuile.getTopLeft().setEnabled(false);
+                tuile.getTopRight().setEnabled(false);
+                tuile.getBottomLeft().setEnabled(false);
+                tuile.getBottomRight().setEnabled(false);
+
+                tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
+            }
+        }
     }
 
-    public void jetonPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView) {
+    public void jetonPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView, Selection2 selection) {
         //  TODO: Insert Robber if possible in this Tuile (Call model and insert robber if possible)
         // TODO: Tell tuile to check model if has a robber and update the jeton with either a robber or the number
         subMenuView.city.setEnabled(true);
@@ -29,11 +71,13 @@ public class TuileController {
         subMenuView.b1.setEnabled(true);
         subMenuView.b2.setEnabled(true);
 
+        jbutton.removeMouseListener(selection);
+
         for (TuileView tuile : aireDeJeuView.getTuiles()) {
-            tuile.getTopLeft().setEnabled(true);
-            tuile.getTopRight().setEnabled(true);
-            tuile.getBottomLeft().setEnabled(true);
-            tuile.getBottomRight().setEnabled(true);
+            // tuile.getTopLeft().setEnabled(true);
+            // tuile.getTopRight().setEnabled(true);
+            // tuile.getBottomLeft().setEnabled(true);
+            // tuile.getBottomRight().setEnabled(true);
             tuile.getJetonButton().setEnabled(false);
 
             tuile.updateJetonView(); // Ask view to look into model and update the value of the "jeton" with or without robber.
@@ -140,5 +184,8 @@ public class TuileController {
         this.tuileView = tuileView;
     }
 
+    public static void settypeOfActionCroisement(String type) {
+        typeOfActionCroisement = type;// City; Village or Route
+    } 
 
 }

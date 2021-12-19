@@ -1,6 +1,7 @@
 package gui.views;
 
 import gui.controllers.SubMenuController;
+import gui.controllers.SubMenuController.Selection;
 import principal.Joueur;
 import utils.De6Faces;
 import java.awt.*;
@@ -128,8 +129,6 @@ public class SubMenuView extends JPanel{
 
         panel.add(label);
 
-        
-
         city.setFont(this.customFont);
         village.setFont(this.customFont);
         route.setFont(this.customFont);
@@ -140,8 +139,8 @@ public class SubMenuView extends JPanel{
         route.setFocusPainted(false);
         robber.setFocusPainted(false);
 
-        city.addActionListener((event)-> {this.controller.addCityPressed();});
-        village.addActionListener((event)-> {this.controller.addVillagePressed();});
+        city.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "CITY");});
+        village.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "VILLAGE");});
         route.addActionListener((event)-> {this.controller.addRoutePressed();});
         robber.addActionListener((event)-> {this.controller.addRobberPressed(aireDeJeuView);});
 
@@ -172,14 +171,14 @@ public class SubMenuView extends JPanel{
         setNewFont();
         this.add(createMenuPanel());
 
-
-        b1.addMouseListener(this.controller.new Selection(b1, DICE_ICON));
+        Selection sel =  this.controller.new Selection(b1, DICE_ICON);
+        b1.addMouseListener(sel);
         b1.addActionListener((event)-> {
             this.controller.subMenuButtonPressed(b1,"DICE", aireDeJeuView, b1.getIcon().getIconWidth(), b1.getIcon().getIconHeight(), DICE_ICON);
         });
 
-
-        b2.addMouseListener(this.controller.new Selection(b2, CANCEL_ICON));
+        Selection sel2 =  this.controller.new Selection(b2, CANCEL_ICON);
+        b2.addMouseListener(sel2);
         b2.addActionListener((event)-> {
             this.controller.subMenuButtonPressed(b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
         });
