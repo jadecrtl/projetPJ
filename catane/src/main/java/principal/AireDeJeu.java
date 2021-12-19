@@ -388,4 +388,25 @@ public class AireDeJeu {
         return res;
     }
 
+    public Integer getIdTuileVoleur() {
+        for (int i = 0; i < tuiles.size(); i++) {
+            if (tuiles.get(i).isVoleurPresent()) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Integer getIdTuileParCroisementVoisins(List<Integer> croisementsVoisins) {
+        //Appeler l'utilitaire pour trier la liste des croisements voisins
+        //Ou trier les croisements directement ici
+        for (int i = 0; i < tuiles.size(); i++) {
+            Tuile t = tuiles.get(i);
+            if (t.getCroisementsVoisins().get(0) == croisementsVoisins.get(0) && t.getCroisementsVoisins().get(1) == croisementsVoisins.get(1) && t.getCroisementsVoisins().get(2) == croisementsVoisins.get(2) && t.getCroisementsVoisins().get(3) == croisementsVoisins.get(3)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
 }
