@@ -15,18 +15,32 @@ import utils.De6Faces;
 public class Window extends JFrame{
     static final String TITLE = "Palette";
     static final int WIDTH = 1100;
-    static final int HEIGHT = 800;
+    static final int HEIGHT = 750;
 
     public Window() {
+
         this.setMinimumSize(new Dimension(WIDTH, HEIGHT));
         this.getContentPane().setLayout(new BorderLayout());
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
-	
+        // Initialiaze GUI  
         openBoard();
 
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void openHomePage() {
+        // This will quick start as the landing page 
+        // User clicks either play or quit
+        // If play, this method calls openGameForm
+    }
+
+    public void openGameForm() {
+        // This method renders the form and get all the data from from and intialize the game
+        // Send all data inside a class like Game to OpenBoard 
+        // e.g. Game game = new Game(form.data);
+        // e.g.  openBoard(game)
     }
 
     public void openBoard() {
@@ -40,48 +54,57 @@ public class Window extends JFrame{
         AireDeJeuView aireDeJeuView = new AireDeJeuView();
         SubMenuView subMenuView = new SubMenuView();
         PlayerHeaderView playerHeaderView = new PlayerHeaderView();
+        JPanel widerPanel = new JPanel();
+        JPanel menuHolderView = new JPanel();
+
 
         // Controllers
         AireDeJeuController aireDeJeuController = new AireDeJeuController();
         SubMenuController subMenuController = new SubMenuController();
 
-        // Setters
+        // BoardView Setters
         boardView.setBackground(new Color(39, 125, 161));
-        
+
+        // SubMenuView Setters
         subMenuView.setController(subMenuController);
         subMenuView.setJoueurModel(joueur);
         subMenuView.setDeModel(de);
         subMenuView.setAireDeJeuView(aireDeJeuView);
 
+        // aireDeJeuView Setters
         aireDeJeuView.setModel(aireDeJeuModel);
         aireDeJeuView.setControleur(aireDeJeuController);
-
         aireDeJeuView.setSubMenu(subMenuView);
 
+        // aireDeJeuController Setters
         aireDeJeuController.setModel(aireDeJeuModel);
         aireDeJeuController.setView(aireDeJeuView);
 
+        // subMenuController Setters
         subMenuController.setView(subMenuView);
 
-        // Add content to inside Panels
-        JPanel testPanel = new JPanel();
-        testPanel.setLayout(new BorderLayout());
-        testPanel.add(aireDeJeuView, BorderLayout.CENTER);
-        testPanel.setBorder(new EmptyBorder(0, 100, 0, 100));
-        testPanel.setOpaque(false);
+        // Add content to widerPanel
+        widerPanel.setLayout(new BorderLayout());
+        widerPanel.add(aireDeJeuView, BorderLayout.CENTER);
+        widerPanel.setBorder(new EmptyBorder(0, 100, 0, 100));
+        widerPanel.setOpaque(false);
 
-        boardView.add(testPanel, BorderLayout.CENTER);
-        boardView.add(playerHeaderView, BorderLayout.NORTH);
-
-        JPanel menuHolderView = new JPanel();// FIXME
+      
+        // Add content to menuHomderView
         menuHolderView.setLayout(new BorderLayout());
         menuHolderView.add(subMenuView, BorderLayout.CENTER);
+
+        //  Add content to boardView
+        boardView.add(widerPanel, BorderLayout.CENTER);
+        boardView.add(playerHeaderView, BorderLayout.NORTH);
         boardView.add(menuHolderView, BorderLayout.SOUTH);
 
+        // Set Frame (window) padding
         int padding = 15;
 		((JComponent) this.getContentPane()).setBorder(new EmptyBorder(padding, padding, padding, padding));
-        this.getContentPane().setBackground(new Color(39, 125, 161)); // FIXME
 
+        // 1. Set background -> 2. Clear Panels -> 3. Add BoardView -> 4. Revalidate and Repaint
+        this.getContentPane().setBackground(new Color(39, 125, 161));
 		this.getContentPane().removeAll();
 		this.getContentPane().add(boardView, BorderLayout.CENTER);
 		this.revalidate();
