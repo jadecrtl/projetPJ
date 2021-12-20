@@ -15,9 +15,11 @@ public class TuileController {
     TuileView tuileView;
     JButton previousJeton;
     public static String typeOfActionCroisement; // City; Village or Route
+    public static int clickCounter = 0;
     
 
     public void croisementPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView, Selection selection) {
+        // TODO: Before doing any insertion, verify with model methods if this spot is allow to be inserted such element
         if (typeOfActionCroisement.equals("CITY") || typeOfActionCroisement.equals("VILLAGE")) {
             //  TODO: Insert City if possible in this Tuile (Call model and insert robber if possible)
             // TODO: Tell tuile to check model if has a city and update the croisement with either a city icon or the number
@@ -58,6 +60,70 @@ public class TuileController {
                 tuile.getBottomRight().setEnabled(false);
 
                 tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
+            }
+        } else if (typeOfActionCroisement.equals("ROUTE")) {
+            // TODO: Before doing any insertion, verify with model methods if this spot is allow to be inserted such element
+            System.out.println("Route....!");
+            int value = TuileController.clickCounter;
+            if (value == 0) {
+                // First time clicking
+
+                JButton other_button = new JButton();
+                String croisement = jbutton.getText();
+                for (TuileView tuileView : aireDeJeuView.getTuiles()) {
+                    if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
+                        other_button = tuileView.getTopLeft();
+                    }
+                    if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(jbutton)) {
+                        other_button = tuileView.getTopRight();
+                    }
+                    if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(jbutton)) {
+                        other_button = tuileView.getBottomLeft();
+                    }
+                    if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(jbutton)) {
+                        other_button = tuileView.getBottomRight();
+                    }
+                    other_button.removeMouseListener(selection);
+                    jbutton.removeMouseListener(selection);
+                    }
+                TuileController.increaseClickCounter();
+            }
+            else if (value == 1) {
+                // Clicking for the second time
+                JButton other_button = new JButton();
+                String croisement = jbutton.getText();
+                for (TuileView tuileView : aireDeJeuView.getTuiles()) {
+                    if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
+                        other_button = tuileView.getTopLeft();
+                    }
+                    if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(jbutton)) {
+                        other_button = tuileView.getTopRight();
+                    }
+                    if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(jbutton)) {
+                        other_button = tuileView.getBottomLeft();
+                    }
+                    if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(jbutton)) {
+                        other_button = tuileView.getBottomRight();
+                    }
+                    other_button.removeMouseListener(selection);
+                    jbutton.removeMouseListener(selection);
+                }
+                
+                TuileController.resetClickCounter();
+                subMenuView.city.setEnabled(true);
+                subMenuView.route.setEnabled(true);
+                subMenuView.village.setEnabled(true);
+                subMenuView.b1.setEnabled(true);
+                subMenuView.b2.setEnabled(true);
+                subMenuView.robber.setEnabled(true);
+
+                for (TuileView tuile : aireDeJeuView.getTuiles()) {
+                    tuile.getTopLeft().setEnabled(false);
+                    tuile.getTopRight().setEnabled(false);
+                    tuile.getBottomLeft().setEnabled(false);
+                    tuile.getBottomRight().setEnabled(false);
+                    tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
+                }
             }
         }
     }
@@ -186,6 +252,14 @@ public class TuileController {
 
     public static void settypeOfActionCroisement(String type) {
         typeOfActionCroisement = type;// City; Village or Route
+    } 
+
+    public static void increaseClickCounter() {
+        TuileController.clickCounter++;
+    } 
+
+    public static void resetClickCounter() {
+        TuileController.clickCounter = 0;
     } 
 
 }

@@ -30,10 +30,10 @@ public class SubMenuController {
 
     public void addCityOrVillagePressed(AireDeJeuView aireDeJeuView, String type) {
         TuileController.settypeOfActionCroisement(type);
-
         this.subMenuView.robber.setEnabled(false);
         this.subMenuView.route.setEnabled(false);
         this.subMenuView.village.setEnabled(false);
+        this.subMenuView.city.setEnabled(false);
         this.subMenuView.b1.setEnabled(false);
         this.subMenuView.b2.setEnabled(false);
 
@@ -45,8 +45,23 @@ public class SubMenuController {
         }
     }
 
-    public void addRoutePressed() {
-        System.out.println("Route added...");
+    public void addRoutePressed(AireDeJeuView aireDeJeuView, String type) {
+        // System.out.println("Route added...");
+        TuileController.settypeOfActionCroisement(type);
+
+        this.subMenuView.robber.setEnabled(false);
+        this.subMenuView.route.setEnabled(false);
+        this.subMenuView.village.setEnabled(false);
+        this.subMenuView.city.setEnabled(false);
+        this.subMenuView.b1.setEnabled(false);
+        this.subMenuView.b2.setEnabled(false);
+
+        for (TuileView tuile : aireDeJeuView.getTuiles()) {
+            tuile.getTopLeft().setEnabled(true);
+            tuile.getTopRight().setEnabled(true);
+            tuile.getBottomLeft().setEnabled(true);
+            tuile.getBottomRight().setEnabled(true);
+        }
 
     }
 

@@ -141,7 +141,7 @@ public class SubMenuView extends JPanel{
 
         city.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "CITY");});
         village.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "VILLAGE");});
-        route.addActionListener((event)-> {this.controller.addRoutePressed();});
+        route.addActionListener((event)-> {this.controller.addRoutePressed(aireDeJeuView, "ROUTE");});
         robber.addActionListener((event)-> {this.controller.addRobberPressed(aireDeJeuView);});
 
         panel.add(city);
