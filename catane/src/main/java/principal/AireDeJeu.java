@@ -10,6 +10,7 @@ import enums.Terrain;
 import enums.TypeCroisement;
 import utils.TerminalCouleur;
 import utils.TirageJeton;
+import utils.TriListe;
 
 public class AireDeJeu {
     public static final int HORIZONTALEMIN = 5;
@@ -398,8 +399,7 @@ public class AireDeJeu {
     }
 
     public Integer getIdTuileParCroisementVoisins(List<Integer> croisementsVoisins) {
-        //Appeler l'utilitaire pour trier la liste des croisements voisins
-        //Ou trier les croisements directement ici
+        TriListe.triCroissant(croisementsVoisins);
         for (int i = 0; i < tuiles.size(); i++) {
             Tuile t = tuiles.get(i);
             if (t.getCroisementsVoisins().get(0) == croisementsVoisins.get(0) && t.getCroisementsVoisins().get(1) == croisementsVoisins.get(1) && t.getCroisementsVoisins().get(2) == croisementsVoisins.get(2) && t.getCroisementsVoisins().get(3) == croisementsVoisins.get(3)) {
