@@ -2,10 +2,12 @@ package principal;
 import java.util.List;
 import java.util.OptionalLong;
 
+
 import enums.Production;
 import enums.Terrain;
 import enums.TypeCroisement;
 import utils.De6Faces;
+import utils.Dialogue;
 import utils.TerminalCouleur;
 
 public class Jeu {
@@ -18,7 +20,7 @@ public class Jeu {
     public static final int JOUEURSMIN = 3;
     public static final int JOUEURSMAX = 4;
     private TerminalCouleur terminal = new TerminalCouleur();
-
+    private Dialogue dialogue = new Dialogue();
 
     public Jeu(List<Joueur> joueurs, int horizontale, int verticale, De6Faces de1, De6Faces de2, OptionalLong graine){
         if (joueurs == null) {
@@ -64,7 +66,10 @@ public class Jeu {
             terminal.effaceEcran();
             aire.traceAireDeJeu();
             afficheInventaireJoueur();
-            assigneRessourceTirageDes(getLancementDes());
+            int resultatDesDes = getLancementDes();
+            terminal.println(joueurs.get(joueurActif).getCouleur().getCrayon(), "Vous avez fait " + resultatDesDes + " aux des");
+            dialogue.appuyerSurEntree();
+            assigneRessourceTirageDes(resultatDesDes);
             joueurs.get(joueurActif).joue(this);
             joueurActif++;
             if (joueurActif == joueurs.size()) {

@@ -26,7 +26,6 @@ public class Joueur {
     private int inventaireMinerai;
     private Dialogue dialogue = new Dialogue();
     private TerminalCouleur terminal = new TerminalCouleur();
-    //private List<Integer> listIdActions = new LinkedList<>();
 
     public Joueur(String nom, int age, TypeJoueur typeJoueur, Couleur couleur) {
         if (nom == null || age == 0 || typeJoueur == null || couleur == null || age < 0) {
