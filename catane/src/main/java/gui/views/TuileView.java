@@ -1,6 +1,5 @@
 package gui.views;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
@@ -14,7 +13,6 @@ import principal.Tuile;
 public class TuileView extends JPanel {
 
     public AireDeJeuView aireDeJeuView;
-
     private Tuile tuileModel;
     private TuileController tuilleController;
 
@@ -27,16 +25,28 @@ public class TuileView extends JPanel {
     private JButton bottomRightcroisement = new JButton();
 
     private GridLayout tuileLayout = new GridLayout(0, 3);
-
     private Font customFont;
 
 
-    public void setAireDeJeu(AireDeJeuView air) {
-        this.aireDeJeuView = air;
+    public void updateJetonView() {
+        // Called by controller 
+        // Ask this tuile to check if there is robber
+        // update icon on jeton according to model 
+        // scenario 1 : nothing changed here
+        // scenario 2 : now there is robber -> add jeton with robber icon
+        // scenario 3 : now there is no longer robber -> add normal jeton
+
     }
 
-    public AireDeJeuView getAir() {
-        return this.aireDeJeuView;
+
+    public void updateCroisementView(String typeOfAction) {
+        // Called by controller 
+        // Ask this tuile to check if there is a village / city 
+        // update icon on croisment according to model 
+        // scenario 1 : nothing changed here
+        // scenario 2 : now there is croisement -> add croisement with number icon
+        // scenario 3 : now there is no longer croisement? -> add normal croisement?
+
     }
     
     private void addComponents() {
@@ -50,56 +60,14 @@ public class TuileView extends JPanel {
     }
 
     private void setCroisements() {
-        // TOP LEFT
-        this.topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
-        this.topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
-        this.topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
-        this.topLeftcroisement.setFont(this.customFont);
-        this.topLeftcroisement.setFocusPainted(false); 
+        setTopLeftCroisement();
+        setTopRightCroisement();
+        setBottomLeftCroisement();
+        setBottomRightCroisement();
 
-        Selection sel = this.tuilleController.new Selection(topLeftcroisement, topLeftcroisement.getForeground(), aireDeJeuView);
-        this.topLeftcroisement.addMouseListener(sel);
-        this.topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topLeftcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel);});
+    }
 
-
-        this.topLeftcroisement.setOpaque(false);
-        this.topLeftcroisement.setContentAreaFilled(false);
-        this.topLeftcroisement.setBorderPainted(false);
-
-        // TOP RIGHT
-        this.topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
-        this.topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
-        this.topRightcroisement.setVerticalAlignment(JLabel.NORTH);
-        this.topRightcroisement.setFont(this.customFont);
-        this.topRightcroisement.setFocusPainted(false); 
-
-        Selection sel2 = this.tuilleController.new Selection(topRightcroisement, topRightcroisement.getForeground(), aireDeJeuView);
-        this.topRightcroisement.addMouseListener(sel2);
-        this.topRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topRightcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel2);});
-
-
-        this.topRightcroisement.setOpaque(false);
-        this.topRightcroisement.setContentAreaFilled(false);
-        this.topRightcroisement.setBorderPainted(false);
-
-        // BOTTOM LEFT
-        this.bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
-        this.bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
-        this.bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
-        this.bottomLeftcroisement.setFont(this.customFont);
-        this.bottomLeftcroisement.setFocusPainted(false); 
-
-
-        Selection sel3 = this.tuilleController.new Selection(bottomLeftcroisement, bottomLeftcroisement.getForeground(), aireDeJeuView);
-        this.bottomLeftcroisement.addMouseListener(sel3);
-        this.bottomLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(bottomLeftcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel3);});
-
-
-        this.bottomLeftcroisement.setOpaque(false);
-        this.bottomLeftcroisement.setContentAreaFilled(false);
-        this.bottomLeftcroisement.setBorderPainted(false);
-
-
+    private void setBottomRightCroisement() {
         // BOTTOM RIGHT
         this.bottomRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(3))); // bottomRight Croisement
         this.bottomRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
@@ -121,22 +89,69 @@ public class TuileView extends JPanel {
         this.topLeftcroisement.setEnabled(false);
         this.bottomLeftcroisement.setEnabled(false);
         this.bottomRightcroisement.setEnabled(false);
-
     }
 
-    public void setNewFont() {
-        try {
 
-            this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("catane/src/static/Poppins-Medium.ttf")).deriveFont(13f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
 
-        } catch (Exception e) {
+    private void setBottomLeftCroisement() {
+        // BOTTOM LEFT
+        this.bottomLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(2)));  // bottomLeft Croisement
+        this.bottomLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
+        this.bottomLeftcroisement.setVerticalAlignment(JLabel.BOTTOM);
+        this.bottomLeftcroisement.setFont(this.customFont);
+        this.bottomLeftcroisement.setFocusPainted(false); 
 
-            this.customFont = new Font(Font.SERIF, Font.PLAIN,  10);
-        }
-       
+
+        Selection sel3 = this.tuilleController.new Selection(bottomLeftcroisement, bottomLeftcroisement.getForeground(), aireDeJeuView);
+        this.bottomLeftcroisement.addMouseListener(sel3);
+        this.bottomLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(bottomLeftcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel3);});
+
+
+        this.bottomLeftcroisement.setOpaque(false);
+        this.bottomLeftcroisement.setContentAreaFilled(false);
+        this.bottomLeftcroisement.setBorderPainted(false);
     }
+
+
+
+    private void setTopRightCroisement() {
+        // TOP RIGHT
+        this.topRightcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(1))); // topRight Croisement
+        this.topRightcroisement.setHorizontalAlignment(JLabel.RIGHT);
+        this.topRightcroisement.setVerticalAlignment(JLabel.NORTH);
+        this.topRightcroisement.setFont(this.customFont);
+        this.topRightcroisement.setFocusPainted(false); 
+
+        Selection sel2 = this.tuilleController.new Selection(topRightcroisement, topRightcroisement.getForeground(), aireDeJeuView);
+        this.topRightcroisement.addMouseListener(sel2);
+        this.topRightcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topRightcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel2);});
+
+
+        this.topRightcroisement.setOpaque(false);
+        this.topRightcroisement.setContentAreaFilled(false);
+        this.topRightcroisement.setBorderPainted(false);
+    }
+
+
+
+    private void setTopLeftCroisement() {
+        // TOP LEFT
+        this.topLeftcroisement.setText(String.valueOf(tuileModel.getCroisementsVoisins().get(0))); // topLeft Croisement
+        this.topLeftcroisement.setHorizontalAlignment(JLabel.LEFT);
+        this.topLeftcroisement.setVerticalAlignment(JLabel.NORTH);
+        this.topLeftcroisement.setFont(this.customFont);
+        this.topLeftcroisement.setFocusPainted(false); 
+
+        Selection sel = this.tuilleController.new Selection(topLeftcroisement, topLeftcroisement.getForeground(), aireDeJeuView);
+        this.topLeftcroisement.addMouseListener(sel);
+        this.topLeftcroisement.addActionListener((event)-> {this.tuilleController.croisementPressed(topLeftcroisement, aireDeJeuView, aireDeJeuView.subMenuView, sel);});
+
+
+        this.topLeftcroisement.setOpaque(false);
+        this.topLeftcroisement.setContentAreaFilled(false);
+        this.topLeftcroisement.setBorderPainted(false);
+    }
+
 
     private void setTextAndPosition() {
         /*
@@ -173,12 +188,19 @@ public class TuileView extends JPanel {
 
     }
 
+    public void setAireDeJeu(AireDeJeuView air) {
+        this.aireDeJeuView = air;
+    }
+
+    public void setControleur(TuileController tuilesController) {
+        this.tuilleController = tuilesController;
+    }
+
     public void setModel(Tuile tuileModel) {
 
         this.tuileModel = tuileModel;
         this.setLayout(tuileLayout);
         int padding = 5;
-        // this.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.red));
 		this.setBorder(new EmptyBorder(padding, 0, 0, 0));
         setNewFont();
         setTextAndPosition();
@@ -186,18 +208,19 @@ public class TuileView extends JPanel {
         addComponents();
     }
     
-    public void setControleur(TuileController tuilesController) {
-        this.tuilleController = tuilesController;
-    }
 
-    public Tuile getModel() {
-        return this.tuileModel;
-    }
-    public TuileController getController() {
-        return this.tuilleController;
-    }
-    public Font getCustomFont() {
-        return this.customFont;
+    public void setNewFont() {
+        try {
+
+            this.customFont = Font.createFont(Font.TRUETYPE_FONT, new File("catane/src/static/Poppins-Medium.ttf")).deriveFont(13f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+
+        } catch (Exception e) {
+
+            this.customFont = new Font(Font.SERIF, Font.PLAIN,  10);
+        }
+       
     }
 
     public static Icon createIcon(String icon_path, int x, int y) {
@@ -234,26 +257,7 @@ public class TuileView extends JPanel {
         return path;
     }
 
-    public void updateJetonView() {
-        // Called by controller 
-        // Ask this tuile to check if there is robber
-        // update icon on jeton according to model 
-        // scenario 1 : nothing changed here
-        // scenario 2 : now there is robber -> add jeton with robber icon
-        // scenario 3 : now there is no longer robber -> add normal jeton
 
-    }
-
-
-    public void updateCroisementView(String typeOfAction) {
-        // Called by controller 
-        // Ask this tuile to check if there is a village / city 
-        // update icon on croisment according to model 
-        // scenario 1 : nothing changed here
-        // scenario 2 : now there is croisement -> add croisement with number icon
-        // scenario 3 : now there is no longer croisement? -> add normal croisement?
-
-    }
     public JButton getTopLeft() {
         return this.topLeftcroisement;
     }
@@ -269,4 +273,18 @@ public class TuileView extends JPanel {
     public JButton getJetonButton() {
         return this.jetonLabel;
     }
+    public AireDeJeuView getAir() {
+        return this.aireDeJeuView;
+    }
+
+    public Tuile getModel() {
+        return this.tuileModel;
+    }
+    public TuileController getController() {
+        return this.tuilleController;
+    }
+    public Font getCustomFont() {
+        return this.customFont;
+    }
+    
 }

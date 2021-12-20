@@ -3,7 +3,6 @@ import java.awt.*;
 
 import javax.swing.JButton;
 import java.awt.event.*;
-import java.nio.channels.SelectableChannel;
 
 import gui.views.AireDeJeuView;
 import gui.views.SubMenuView;
@@ -140,15 +139,30 @@ public class TuileController {
         jbutton.removeMouseListener(selection);
 
         for (TuileView tuile : aireDeJeuView.getTuiles()) {
-            // tuile.getTopLeft().setEnabled(true);
-            // tuile.getTopRight().setEnabled(true);
-            // tuile.getBottomLeft().setEnabled(true);
-            // tuile.getBottomRight().setEnabled(true);
             tuile.getJetonButton().setEnabled(false);
 
             tuile.updateJetonView(); // Ask view to look into model and update the value of the "jeton" with or without robber.
         }
     }
+    public void setModel(Tuile tuileModel) {
+        this.tuileModel = tuileModel;
+    }
+
+    public void setView(TuileView tuileView) {
+        this.tuileView = tuileView;
+    }
+
+    public static void settypeOfActionCroisement(String type) {
+        typeOfActionCroisement = type;// City; Village or Route
+    } 
+
+    public static void increaseClickCounter() {
+        TuileController.clickCounter++;
+    } 
+
+    public static void resetClickCounter() {
+        TuileController.clickCounter = 0;
+    } 
 
     public class Selection extends MouseAdapter {
         JButton jButton;
@@ -199,14 +213,14 @@ public class TuileController {
                 if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(this.jButton)) {
                     other_button = tuileView.getTopLeft();
                 }
-                if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(this.jButton)) {
+                if(tuileView.getTopRight().getText().equals(croisement) && !tuileView.getTopRight().equals(this.jButton)) {
                     other_button = tuileView.getTopRight();
                 }
-                if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(this.jButton)) {
+                if(tuileView.getBottomLeft().getText().equals(croisement) && !tuileView.getBottomLeft().equals(this.jButton)) {
                     other_button = tuileView.getBottomLeft();
 
                 }
-                if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(this.jButton)) {
+                if(tuileView.getBottomRight().getText().equals(croisement) && !tuileView.getBottomRight().equals(this.jButton)) {
                     other_button = tuileView.getBottomRight();
 
                 }
@@ -240,26 +254,4 @@ public class TuileController {
             this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
         }
     }
-
-
-    public void setModel(Tuile tuileModel) {
-        this.tuileModel = tuileModel;
-    }
-
-    public void setView(TuileView tuileView) {
-        this.tuileView = tuileView;
-    }
-
-    public static void settypeOfActionCroisement(String type) {
-        typeOfActionCroisement = type;// City; Village or Route
-    } 
-
-    public static void increaseClickCounter() {
-        TuileController.clickCounter++;
-    } 
-
-    public static void resetClickCounter() {
-        TuileController.clickCounter = 0;
-    } 
-
 }

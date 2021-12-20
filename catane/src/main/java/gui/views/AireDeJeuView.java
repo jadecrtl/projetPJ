@@ -8,22 +8,59 @@ import java.util.*;
 
 
 public class AireDeJeuView extends JPanel{
+    // Models
     private AireDeJeu aireDeJeuModel;
+    // Controllers
     private AireDeJeuController aireDeJeuController;
+    // Layout
     private GridLayout aireDeJeuGrid;
     private final int HORIZONTAL_GAP = 5;
     private final int VERTICAL_GAP = 5;
+    // Content Views  
     private List<TuileView> tuiles = new ArrayList<TuileView>();
+    public SubMenuView subMenuView;
+    // Colors
     private Color backGroundColor = new Color(144, 190, 109);
 
-    public SubMenuView subMenuView;
+    // Getters
+    public void updateTuiles() {
+        this.setTuiles();
+    }
 
-    public void setSubMenu(SubMenuView sub) {
-        this.subMenuView = sub;
+    public List<TuileView> getTuiles() {
+        return this.tuiles;
     }
 
     public SubMenuView getSub() {
         return this.subMenuView;
+    }
+
+    public AireDeJeuController getControleur() {
+        return this.aireDeJeuController;
+    }
+
+    public AireDeJeu getAireDeJeuModel() {
+        return this.aireDeJeuModel;
+    }
+    
+    // Setters
+    public void setSubMenu(SubMenuView sub) {
+        this.subMenuView = sub;
+    }
+
+    public void setControleur(AireDeJeuController aireDeJeuController) {
+        this.aireDeJeuController = aireDeJeuController;
+    }
+
+    public void setViewLayout(AireDeJeu aireDeJeu) {
+        this.aireDeJeuGrid = new GridLayout(this.aireDeJeuModel.getHorizontale(), this.aireDeJeuModel.getVerticale());
+        aireDeJeuGrid.setVgap(VERTICAL_GAP);
+        aireDeJeuGrid.setHgap(HORIZONTAL_GAP);
+        this.setLayout(aireDeJeuGrid);
+    }
+
+    public void setBackgroundColor() {
+        this.setBackground(this.backGroundColor);
     }
 
     public void setTuiles() {
@@ -45,9 +82,6 @@ public class AireDeJeuView extends JPanel{
             
         }
     }
-    public void setControleur(AireDeJeuController aireDeJeuController) {
-        this.aireDeJeuController = aireDeJeuController;
-    }
 
     public void setModel(AireDeJeu aireDeJeu) {
         this.aireDeJeuModel = aireDeJeu;
@@ -56,33 +90,7 @@ public class AireDeJeuView extends JPanel{
         this.setBackgroundColor();
     }
 
-    public AireDeJeuController getControleur() {
-        return this.aireDeJeuController;
-    }
 
-    public AireDeJeu getAireDeJeuModel() {
-        return this.aireDeJeuModel;
-    }
-
-    public void setViewLayout(AireDeJeu aireDeJeu) {
-        this.aireDeJeuGrid = new GridLayout(this.aireDeJeuModel.getHorizontale(), this.aireDeJeuModel.getVerticale());
-        aireDeJeuGrid.setVgap(VERTICAL_GAP);
-        aireDeJeuGrid.setHgap(HORIZONTAL_GAP);
-        this.setLayout(aireDeJeuGrid);
-    }
-
-    public void setBackgroundColor() {
-        this.setBackground(this.backGroundColor);
-    }
-
-    public void updateTuiles() {
-        this.setTuiles();
-    }
-
-    public List<TuileView> getTuiles() {
-        return this.tuiles;
-    }
-    
 
 
 }
