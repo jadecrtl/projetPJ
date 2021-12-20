@@ -3,6 +3,7 @@ package principal;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.OptionalLong;
 
 import enums.Couleur;
 import enums.TypeJoueur;
@@ -38,7 +39,14 @@ public class Catane {
             joueurs.add(new Joueur(nom, age, typeJoueur, couleur));
             terminal.nouvelleLigne();
         }
-        jeu = new Jeu(joueurs, tailleHorizontale, tailleVerticale, de1, de2, null);
+        if (dialogue.demandeStringPrecis(Couleur.VERT.getCrayon(), "Jeu aleatoire ? ", Arrays.asList("O", "N")).equals("N")) {
+            jeu = new Jeu(joueurs, tailleHorizontale, tailleVerticale, de1, de2, OptionalLong.of(Long.valueOf(dialogue.demandeInt(Couleur.VERT.getCrayon(), "Entrez le chiffre de votre choix"))));
+            terminal.println(Couleur.VERT.getCrayon(), "Jeu pseudo aleatoire avec graine.");
+        }
+        else {
+            jeu = new Jeu(joueurs, tailleHorizontale, tailleVerticale, de1, de2, null);
+            terminal.println(Couleur.VERT.getCrayon(), "Jeu aleatoire.");
+        }
         jeu.preparePartie();
         jeu.lancePartie();
 
