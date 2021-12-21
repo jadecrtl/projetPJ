@@ -2,7 +2,6 @@ package principal;
 import java.util.List;
 import java.util.OptionalLong;
 
-
 import enums.Production;
 import enums.Terrain;
 import enums.TypeCroisement;
@@ -117,7 +116,8 @@ public class Jeu {
 
     public void assigneRessourceTirageDes(int tirageDe) {
         if (tirageDe == 7) {
-            return;//Ici gestion du voleur prochainement
+            int idTuileVoleur = getAire().choisiNouvelleTuileVoleur();
+            getAire().deplaceVoleur(idTuileVoleur);
         }
         List<Tuile> listeTuilesTirage = aire.getListeTuileParJeton(tirageDe);
         if (listeTuilesTirage.size() == 0) {

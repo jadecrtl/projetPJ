@@ -98,8 +98,12 @@ public class Dialogue {
     }
 
     public void appuyerSurEntree() {
-        terminal.println(AnsiColors.ANSI_GREEN, "Veuillez appuyer sur entree svp.");
-        scanner.nextLine();
+        //String str1 = this.demandeString(AnsiColors.ANSI_GREEN, "Veuillez appuyer sur entree svp.");
+        try {
+            Thread.sleep(3000);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
