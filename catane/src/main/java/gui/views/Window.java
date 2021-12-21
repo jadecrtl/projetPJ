@@ -7,15 +7,16 @@ import javax.swing.border.EmptyBorder;
 import enums.Couleur;
 import enums.TypeJoueur;
 import gui.controllers.AireDeJeuController;
+import gui.controllers.HomeController;
 import gui.controllers.SubMenuController;
 import principal.AireDeJeu;
 import principal.Joueur;
 import utils.De6Faces;
 
 public class Window extends JFrame{
-    static final String TITLE = "Palette";
+    static final String TITLE = "Catane";
     static final int WIDTH = 1100;
-    static final int HEIGHT = 750;
+    static final int HEIGHT = 700;
 
     public Window() {
 
@@ -24,8 +25,10 @@ public class Window extends JFrame{
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
         // Initialiaze GUI  
-        openBoard();
-
+        // openBoard();
+        openHomePage();
+        Image icon = Toolkit.getDefaultToolkit().getImage("catane/src/static/colline.png");    
+        this.setIconImage(icon);
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -34,6 +37,16 @@ public class Window extends JFrame{
         // This will quick start as the landing page 
         // User clicks either play or quit
         // If play, this method calls openGameForm
+        HomeView homeView = new HomeView(this);
+        HomeController controller = new HomeController();
+        homeView.setController(controller);
+
+        this.getContentPane().removeAll();
+
+		this.getContentPane().add(homeView);
+		
+        this.revalidate();
+		this.repaint();
     }
 
     public void openGameForm() {
