@@ -1,6 +1,7 @@
 package principal;
 
 import java.util.Random;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.OptionalLong;
@@ -8,6 +9,7 @@ import java.util.OptionalLong;
 import enums.Couleur;
 import enums.Terrain;
 import enums.TypeCroisement;
+import utils.Dialogue;
 import utils.TerminalCouleur;
 import utils.TirageJeton;
 import utils.TriListe;
@@ -407,6 +409,26 @@ public class AireDeJeu {
             }
         }
         return null;
+    }
+
+    public int choisiNouvelleTuileVoleur() {
+        Dialogue dialogue = new Dialogue();
+        int idCroisementA = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un des croisements de la tuile ou vous voulez deplacer le voleur.");
+        int idCroisementB = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
+        int idCroisementC = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez encore un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
+        int idCroisementD = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez le dernier des croisements de la tuile ou vous voulez deplacer le voleur.");
+        List<Integer> croisementVoleur = new ArrayList<>();
+        croisementVoleur.add(idCroisementA);
+        croisementVoleur.add(idCroisementB);
+        croisementVoleur.add(idCroisementC);
+        croisementVoleur.add(idCroisementD);
+        int idTuileVoleur = getIdTuileParCroisementVoisins(croisementVoleur);
+        return idTuileVoleur;
+    }
+
+    public void deplaceVoleur(int idTuileVoleur) {
+        getTuiles().get(getIdTuileVoleur()).setVoleurPresent(false);
+        getTuiles().get(idTuileVoleur).setVoleurPresent(true);
     }
 
 }
