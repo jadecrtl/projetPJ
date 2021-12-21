@@ -26,7 +26,7 @@ public class Window extends JFrame{
 		this.setLocationRelativeTo(null);
         // Initialiaze GUI  
         // openBoard();
-        openHomePage();
+        openGameForm();
         Image icon = Toolkit.getDefaultToolkit().getImage("catane/src/static/colline.png");    
         this.setIconImage(icon);
 		this.setVisible(true);
@@ -54,6 +54,12 @@ public class Window extends JFrame{
         // Send all data inside a class like Game to OpenBoard 
         // e.g. Game game = new Game(form.data);
         // e.g.  openBoard(game)
+
+        StartGameFormView form = new StartGameFormView();
+        this.getContentPane().removeAll();
+		this.getContentPane().add(form);
+        this.revalidate();
+		this.repaint();
     }
 
     public void openBoard() {

@@ -32,7 +32,7 @@ public class HomeView extends JPanel {
         name.setFont(customFont);
         name.setForeground(Color.BLACK);
 
-        JPanel boxButtonPanel = new JPanel();
+        // JPanel boxButtonPanel = new JPanel();
         JButton play = new JButton(TuileView.createIcon("catane/src/static/start.png", 100, 100));
         play.setPreferredSize(new Dimension(120, 120));
         play.setOpaque(false);
