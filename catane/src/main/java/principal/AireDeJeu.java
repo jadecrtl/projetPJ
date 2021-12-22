@@ -411,7 +411,7 @@ public class AireDeJeu {
         return null;
     }
 
-    public int choisiNouvelleTuileVoleur() {
+    public Integer choisiNouvelleTuileVoleur() {
         Dialogue dialogue = new Dialogue();
         int idCroisementA = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un des croisements de la tuile ou vous voulez deplacer le voleur.");
         int idCroisementB = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
@@ -422,8 +422,14 @@ public class AireDeJeu {
         croisementVoleur.add(idCroisementB);
         croisementVoleur.add(idCroisementC);
         croisementVoleur.add(idCroisementD);
-        int idTuileVoleur = getIdTuileParCroisementVoisins(croisementVoleur);
-        return idTuileVoleur;
+        Integer idTuileVoleur = getIdTuileParCroisementVoisins(croisementVoleur);
+        if (!(idTuileVoleur == null)) {
+            return idTuileVoleur;
+        }
+        else {
+            choisiNouvelleTuileVoleur();
+        }
+        return null;
     }
 
     public void deplaceVoleur(int idTuileVoleur) {
