@@ -413,6 +413,7 @@ public class AireDeJeu {
 
     public Integer choisiNouvelleTuileVoleur() {
         Dialogue dialogue = new Dialogue();
+        terminal.println(Couleur.VERT.getCrayon(), "Deplacer le pion voleur avec les instructions suivantes");
         int idCroisementA = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un des croisements de la tuile ou vous voulez deplacer le voleur.");
         int idCroisementB = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
         int idCroisementC = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez encore un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
