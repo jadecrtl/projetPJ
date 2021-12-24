@@ -24,6 +24,7 @@ public class Joueur {
     private int inventaireLaine;
     private int inventaireBle;
     private int inventaireMinerai;
+    private int inventaireChevalier;
     private Dialogue dialogue = new Dialogue();
     private TerminalCouleur terminal = new TerminalCouleur();
 
@@ -41,6 +42,15 @@ public class Joueur {
         this.setInventaireLaine(0);
         this.setInventaireBle(0);
         this.setInventaireMinerai(0);
+        this.setInventaireChevalier(0);
+    }
+
+    public int getInventaireChevalier() {
+        return inventaireChevalier;
+    }
+
+    public void setInventaireChevalier(int inventaireChevalier) {
+        this.inventaireChevalier = inventaireChevalier;
     }
 
     public List<Integer> getListIdActions() {

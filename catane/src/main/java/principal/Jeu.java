@@ -2,11 +2,9 @@ package principal;
 import java.util.List;
 import java.util.OptionalLong;
 
-import enums.Couleur;
 import enums.Production;
 import enums.Terrain;
 import enums.TypeCroisement;
-import utils.AnsiColors;
 import utils.De6Faces;
 import utils.Dialogue;
 import utils.TerminalCouleur;
@@ -107,11 +105,12 @@ public class Jeu {
         for (int i = 0; i < joueurs.size(); i++) {
             Joueur j = joueurs.get(i);
             terminal.print(j.getCouleur().getStabilo(), j.getNom() + " " + j.getPointVictoire() + " pts ");
-            terminal.print(j.getCouleur().getCrayon(), "/ Bois : " + j.getInventaireBois());
-            terminal.print(j.getCouleur().getCrayon(), "/ Argile : " + j.getInventaireArgile());
-            terminal.print(j.getCouleur().getCrayon(), "/ Laine : " + j.getInventaireLaine());
-            terminal.print(j.getCouleur().getCrayon(), "/ Ble : " + j.getInventaireBle());
-            terminal.print(j.getCouleur().getCrayon(), "/ Minerai : " + j.getInventaireMinerai());
+            terminal.print(j.getCouleur().getCrayon(), " / Bois : " + j.getInventaireBois());
+            terminal.print(j.getCouleur().getCrayon(), " / Argile : " + j.getInventaireArgile());
+            terminal.print(j.getCouleur().getCrayon(), " / Laine : " + j.getInventaireLaine());
+            terminal.print(j.getCouleur().getCrayon(), " / Ble : " + j.getInventaireBle());
+            terminal.print(j.getCouleur().getCrayon(), " / Minerai : " + j.getInventaireMinerai());
+            terminal.print(j.getCouleur().getCrayon(), " / Carte Chevalier : " + j.getInventaireChevalier());
             terminal.nouvelleLigne();
         }
     }
