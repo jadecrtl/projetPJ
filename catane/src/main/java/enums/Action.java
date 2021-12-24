@@ -5,7 +5,8 @@ public enum Action {
     ROUTE(1, "Acheter une route"),
     COLONIE(2, "Acheter une colonie"),
     VILLE(3, "Acheter une ville"),
-    COMMERCESANSPORT (4, "Faire du commerce sans port");
+    COMMERCESANSPORT(4, "Faire du commerce sans port"),
+    CARTECHEVALIER(5, "Acheter une carte chevalier");
 
     private int idAction;
     private String labelAction;
