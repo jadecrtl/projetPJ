@@ -76,6 +76,9 @@ public class Joueur {
         if (peutAcheterCarteChevalier()) {
             res.add(Action.CARTECHEVALIER.getIdAction());
         }
+        if (peutUtiliserCarteChevalier()) {
+            res.add(Action.UTILISERCARTECHEVALIER.getIdAction());
+        }
         return res;
     }
 
@@ -213,6 +216,15 @@ public class Joueur {
         this.setInventaireChevalier(getInventaireChevalier() + i);
     }
 
+    public void enleverCarteChevalier(int i) {
+        if (this.getInventaireChevalier() < i) {
+            this.setInventaireBois(0);
+        }
+        else {
+            this.setInventaireChevalier(getInventaireChevalier()-i);
+        }
+    }
+
     public void ajouterRessources(int i, Production production) {
         if (i < 0) {
             throw new IllegalArgumentException("On ne peut pas ajouter en négatif!!");
@@ -314,6 +326,15 @@ public class Joueur {
             return false;
         }
 
+    }
+
+    public boolean peutUtiliserCarteChevalier(){
+        if (getInventaireChevalier() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean peutCommerceSansPort() {
@@ -454,6 +475,21 @@ public class Joueur {
         return true;
     }
 
+    public boolean utiliserCarteChevalier(Jeu jeu){
+        if (peutUtiliserCarteChevalier() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas de carte chevalier");
+            return false;
+        }
+        Integer nouvelleIdTuileVoleur = jeu.getAire().choisiNouvelleTuileVoleur();
+        faireCarteChevalier(jeu, nouvelleIdTuileVoleur);
+        return true;
+    }
+    
+    public void faireCarteChevalier(Jeu jeu, int idTuile) {        
+        jeu.getAire().deplaceVoleur(idTuile);
+        this.enleverCarteChevalier(1);
+    }
+
     public void joue(Jeu jeu) {
         int actionChoisie;
         boolean resultatActions;
@@ -486,6 +522,9 @@ public class Joueur {
         }
         if (actionChoisie == Action.CARTECHEVALIER.getIdAction()) {
             lanceAcheteCarteChevalier(jeu);
+        }
+        if (actionChoisie == Action.UTILISERCARTECHEVALIER.getIdAction()) {
+            lanceUtiliserCarteChevalier(jeu);
         }
         return false;
     }
@@ -674,6 +713,15 @@ public class Joueur {
             return;
         }
         acheteCarteChevalier();
+    }
+
+    public void lanceUtiliserCarteChevalier(Jeu jeu) {
+        if (peutUtiliserCarteChevalier() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        utiliserCarteChevalier(jeu);
     }
 
 }
