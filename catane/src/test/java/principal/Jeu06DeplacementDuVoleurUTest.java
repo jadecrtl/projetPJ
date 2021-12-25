@@ -30,7 +30,12 @@ public class Jeu06DeplacementDuVoleurUTest {
 
     @Test
     public void deplacementVoleur() {
-        
+        assertThat(jeu.getAire().getIdTuileVoleur()).isEqualTo(12);
+        assertThat(jeu.getAire().getTuiles().get(12).isVoleurPresent()).isTrue();
+        jeu.getAire().deplaceVoleur(16);
+        assertThat(jeu.getAire().getIdTuileVoleur()).isEqualTo(16);
+        assertThat(jeu.getAire().getTuiles().get(12).isVoleurPresent()).isFalse();
+        assertThat(jeu.getAire().getTuiles().get(16).isVoleurPresent()).isTrue();
     }
 
 

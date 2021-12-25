@@ -24,6 +24,7 @@ public class Joueur {
     private int inventaireLaine;
     private int inventaireBle;
     private int inventaireMinerai;
+    private int inventaireChevalier;
     private Dialogue dialogue = new Dialogue();
     private TerminalCouleur terminal = new TerminalCouleur();
 
@@ -41,51 +42,67 @@ public class Joueur {
         this.setInventaireLaine(0);
         this.setInventaireBle(0);
         this.setInventaireMinerai(0);
+        this.setInventaireChevalier(0);
     }
 
-    public List<Integer> getListIdActions() {
-        List<Integer> res = new LinkedList<>();
-        res.add(Action.PASSE.getIdAction());//Il faut qu'on puisse passer notre tour quoi qu'il arrive
-        if (peutAcheterRoute()) {
-            res.add(Action.ROUTE.getIdAction());
-        }
-        if (peutAcheterColonie()) {
-            res.add(Action.COLONIE.getIdAction());
-        }
-        if (peutAcheterVille()) {
-            res.add(Action.VILLE.getIdAction());
-        }
-        if (peutCommerceSansPort()) {
-            res.add(Action.COMMERCESANSPORT.getIdAction());
-        }
-        return res;
+    public int getInventaireChevalier() {
+        return inventaireChevalier;
     }
 
-    public List<Integer> getListCommerce() {
-        List<Integer> res = new LinkedList<>();
-        if (getInventaireArgile() >= 4) {
-            res.add(Production.ARGILE.getIdProduction());
+    public void setInventaireChevalier(int inventaireChevalier) {
+        if (this.inventaireChevalier < 0) {
+            this.inventaireChevalier = 0;
+        } 
+        else {
+            this.inventaireChevalier = inventaireChevalier;
         }
-        if (getInventaireBle() >= 4) {
-            res.add(Production.BLE.getIdProduction());
-        }
-        if (getInventaireBois() >= 4) {
-            res.add(Production.BOIS.getIdProduction());
-        }
-        if (getInventaireLaine() >= 4) {
-            res.add(Production.LAINE.getIdProduction());
-        }
-        if (getInventaireMinerai() >= 4) {
-            res.add(Production.MINERAI.getIdProduction());
-        }
-        res.add(Production.RIEN.getIdProduction());//On peut selectionner rien pour pouvoir annuler la transaction
-        return res;
     }
+    
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public TypeJoueur getTypeJoueur() {
+        return typeJoueur;
+    }
+
+    public void setTypeJoueur(TypeJoueur typeJoueur) {
+        this.typeJoueur = typeJoueur;
+    }
+
+    public Couleur getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Couleur couleur) {
+        this.couleur = couleur;
+    }
+
+    public int getPointVictoire() {
+        return pointVictoire;
+    }
+
+    public void setPointVictoire(int pointVictoire) {
+        this.pointVictoire = pointVictoire;
+    }
+  
 
     public int getInventaireMinerai() {
         return inventaireMinerai;
     }
-
+    
     private void setInventaireMinerai(int inventaireMinerai) {
         if (this.inventaireMinerai < 0) {
             this.inventaireMinerai = 0;
@@ -94,7 +111,7 @@ public class Joueur {
             this.inventaireMinerai = inventaireMinerai;
         }
     }
-
+   
     public int getInventaireBle() {
         return inventaireBle;
     }
@@ -147,48 +164,68 @@ public class Joueur {
         }
     }
 
-    public String getNom() {
-        return nom;
+ 
+    public List<Integer> getListIdActions() {
+        List<Integer> res = new LinkedList<>();
+        res.add(Action.PASSE.getIdAction());//Il faut qu'on puisse passer notre tour quoi qu'il arrive
+        if (peutAcheterRoute()) {
+            res.add(Action.ROUTE.getIdAction());
+        }
+        if (peutAcheterColonie()) {
+            res.add(Action.COLONIE.getIdAction());
+        }
+        if (peutAcheterVille()) {
+            res.add(Action.VILLE.getIdAction());
+        }
+        if (peutCommerceSansPort()) {
+            res.add(Action.COMMERCESANSPORT.getIdAction());
+        }
+        if (peutAcheterCarteChevalier()) {
+            res.add(Action.CARTECHEVALIER.getIdAction());
+        }
+        if (peutUtiliserCarteChevalier()) {
+            res.add(Action.UTILISERCARTECHEVALIER.getIdAction());
+        }
+        return res;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public List<Integer> getListCommerce() {
+        List<Integer> res = new LinkedList<>();
+        if (getInventaireArgile() >= 4) {
+            res.add(Production.ARGILE.getIdProduction());
+        }
+        if (getInventaireBle() >= 4) {
+            res.add(Production.BLE.getIdProduction());
+        }
+        if (getInventaireBois() >= 4) {
+            res.add(Production.BOIS.getIdProduction());
+        }
+        if (getInventaireLaine() >= 4) {
+            res.add(Production.LAINE.getIdProduction());
+        }
+        if (getInventaireMinerai() >= 4) {
+            res.add(Production.MINERAI.getIdProduction());
+        }
+        res.add(Production.RIEN.getIdProduction());//On peut selectionner rien pour pouvoir annuler la transaction
+        return res;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public TypeJoueur getTypeJoueur() {
-        return typeJoueur;
-    }
-
-    public void setTypeJoueur(TypeJoueur typeJoueur) {
-        this.typeJoueur = typeJoueur;
-    }
-
-    public Couleur getCouleur() {
-        return couleur;
-    }
-
-    public void setCouleur(Couleur couleur) {
-        this.couleur = couleur;
-    }
-
-    public int getPointVictoire() {
-        return pointVictoire;
-    }
-
-    public void setPointVictoire(int pointVictoire) {
-        this.pointVictoire = pointVictoire;
-    }
-
+ 
     public void ajouterPointVictoire(int i) {
         this.setPointVictoire(pointVictoire + i);
+    }
+
+    public void ajouterCarteChevalier(int i) {
+        this.setInventaireChevalier(getInventaireChevalier() + i);
+    }
+
+    public void enleverCarteChevalier(int i) {
+        if (this.getInventaireChevalier() < i) {
+            this.setInventaireBois(0);
+        }
+        else {
+            this.setInventaireChevalier(getInventaireChevalier()-i);
+        }
     }
 
     public void ajouterRessources(int i, Production production) {
@@ -257,6 +294,7 @@ public class Joueur {
         }        
     }
 
+ 
     public boolean peutAcheterRoute() {
         if (getInventaireBois() > 0 && getInventaireArgile() > 0) {
             return true;
@@ -284,7 +322,7 @@ public class Joueur {
         }
     }
 
-    public boolean peutAcheterCarteDev() {
+    public boolean peutAcheterCarteChevalier() {
         if (getInventaireBle() > 0 && getInventaireLaine() > 0 && getInventaireMinerai() > 0) {
             return true;
         }
@@ -292,6 +330,15 @@ public class Joueur {
             return false;
         }
 
+    }
+
+    public boolean peutUtiliserCarteChevalier(){
+        if (getInventaireChevalier() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean peutCommerceSansPort() {
@@ -356,6 +403,7 @@ public class Joueur {
         return false;
     }
 
+ 
     public boolean acheteRoute(AireDeJeu aire, Route route) {
         if (peutAcheterRoute() == false) {
             terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
@@ -420,6 +468,34 @@ public class Joueur {
         return true;
     }
 
+    public boolean acheteCarteChevalier() {
+        if (peutAcheterCarteChevalier() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas assez de ressources");
+            return false;
+        }
+        this.ajouterCarteChevalier(1);
+        this.enleverRessources(1, Production.BLE);
+        this.enleverRessources(1, Production.LAINE);        
+        this.enleverRessources(1, Production.MINERAI);
+        return true;
+    }
+
+    public boolean utiliserCarteChevalier(Jeu jeu){
+        if (peutUtiliserCarteChevalier() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas de carte chevalier");
+            return false;
+        }
+        Integer nouvelleIdTuileVoleur = jeu.getAire().choisiNouvelleTuileVoleur();
+        faireCarteChevalier(jeu, nouvelleIdTuileVoleur);
+        return true;
+    }
+    
+    public void faireCarteChevalier(Jeu jeu, int idTuile) {        
+        jeu.getAire().deplaceVoleur(idTuile);
+        this.enleverCarteChevalier(1);
+    }
+
+ 
     public void joue(Jeu jeu) {
         int actionChoisie;
         boolean resultatActions;
@@ -434,6 +510,7 @@ public class Joueur {
         } while(resultatActions == false);
     }
 
+ 
     public boolean lanceAction(int actionChoisie, Jeu jeu) {
         if (actionChoisie == Action.PASSE.getIdAction()) {
             return true;
@@ -450,8 +527,27 @@ public class Joueur {
         if (actionChoisie == Action.COMMERCESANSPORT.getIdAction()) {
             lanceCommerceSansPort(jeu);
         }
+        if (actionChoisie == Action.CARTECHEVALIER.getIdAction()) {
+            lanceAcheteCarteChevalier(jeu);
+        }
+        if (actionChoisie == Action.UTILISERCARTECHEVALIER.getIdAction()) {
+            lanceUtiliserCarteChevalier(jeu);
+        }
         return false;
     }
+  
+    public void afficheActions() {
+        for (int i = 0; i < getListIdActions().size(); i++) {
+            terminal.println(this.getCouleur().getCrayon(), Action.getActionParId(getListIdActions().get(i)).getIdAction() + " " + Action.getActionParId(getListIdActions().get(i)).getLabelAction());
+        }
+    }
+
+    public void afficheProduction(List<Integer> productionsAAfficher) {
+        for (int i = 0; i < productionsAAfficher.size(); i++) {
+            terminal.println(this.getCouleur().getCrayon(), Production.getProductionParId(productionsAAfficher.get(i)).getIdProduction() + " " + Production.getProductionParId(productionsAAfficher.get(i)).getLabelProduction());
+        }
+    }
+
 
     public void choisiRouteGratuite(AireDeJeu aire) {
         int idCroisementA;
@@ -509,17 +605,7 @@ public class Joueur {
         }
     }
 
-    public void afficheActions() {
-        for (int i = 0; i < getListIdActions().size(); i++) {
-            terminal.println(this.getCouleur().getCrayon(), Action.getActionParId(getListIdActions().get(i)).getIdAction() + " " + Action.getActionParId(getListIdActions().get(i)).getLabelAction());
-        }
-    }
 
-    public void afficheProduction(List<Integer> productionsAAfficher) {
-        for (int i = 0; i < productionsAAfficher.size(); i++) {
-            terminal.println(this.getCouleur().getCrayon(), Production.getProductionParId(productionsAAfficher.get(i)).getIdProduction() + " " + Production.getProductionParId(productionsAAfficher.get(i)).getLabelProduction());
-        }
-    }
 
     public void lanceAcheteRoute(Jeu jeu) {
         if (peutAcheterRoute() == false) {
@@ -630,5 +716,22 @@ public class Joueur {
 
     } 
 
+    public void lanceAcheteCarteChevalier(Jeu jeu) {
+        if (peutAcheterCarteChevalier() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        acheteCarteChevalier();
+    }
+
+    public void lanceUtiliserCarteChevalier(Jeu jeu) {
+        if (peutUtiliserCarteChevalier() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            dialogue.appuyerSurEntree();
+            return;
+        }
+        utiliserCarteChevalier(jeu);
+    }
 
 }

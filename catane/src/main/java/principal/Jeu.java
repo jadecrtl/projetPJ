@@ -105,18 +105,19 @@ public class Jeu {
         for (int i = 0; i < joueurs.size(); i++) {
             Joueur j = joueurs.get(i);
             terminal.print(j.getCouleur().getStabilo(), j.getNom() + " " + j.getPointVictoire() + " pts ");
-            terminal.print(j.getCouleur().getCrayon(), "/ Bois : " + j.getInventaireBois());
-            terminal.print(j.getCouleur().getCrayon(), "/ Argile : " + j.getInventaireArgile());
-            terminal.print(j.getCouleur().getCrayon(), "/ Laine : " + j.getInventaireLaine());
-            terminal.print(j.getCouleur().getCrayon(), "/ Ble : " + j.getInventaireBle());
-            terminal.print(j.getCouleur().getCrayon(), "/ Minerai : " + j.getInventaireMinerai());
+            terminal.print(j.getCouleur().getCrayon(), " / Bois : " + j.getInventaireBois());
+            terminal.print(j.getCouleur().getCrayon(), " / Argile : " + j.getInventaireArgile());
+            terminal.print(j.getCouleur().getCrayon(), " / Laine : " + j.getInventaireLaine());
+            terminal.print(j.getCouleur().getCrayon(), " / Ble : " + j.getInventaireBle());
+            terminal.print(j.getCouleur().getCrayon(), " / Minerai : " + j.getInventaireMinerai());
+            terminal.print(j.getCouleur().getCrayon(), " / Carte Chevalier : " + j.getInventaireChevalier());
             terminal.nouvelleLigne();
         }
     }
 
     public void assigneRessourceTirageDes(int tirageDe) {
         if (tirageDe == 7) {
-            int idTuileVoleur = getAire().choisiNouvelleTuileVoleur();
+            Integer idTuileVoleur = getAire().choisiNouvelleTuileVoleur();
             getAire().deplaceVoleur(idTuileVoleur);
         }
         List<Tuile> listeTuilesTirage = aire.getListeTuileParJeton(tirageDe);
@@ -124,31 +125,33 @@ public class Jeu {
             return;
         }
         for (int i = 0; i < listeTuilesTirage.size(); i++) {
-            for (int j = 0; j < 4; j++) {
-                //System.out.println(listeTuilesTirage.get(i).getCroisementsVoisins().get(j));
-                Croisement croisement = aire.getCroisements().get(listeTuilesTirage.get(i).getCroisementsVoisins().get(j)); 
-                if (!(croisement.getProprietaire() == null)) {
-                    int nbrRessourcesGagnees = 0;
-                    if (croisement.getTypeCroisement() == TypeCroisement.COLONIE) {
-                        nbrRessourcesGagnees = 1;
-                    }
-                    if (croisement.getTypeCroisement() == TypeCroisement.VILLE) {
-                        nbrRessourcesGagnees = 2;
-                    }
-                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.CHAMP) {
-                            croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.BLE);
-                    }
-                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.COLLINE) {
-                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.ARGILE);
-                    }
-                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.FORET) {
-                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.BOIS);
-                    }
-                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.MONTAGNE) {
-                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.MINERAI);
-                    }
-                    if (listeTuilesTirage.get(i).getTerrain() == Terrain.PRE) {
-                        croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.LAINE);
+            if (listeTuilesTirage.get(i).isVoleurPresent() == false){
+                for (int j = 0; j < 4; j++) {
+                    //System.out.println(listeTuilesTirage.get(i).getCroisementsVoisins().get(j));
+                    Croisement croisement = aire.getCroisements().get(listeTuilesTirage.get(i).getCroisementsVoisins().get(j)); 
+                    if (!(croisement.getProprietaire() == null)) {
+                        int nbrRessourcesGagnees = 0;
+                        if (croisement.getTypeCroisement() == TypeCroisement.COLONIE) {
+                            nbrRessourcesGagnees = 1;
+                        }
+                        if (croisement.getTypeCroisement() == TypeCroisement.VILLE) {
+                            nbrRessourcesGagnees = 2;
+                        }
+                        if (listeTuilesTirage.get(i).getTerrain() == Terrain.CHAMP) {
+                                croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.BLE);
+                        }
+                        if (listeTuilesTirage.get(i).getTerrain() == Terrain.COLLINE) {
+                            croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.ARGILE);
+                        }
+                        if (listeTuilesTirage.get(i).getTerrain() == Terrain.FORET) {
+                            croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.BOIS);
+                        }
+                        if (listeTuilesTirage.get(i).getTerrain() == Terrain.MONTAGNE) {
+                            croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.MINERAI);
+                        }
+                        if (listeTuilesTirage.get(i).getTerrain() == Terrain.PRE) {
+                            croisement.getProprietaire().ajouterRessources(nbrRessourcesGagnees, Production.LAINE);
+                        }
                     }
                 }
             }

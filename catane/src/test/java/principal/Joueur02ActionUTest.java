@@ -75,9 +75,9 @@ public class Joueur02ActionUTest {
         Joueur j2 = new Joueur("j2", 19, TypeJoueur.HUMAIN, Couleur.ROUGE);
         j2.ajouterRessources(2, Production.BLE);
         j2.ajouterRessources(1, Production.LAINE);
-        assertThat(j2.peutAcheterCarteDev()).isFalse();
+        assertThat(j2.peutAcheterCarteChevalier()).isFalse();
         j2.ajouterRessources(1, Production.MINERAI);
-        assertThat(j2.peutAcheterCarteDev()).isTrue();
+        assertThat(j2.peutAcheterCarteChevalier()).isTrue();
     }
 
     @Test
