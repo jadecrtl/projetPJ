@@ -1,14 +1,14 @@
 package gui.controllers;
-import java.awt.*;
 
 import javax.swing.JButton;
+import java.awt.event.*;
 
 import gui.views.TuileView;
 
-import java.awt.event.*;
 public class StartGameFormController {
 
     public void playPressed() {
+        // Handle Form and Start game (call backend Method and initialize board...etc)
         System.out.println("Start Game!");
     }
 
