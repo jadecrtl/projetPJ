@@ -10,58 +10,64 @@ import java.io.File;
 
 public class StartGameFormView extends JPanel{
     JLabel title;
-    JRadioButton threePlayers;
-    JRadioButton fourPlayers;
+    public JRadioButton threePlayers;
+    public JRadioButton fourPlayers;
 
-    JRadioButton sizeOptionOne;
-    JRadioButton sizeOptionTwo;
+    public JRadioButton sizeOptionOne;
+    public JRadioButton sizeOptionTwo;
 
-    JRadioButton optionOui;
-    JRadioButton optionNon;
+    public JRadioButton optionOui;
+    public JRadioButton optionNon;
 
-    JTextField playerOneName;
-    JTextField playerTwoName;
-    JTextField playerThreeName;
-    JTextField playerFourName;
-    JTextField playerOneAge;
-    JTextField playerOneColor;
-    JRadioButton typeChoiceOneAi;
-    JRadioButton typeChoiceOneHuman;
+    public JTextField playerOneName;
+    public JTextField playerTwoName;
+    public JTextField playerThreeName;
+    public JTextField playerFourName;
+    public JTextField playerOneAge;
+    
+    public JRadioButton typeChoiceOneAi;
+    public JRadioButton typeChoiceOneHuman;
+    public JRadioButton typeChoiceOneBlue;
+    public JRadioButton typeChoiceOneBlanc;
+    public JRadioButton typeChoiceOneRouge;
+    public JRadioButton typeChoiceOneJaune;
 
 
-    JRadioButton typeChoiceOneBlue;
-    JRadioButton typeChoiceOneBlanc;
-    JRadioButton typeChoiceOneRouge;
-    JRadioButton typeChoiceOneJaune;
-    JRadioButton typeChoiceTwoAi;
-    JRadioButton typeChoiceTwoHuman;
-    JTextField playerTwoAge;
+
+    public JRadioButton typeChoiceTwoAi;
+    public JRadioButton typeChoiceTwoHuman;
+    public JTextField playerTwoAge;
+    public JRadioButton typeChoiceTwoBlue;
+    public JRadioButton typeChoiceTwoBlanc;
+    public JRadioButton typeChoiceTwoRouge;
+    public JRadioButton typeChoiceTwoJaune;
 
     StartGameFormController formController = new StartGameFormController();
-    private JRadioButton typeChoiceTwoBlue;
-    private JRadioButton typeChoiceTwoBlanc;
-    private JRadioButton typeChoiceTwoRouge;
-    private JRadioButton typeChoiceTwoJaune;
-    private JTextField playerThreeAge;
-    private JRadioButton typeChoiceThreeHuman;
-    private JRadioButton typeChoiceThreeAi;
-    private JRadioButton typeChoiceThreeBlue;
-    private JRadioButton typeChoiceThreeBlanc;
-    private JRadioButton typeChoiceThreeRouge;
-    private JRadioButton typeChoiceThreeJaune;
-    private JTextField playerFourAge;
-    private JRadioButton typeChoiceFourAi;
-    private JRadioButton typeChoiceFourHuman;
-    private JRadioButton typeChoiceFourBlue;
-    private JRadioButton typeChoiceFourBlanc;
-    private JRadioButton typeChoiceFourRouge;
-    private JRadioButton typeChoiceFourJaune;
-
 
  
 
-    public StartGameFormView() {
+    public JTextField playerThreeAge;
+    public JRadioButton typeChoiceThreeHuman;
+    public JRadioButton typeChoiceThreeAi;
+    public JRadioButton typeChoiceThreeBlue;
+    public JRadioButton typeChoiceThreeBlanc;
+    public JRadioButton typeChoiceThreeRouge;
+    public JRadioButton typeChoiceThreeJaune;
+
+    public JTextField playerFourAge;
+    public JRadioButton typeChoiceFourAi;
+    public JRadioButton typeChoiceFourHuman;
+    public JRadioButton typeChoiceFourBlue;
+    public JRadioButton typeChoiceFourBlanc;
+    public JRadioButton typeChoiceFourRouge;
+    public JRadioButton typeChoiceFourJaune;
+
+    Window window;
+ 
+
+    public StartGameFormView(Window window) {
         // This panel config
+        this.window = window;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(titlePanel());
         this.add(gameAletoirePanel());
@@ -562,7 +568,7 @@ public class StartGameFormView extends JPanel{
         play.setBorderPainted(false);
         play.setFocusPainted(false); 
         play.addMouseListener(formController.new Selection(play, "catane/src/static/start.png"));
-        play.addActionListener((event) -> this.formController.playPressed());
+        play.addActionListener((event) -> this.formController.playPressed(this, this.window));
 
         JPanel panel = new JPanel();
         panel.add(play);

@@ -41,6 +41,10 @@ public class Jeu {
         return aire;
     }
 
+    public List<Joueur> getJoueurs() {
+        return this.joueurs;
+    }
+
     public void setAire(AireDeJeu aire) {
         this.aire = aire;
     }

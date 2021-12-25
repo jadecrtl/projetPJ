@@ -3,13 +3,26 @@ package gui.controllers;
 import javax.swing.JButton;
 import java.awt.event.*;
 
+import gui.CataneGui;
+import gui.views.StartGameFormView;
 import gui.views.TuileView;
+import gui.views.Window;
+import principal.Jeu;
 
 public class StartGameFormController {
+    StartGameFormView form;
 
-    public void playPressed() {
+    public void setView(StartGameFormView form) {
+        this.form = form;
+    }
+
+    public void playPressed(StartGameFormView form, Window window) {
         // Handle Form and Start game (call backend Method and initialize board...etc)
+        setView(form);
         System.out.println("Start Game!");
+        CataneGui cataneGui = new CataneGui();
+        Jeu jeu = cataneGui.initializeJeu(form);
+        window.openBoard(jeu);
     }
 
     public class Selection extends MouseAdapter {

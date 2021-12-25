@@ -10,6 +10,7 @@ import gui.controllers.AireDeJeuController;
 import gui.controllers.HomeController;
 import gui.controllers.SubMenuController;
 import principal.AireDeJeu;
+import principal.Jeu;
 import principal.Joueur;
 import utils.De6Faces;
 
@@ -26,7 +27,7 @@ public class Window extends JFrame{
 		this.setLocationRelativeTo(null);
         // Initialiaze GUI  
         // openBoard();
-        openGameForm();
+        openHomePage();
         Image icon = Toolkit.getDefaultToolkit().getImage("catane/src/static/colline.png");    
         this.setIconImage(icon);
 		this.setVisible(true);
@@ -55,16 +56,17 @@ public class Window extends JFrame{
         // e.g. Game game = new Game(form.data);
         // e.g.  openBoard(game)
 
-        StartGameFormView form = new StartGameFormView();
+        StartGameFormView form = new StartGameFormView(this);
         this.getContentPane().removeAll();
 		this.getContentPane().add(form);
         this.revalidate();
 		this.repaint();
     }
 
-    public void openBoard() {
+    public void openBoard(Jeu jeu) {
         // Models
-        AireDeJeu aireDeJeuModel = new AireDeJeu(5, 5, null);
+        AireDeJeu aireDeJeuModel = jeu.getAire();
+        
         Joueur joueur = new Joueur("Paris", 22, TypeJoueur.HUMAIN, Couleur.VERT);
         De6Faces de = new De6Faces();
 

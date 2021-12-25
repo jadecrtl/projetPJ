@@ -41,7 +41,7 @@ public class HomeView extends JPanel {
         play.setFocusPainted(false); 
 
         play.addMouseListener(new Selection(play, "catane/src/static/start.png"));
-        play.addActionListener((event) -> this.controller.playPressed());
+        play.addActionListener((event) -> this.controller.playPressed(window));
 
         // boxButtonPanel.add(play);
 

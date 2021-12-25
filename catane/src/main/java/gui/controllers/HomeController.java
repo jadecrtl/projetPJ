@@ -1,9 +1,11 @@
 package gui.controllers;
 
-public class HomeController {
+import gui.views.Window;
 
-    public void playPressed() {
+public class HomeController {
+    public void playPressed(Window window) {
         System.out.println("Start Game!");
+        window.openGameForm();
     }
 
     public void quitPressed() {
