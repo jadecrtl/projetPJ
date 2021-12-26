@@ -2,15 +2,19 @@ package gui.views;
 
 import java.awt.*;
 import java.io.File;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import principal.*;
+
 public class PlayerHeaderView extends JPanel{
     private Font customFont;
+    private List<Joueur> joueurs = new ArrayList<>();
 
     public void setNewFont() {
         try {
@@ -28,7 +32,9 @@ public class PlayerHeaderView extends JPanel{
 
 
 
-    public PlayerHeaderView() {
+    public PlayerHeaderView(List<Joueur> joueurs) {
+        this.joueurs = joueurs;
+        System.out.println(this.joueurs);
 
         this.setLayout(new BorderLayout()); // LEVEL 1
         this.setOpaque(false);
@@ -36,21 +42,23 @@ public class PlayerHeaderView extends JPanel{
         JPanel widerPanel = new JPanel(); // LEVEL 2
         widerPanel.setOpaque(false);
 
-        JPanel header = createHeaderBoxLayout(); // LEVEL 3
-        JPanel header2 = createHeaderBoxLayout();
-        JPanel header3 = createHeaderBoxLayout();
-        JPanel header4 = createHeaderBoxLayout();
-
+        JPanel header = createHeaderBoxLayout(joueurs.get(0)); // LEVEL 3
+        JPanel header2 = createHeaderBoxLayout(joueurs.get(1));
+        JPanel header3 = createHeaderBoxLayout(joueurs.get(2));
 
         widerPanel.add(header);
         widerPanel.add(header2);
         widerPanel.add(header3);
-        widerPanel.add(header4);
+
+        if(joueurs.size() == 4) {
+            JPanel header4 = createHeaderBoxLayout(joueurs.get(3));
+            widerPanel.add(header4);
+        }
 
         this.add(widerPanel, BorderLayout.WEST);
     }
 
-    public JPanel createHeaderBoxLayout() {
+    public JPanel createHeaderBoxLayout(Joueur player) {
         setNewFont();
         // Larger Panel for margin
         JPanel panel = new JPanel(){
@@ -78,7 +86,7 @@ public class PlayerHeaderView extends JPanel{
         namePanel.setLayout(new BorderLayout());
 
 ;
-        JLabel name = new JLabel("Paris"); // TODO: Method
+        JLabel name = new JLabel(player.getNom()); // TODO: Method
         name.setForeground(Color.WHITE);
         name.setFont(this.customFont);
         namePanel.add(name, BorderLayout.WEST);
@@ -92,7 +100,7 @@ public class PlayerHeaderView extends JPanel{
         points.setFont(this.customFont);
         points.setForeground(Color.BLACK);
 
-        JLabel number = new JLabel("5"); // TODO: Method
+        JLabel number = new JLabel(String.valueOf(player.getPointVictoire())); // TODO: Method
         number.setForeground(Color.WHITE);
 
         number.setFont(this.customFont);
@@ -108,8 +116,9 @@ public class PlayerHeaderView extends JPanel{
         JLabel res = new JLabel("Resources: ");
         res.setFont(this.customFont);
         res.setForeground(Color.BLACK);
-
-        JLabel type = new JLabel("Metal"); // TODO: Method
+       
+        
+        JLabel type = new JLabel(getResourcesString(player)); // TODO: Method
         type.setForeground(Color.WHITE);
         type.setFont(this.customFont);
 
@@ -125,7 +134,7 @@ public class PlayerHeaderView extends JPanel{
         color.setFont(this.customFont);
         color.setForeground(Color.WHITE);
 
-        JLabel colorType = new JLabel("BLACK"); // TODO: Method
+        JLabel colorType = new JLabel(String.valueOf(player.getCouleur())); // TODO: Method
         colorType.setForeground(Color.BLACK);
         colorType.setFont(this.customFont);
 
@@ -140,6 +149,19 @@ public class PlayerHeaderView extends JPanel{
 
         panel.add(secondPanel);
         return panel;
+    }
+
+
+
+    private String getResourcesString(Joueur player) {
+        String s="";
+        s+="Minerai: "+player.getInventaireMinerai();
+        s+="; Argile: "+player.getInventaireArgile();
+        s+="; Ble: "+player.getInventaireBle();
+        s+="; Bois: "+player.getInventaireBois();
+        s+="; Chevalier: "+player.getInventaireChevalier();
+        s+="; Laine: "+player.getInventaireLaine();
+        return s;
     }
 
 

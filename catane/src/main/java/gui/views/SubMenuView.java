@@ -6,6 +6,8 @@ import principal.Joueur;
 import utils.De6Faces;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -32,6 +34,8 @@ public class SubMenuView extends JPanel{
     public JButton b1 = createbButton(DICE_ICON);
     public JButton b2 = createbButton(CANCEL_ICON);
 
+    List<Joueur> joueurs = new ArrayList<>();
+
 
     // TODO: extraire method pour tous classes
     public void setNewFont() {
@@ -56,7 +60,7 @@ public class SubMenuView extends JPanel{
         this.aireDeJeuView = aireDeJeuView;
     }
 
-    public JPanel createMenuPanel() {
+    public JPanel createMenuPanel(Joueur joueur) {
         // TODO: Set Background
         // TODO: Set Font
         // TODO: Add padding
@@ -80,15 +84,15 @@ public class SubMenuView extends JPanel{
         
         secondPanel.setLayout(boxLayout);
         secondPanel.setOpaque(false);
-        secondPanel.add(getJoueurNom("Paris"));
-        secondPanel.add(getActions());
+        secondPanel.add(getJoueurNom());
+        secondPanel.add(getActions(joueur));
 
 
         panel.add(secondPanel);
         return panel;
     }
 
-    private JPanel getJoueurNom(String description) {
+    private JPanel getJoueurNom() {
         // TODO: use model to get user name and other data...
 
         JPanel pan = new JPanel();
@@ -118,7 +122,7 @@ public class SubMenuView extends JPanel{
         return pan;
     }
 
-    private JPanel getActions() {
+    private JPanel getActions(Joueur joueur) {
         // Jpanel with 3 buttons;
         // TODO: use model to get user name and other data...
         JPanel panel = new JPanel();
@@ -166,10 +170,10 @@ public class SubMenuView extends JPanel{
         return button;
     }
 
-    public void setJoueurModel(Joueur model) {
-        this.joueurModel = model;
+    public void setSubMenuViewClass(Joueur joueur) {
+        this.joueurModel = joueur;
         setNewFont();
-        this.add(createMenuPanel());
+        this.add(createMenuPanel(joueur));
 
         Selection sel =  this.controller.new Selection(b1, DICE_ICON);
         b1.addMouseListener(sel);
@@ -199,6 +203,45 @@ public class SubMenuView extends JPanel{
 
     public void setController(SubMenuController controller) {
         this.controller = controller;
+    }
+
+    public void updateActionsForPlayer(Joueur player, boolean robber, boolean dice, boolean cancel) {
+        if(player.peutAcheterRoute()) {
+            this.route.setEnabled(true);
+        } else {
+            this.route.setEnabled(false);
+        }
+
+        if(player.peutAcheterColonie()) {
+            this.village.setEnabled(true);
+        } else {
+            this.village.setEnabled(false);
+        }
+
+        if(player.peutAcheterVille()) {
+            this.city.setEnabled(true);
+        } else {
+            this.city.setEnabled(false);
+        }
+
+        if(robber) {
+            this.robber.setEnabled(true);
+        } else {
+            this.robber.setEnabled(false);
+        }
+
+        if(dice) {
+            this.b1.setEnabled(true);
+        } else {
+            this.b1.setEnabled(false);
+        }
+
+        if(cancel) {
+            this.b2.setEnabled(true);
+        } else {
+            this.b2.setEnabled(false);
+        }
+        
     }
 
     

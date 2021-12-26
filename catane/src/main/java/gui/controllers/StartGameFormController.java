@@ -22,7 +22,7 @@ public class StartGameFormController {
         System.out.println("Start Game!");
         CataneGui cataneGui = new CataneGui();
         Jeu jeu = cataneGui.initializeJeu(form);
-        window.openBoard(jeu);
+        window.setGame(jeu);
     }
 
     public class Selection extends MouseAdapter {

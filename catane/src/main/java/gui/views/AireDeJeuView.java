@@ -83,7 +83,8 @@ public class AireDeJeuView extends JPanel{
         }
     }
 
-    public void setModel(AireDeJeu aireDeJeu) {
+    public void updateAireDeJeuView(AireDeJeu aireDeJeu) {
+        this.removeAll();
         this.aireDeJeuModel = aireDeJeu;
         setTuiles();
         this.setViewLayout(aireDeJeu);

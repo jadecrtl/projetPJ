@@ -7,6 +7,7 @@ public class BoardView extends JPanel{
 
     public BoardView() {
         layout.setVgap(10);
+        this.setBackground(new Color(39, 125, 161));
         this.setLayout(layout);
     }
 }
