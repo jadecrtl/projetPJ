@@ -225,12 +225,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerOneName = new JTextField(" Name ");
+        this.playerOneName = new JTextField(" Player 1 ");
         this.playerOneName.setFont(getNewFont(15));
         this.playerOneName.setOpaque(false);
         this.playerOneName.setForeground(Color.BLACK);
 
-        this.playerOneAge = new JTextField("Age");
+        this.playerOneAge = new JTextField("20");
         this.playerOneAge.setFont(getNewFont(15));
         this.playerOneAge.setOpaque(false);
         this.playerOneAge.setForeground(Color.BLACK);
@@ -309,12 +309,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerTwoName = new JTextField(" Name ");
+        this.playerTwoName = new JTextField(" Player 2 ");
         this.playerTwoName.setFont(getNewFont(15));
         this.playerTwoName.setOpaque(false);
         this.playerTwoName.setForeground(Color.BLACK);
 
-        this.playerTwoAge = new JTextField("Age");
+        this.playerTwoAge = new JTextField("20");
         this.playerTwoAge.setFont(getNewFont(15));
         this.playerTwoAge.setOpaque(false);
         this.playerTwoAge.setForeground(Color.BLACK);
@@ -394,12 +394,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerThreeName = new JTextField(" Name ");
+        this.playerThreeName = new JTextField(" Player 3 ");
         this.playerThreeName.setFont(getNewFont(15));
         this.playerThreeName.setOpaque(false);
         this.playerThreeName.setForeground(Color.BLACK);
 
-        this.playerThreeAge = new JTextField("Age");
+        this.playerThreeAge = new JTextField("20");
         this.playerThreeAge.setFont(getNewFont(15));
         this.playerThreeAge.setOpaque(false);
         this.playerThreeAge.setForeground(Color.BLACK);
@@ -480,12 +480,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerFourName = new JTextField(" Name ");
+        this.playerFourName = new JTextField(" Player 4 ");
         this.playerFourName.setFont(getNewFont(15));
         this.playerFourName.setOpaque(false);
         this.playerFourName.setForeground(Color.BLACK);
 
-        this.playerFourAge = new JTextField("Age");
+        this.playerFourAge = new JTextField("20");
         this.playerFourAge.setFont(getNewFont(15));
         this.playerFourAge.setOpaque(false);
         this.playerFourAge.setForeground(Color.BLACK);

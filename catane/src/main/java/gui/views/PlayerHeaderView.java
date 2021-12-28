@@ -99,10 +99,9 @@ public class PlayerHeaderView extends JPanel{
         JLabel points = new JLabel("Points: ");
         points.setFont(this.customFont);
         points.setForeground(Color.BLACK);
-
-        JLabel number = new JLabel(String.valueOf(player.getPointVictoire())); // TODO: Method
+        System.out.println(player.getPointVictoire());
+        JLabel number = new JLabel(String.valueOf(player.getPointVictoire()));
         number.setForeground(Color.WHITE);
-
         number.setFont(this.customFont);
 
         pointsPanel.add(points, BorderLayout.WEST);
@@ -163,6 +162,7 @@ public class PlayerHeaderView extends JPanel{
         s+="; Laine: "+player.getInventaireLaine();
         return s;
     }
+
 
 
     

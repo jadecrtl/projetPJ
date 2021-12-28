@@ -204,6 +204,7 @@ public class Window extends JFrame{
                 // SetAuxPanels config
                 setAuxPanels(widerPanel, menuHolderView);
                 // UpdateBordView
+                updatePlayersHeader();
                 updateBoardView();
 
                 this.getContentPane().removeAll();
@@ -216,105 +217,36 @@ public class Window extends JFrame{
         }
     }
 
-    // private void routineOne() {
-    //     for(int i = 0; i < this.joueurs.size(); i++) {
-    //         // SubMenuView setters
-    //         updateSubMenuView(this.joueurs.get(i), this.de1, false, false, false, false, false);
-    //         // aireDeJeuView Setters
-    //         updateAireDeJeuView();
-    //         // aireDeJeuController Setters
-    //         updateAireDeJeuController();
-    //         // subMenuController Setters
-    //         updateSubMenuController();
-    //         // SetAuxPanels config
-    //         setAuxPanels(widerPanel, menuHolderView);
-    //         // UpdateBordView
-    //         updateBoardView();
-
-    //         this.getContentPane().removeAll();
-    //         this.getContentPane().setBackground(new Color(39, 125, 161));
-    //         this.getContentPane().add(boardView, BorderLayout.CENTER);
-
-    //         int n = JOptionPane.showConfirmDialog(
-    //             this,
-    //             "Would you like to change the game setup? (Yes, redirect to form) (No, start Catan Game)",
-    //             "Catane asks...",
-    //             JOptionPane.YES_NO_OPTION);
-
-    //         this.revalidate();
-    //         this.repaint();
-    //     }
-    //     routineTwo();
-    // }
-
-
-    // private void routineTwo() {
-    //     System.out.println("Routine TWO");
-    //     for(int i = this.joueurs.size()-1; i >= 0; i--) {
-    //         // System.out.println("Routine TWO");
-    //         // SubMenuView setters
-    //         updateSubMenuView(this.joueurs.get(i), this.de1, false, false, false, false, false);
-    //         // aireDeJeuView Setters
-    //         updateAireDeJeuView();
-    //         // aireDeJeuController Setters
-    //         updateAireDeJeuController();
-    //         // subMenuController Setters
-    //         updateSubMenuController();
-    //         // SetAuxPanels config
-    //         setAuxPanels(widerPanel, menuHolderView);
-    //         // UpdateBordView
-    //         updateBoardView();
-
-    //         this.getContentPane().removeAll();
-    //         this.getContentPane().setBackground(new Color(39, 125, 161));
-    //         this.getContentPane().add(boardView, BorderLayout.CENTER);
-
-    //         this.revalidate();
-    //         this.repaint();
-
-    //         int n = JOptionPane.showConfirmDialog(
-    //             this,
-    //             "Would you like to change the game setup? (Yes, redirect to form) (No, start Catan Game)",
-    //             "Catane asks...",
-    //             JOptionPane.YES_NO_OPTION);
-
-    //         // add route
-    //         // update views?
-    //         // add colonie
-    //     }
-      
-    // }
 
     public void lancePartie() {
 
     }
 
-    private void updateWindow(Joueur joueur, De6Faces de, boolean roober, boolean dice, boolean cancel, boolean addFreeVillage, boolean addFreeRoute) {
+    // private void updateWindow(Joueur joueur, De6Faces de, boolean roober, boolean dice, boolean cancel, boolean addFreeVillage, boolean addFreeRoute) {
 
-        updateSubMenuView(joueur, de, roober, dice, cancel, addFreeVillage, addFreeRoute);
-        // aireDeJeuView Setters
-        updateAireDeJeuView();
-        // aireDeJeuController Setters
-        updateAireDeJeuController();
-        // subMenuController Setters
-        updateSubMenuController();
-        // SetAuxPanels config
-        setAuxPanels(this.widerPanel, this.menuHolderView);
-        // UpdateBordView
-        updateBoardView();
+    //     updateSubMenuView(joueur, de, roober, dice, cancel, addFreeVillage, addFreeRoute);
+    //     // aireDeJeuView Setters
+    //     updateAireDeJeuView();
+    //     // aireDeJeuController Setters
+    //     updateAireDeJeuController();
+    //     // subMenuController Setters
+    //     updateSubMenuController();
+    //     // SetAuxPanels config
+    //     setAuxPanels(this.widerPanel, this.menuHolderView);
+    //     // UpdateBordView
+    //     updateBoardView();
 
-        this.getContentPane().removeAll();
-        this.getContentPane().setBackground(new Color(39, 125, 161));
+    //     this.getContentPane().removeAll();
+    //     this.getContentPane().setBackground(new Color(39, 125, 161));
 
-        this.getContentPane().add(boardView, BorderLayout.CENTER);
-        this.revalidate();
-		this.repaint();
-    }
+    //     this.getContentPane().add(boardView, BorderLayout.CENTER);
+    //     this.revalidate();
+	// 	this.repaint();
+    // }
 
     private void updateBoardView() {
         // Add Content to Board
         this.boardView.removeAll();
-
         this.boardView.add(this.widerPanel, BorderLayout.CENTER);
         this.boardView.add(this.playerHeaderView, BorderLayout.NORTH);
         this.boardView.add(this.menuHolderView, BorderLayout.SOUTH);
@@ -366,5 +298,9 @@ public class Window extends JFrame{
         // Add content to menuHomderView
         menuHolderView.setLayout(new BorderLayout());
         menuHolderView.add(this.subMenuView, BorderLayout.CENTER);
+    }
+
+    private void updatePlayersHeader() {
+        this.playerHeaderView = new PlayerHeaderView(this.joueurs);
     }
 }
