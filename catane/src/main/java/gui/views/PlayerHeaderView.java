@@ -108,7 +108,7 @@ public class PlayerHeaderView extends JPanel{
         JLabel points = new JLabel("Points: ");
         points.setFont(this.customFont);
         points.setForeground(Color.BLACK);
-        System.out.println(player.getPointVictoire());
+        // System.out.println(player.getPointVictoire());
         JLabel number = new JLabel(String.valueOf(player.getPointVictoire()));
         number.setForeground(Color.WHITE);
         number.setFont(this.customFont);

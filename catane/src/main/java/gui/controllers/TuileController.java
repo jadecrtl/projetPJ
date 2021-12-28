@@ -26,53 +26,59 @@ public class TuileController {
             //  TODO: Insert City if possible in this Tuile (Call model and insert robber if possible)
             // TODO: Tell tuile to check model if has a city and update the croisement with either a city icon or the number
             System.out.println("A Village pos: "+jbutton.getText());
-            subMenuView.joueurModel.placeColonieGratuite(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
-            System.out.println(subMenuView.joueurModel.getPointVictoire());
+            boolean succ = subMenuView.joueurModel.placeColonieGratuite(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
+            if(succ) {
+                System.out.println(subMenuView.joueurModel.getPointVictoire());
 
-            System.out.println("Croisement Pressed");
-            if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
-                subMenuView.city.setEnabled(true);
+                System.out.println("Croisement Pressed");
+                if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
+                    subMenuView.city.setEnabled(true);
+                    subMenuView.village.setEnabled(true);
+                    subMenuView.b1.setEnabled(true);
+                    subMenuView.b2.setEnabled(true);
+                    subMenuView.robber.setEnabled(true);
+                    subMenuView.route.setEnabled(true);
+                }
+    
+                if(Window.gameStatus.equals("PREPARE_PARTIE")) {
+                    subMenuView.b2.setEnabled(true);
+                }
+    
+                JButton other_button = new JButton();
+                String croisement = jbutton.getText();
+    
+                for (TuileView tuileView : aireDeJeuView.getTuiles()) {
+                    if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
+                        other_button = tuileView.getTopLeft();
+                    }
+                    if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(jbutton)) {
+                        other_button = tuileView.getTopRight();
+                    }
+                    if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(jbutton)) {
+                        other_button = tuileView.getBottomLeft();
+    
+                    }
+                    if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(jbutton)) {
+                        other_button = tuileView.getBottomRight();
+    
+                    }
+                    other_button.removeMouseListener(selection);
+                    jbutton.removeMouseListener(selection);
+                }
+    
+                for (TuileView tuile : aireDeJeuView.getTuiles()) {
+                    tuile.getTopLeft().setEnabled(false);
+                    tuile.getTopRight().setEnabled(false);
+                    tuile.getBottomLeft().setEnabled(false);
+                    tuile.getBottomRight().setEnabled(false);
+    
+                    tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
+                }
+            }else {
+                System.out.println("Please select a valid coordinate");
                 subMenuView.village.setEnabled(true);
-                subMenuView.b1.setEnabled(true);
-                subMenuView.b2.setEnabled(true);
-                subMenuView.robber.setEnabled(true);
-                subMenuView.route.setEnabled(true);
             }
 
-            if(Window.gameStatus.equals("PREPARE_PARTIE")) {
-                subMenuView.b2.setEnabled(true);
-            }
-
-            JButton other_button = new JButton();
-            String croisement = jbutton.getText();
-
-            for (TuileView tuileView : aireDeJeuView.getTuiles()) {
-                if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
-                    other_button = tuileView.getTopLeft();
-                }
-                if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(jbutton)) {
-                    other_button = tuileView.getTopRight();
-                }
-                if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(jbutton)) {
-                    other_button = tuileView.getBottomLeft();
-
-                }
-                if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(jbutton)) {
-                    other_button = tuileView.getBottomRight();
-
-                }
-                other_button.removeMouseListener(selection);
-                jbutton.removeMouseListener(selection);
-            }
-
-            for (TuileView tuile : aireDeJeuView.getTuiles()) {
-                tuile.getTopLeft().setEnabled(false);
-                tuile.getTopRight().setEnabled(false);
-                tuile.getBottomLeft().setEnabled(false);
-                tuile.getBottomRight().setEnabled(false);
-
-                tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
-            }
         } else if (typeOfActionCroisement.equals("ROUTE")) {
             // TODO: Before doing any insertion, verify with model methods if this spot is allow to be inserted such element
             // System.out.println("Route....!");
