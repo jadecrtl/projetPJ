@@ -6,11 +6,15 @@ import javax.swing.JButton;
 import gui.views.AireDeJeuView;
 import gui.views.SubMenuView;
 import gui.views.TuileView;
+import gui.views.Window;
 
 public class SubMenuController {
     SubMenuView subMenuView;
+    int counterClick = 0;
         
-    public void subMenuButtonPressed(JButton button, String type, AireDeJeuView aireDeJeuView, int iconWidth, int iconHeight, String path){
+    public void subMenuButtonPressed(Window window, JButton button, String type, AireDeJeuView aireDeJeuView, int iconWidth, int iconHeight, String path){
+        System.out.println(counterClick);
+        counterClick++;
         if (type.equals("DICE")) {
             System.out.println("Throw dice....");
 
@@ -20,15 +24,22 @@ public class SubMenuController {
                 int res = val + val2; 
                 // TODO: hen do something in the game... (ask jade)
                 String numberPath = getNumberIconPath(String.valueOf(res));
-                System.out.println(numberPath);
+                // System.out.println(numberPath);
                 button.setIcon(TuileView.createIcon(numberPath, iconWidth, iconHeight));
             }
         } else if (type.equals("CANCEL")) {
-            System.out.println("Cancel round....");
+            System.out.println("Next Round....");
+            if(Window.gameStatus.equals("PREPARE_PARTIE")) {
+                Window.currentPosInList++;
+                // System.out.println(Window.currentPosInList);
+                int[] playerList = Window.numberOfPlayers == 3 ? Window.preparePartiePlayers3 : Window.preparePartiePlayers4;
+                window.nextPlayerTurn(playerList);
+            }
         }
     }
 
     public void addCityOrVillagePressed(AireDeJeuView aireDeJeuView, String type) {
+        System.out.println("pressed city / village");
         TuileController.settypeOfActionCroisement(type);
         this.subMenuView.robber.setEnabled(false);
         this.subMenuView.route.setEnabled(false);
@@ -46,7 +57,7 @@ public class SubMenuController {
     }
 
     public void addRoutePressed(AireDeJeuView aireDeJeuView, String type) {
-        // System.out.println("Route added...");
+        System.out.println("Route added...");
         TuileController.settypeOfActionCroisement(type);
 
         this.subMenuView.robber.setEnabled(false);
@@ -94,13 +105,13 @@ public class SubMenuController {
         }
 
         public void mouseEntered(MouseEvent evt) {
-            this.iconHeight = jButton.getIcon().getIconWidth();
-            this.iconWidth = jButton.getIcon().getIconHeight();
-            this.jButton.setIcon(TuileView.createIcon(this.iconPath, 55, 55));
+            // this.iconHeight = jButton.getIcon().getIconWidth();
+            // this.iconWidth = jButton.getIcon().getIconHeight();
+            // this.jButton.setIcon(TuileView.createIcon(this.iconPath, 55, 55));
 
         }
         public void mouseExited(MouseEvent evt) {
-            this.jButton.setIcon(TuileView.createIcon(this.iconPath, this.iconWidth, this.iconHeight));
+            // this.jButton.setIcon(TuileView.createIcon(this.iconPath, this.iconWidth, this.iconHeight));
         }
     }
 

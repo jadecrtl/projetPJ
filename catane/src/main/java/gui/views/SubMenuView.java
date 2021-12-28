@@ -1,10 +1,13 @@
 package gui.views;
 
 import gui.controllers.SubMenuController;
+import gui.controllers.TuileController;
 import gui.controllers.SubMenuController.Selection;
 import principal.Joueur;
 import utils.De6Faces;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +18,7 @@ import javax.swing.border.Border;
 
 public class SubMenuView extends JPanel{
 
-    private Joueur joueurModel;
+    public Joueur joueurModel;
     private De6Faces deModel;
     private AireDeJeuView aireDeJeuView;
 
@@ -26,13 +29,13 @@ public class SubMenuView extends JPanel{
     private String CANCEL_ICON = "catane/src/static/cancel.png";
     private String DICE_ICON = "catane/src/static/dice.png";
 
-    public JButton city = new JButton("City");
-    public JButton village = new JButton("Village");
-    public JButton route = new JButton("Route");
-    public JButton robber = new JButton("Robber");
+    public JButton city;
+    public JButton village;
+    public JButton route;
+    public JButton robber;
 
-    public JButton b1 = createbButton(DICE_ICON);
-    public JButton b2 = createbButton(CANCEL_ICON);
+    public JButton b1; 
+    public JButton b2; 
 
     List<Joueur> joueurs = new ArrayList<>();
 
@@ -125,6 +128,11 @@ public class SubMenuView extends JPanel{
     private JPanel getActions(Joueur joueur) {
         // Jpanel with 3 buttons;
         // TODO: use model to get user name and other data...
+        this.route = new JButton("Route");
+        this.city = new JButton("City");
+        this.village = new JButton("Village");
+        this.robber = new JButton("Robber");
+
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Add:");
 
@@ -133,24 +141,47 @@ public class SubMenuView extends JPanel{
 
         panel.add(label);
 
-        city.setFont(this.customFont);
-        village.setFont(this.customFont);
-        route.setFont(this.customFont);
-        robber.setFont(this.customFont);
 
-        city.setFocusPainted(false);
-        village.setFocusPainted(false);
-        route.setFocusPainted(false);
-        robber.setFocusPainted(false);
+        this.city.setFont(this.customFont);
+        this.village.setFont(this.customFont);
+        this.route.setFont(this.customFont);
+        this.robber.setFont(this.customFont);
 
-        city.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "CITY");});
-        village.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "VILLAGE");});
-        route.addActionListener((event)-> {this.controller.addRoutePressed(aireDeJeuView, "ROUTE");});
-        robber.addActionListener((event)-> {this.controller.addRobberPressed(aireDeJeuView);});
+        this.city.setFocusPainted(false);
+        this.village.setFocusPainted(false);
+        this.route.setFocusPainted(false);
+        this.robber.setFocusPainted(false);
+
+        this.city.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "CITY");});
+        this.village.addActionListener((event)-> {this.controller.addCityOrVillagePressed(aireDeJeuView, "VILLAGE");});
+        this.route.addActionListener((event)-> {this.controller.addRoutePressed(aireDeJeuView, "ROUTE");});
+        this.robber.addActionListener((event)-> {this.controller.addRobberPressed(aireDeJeuView);});
+
+        // this.route.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         System.out.println("Route added...");
+        //         TuileController.settypeOfActionCroisement("ROUTE");
+        
+        //         robber.setEnabled(false);
+        //         route.setEnabled(false);
+        //         village.setEnabled(false);
+        //         city.setEnabled(false);
+        //         b1.setEnabled(false);
+        //         b2.setEnabled(false);
+        
+        //         for (TuileView tuile : aireDeJeuView.getTuiles()) {
+        //             tuile.getTopLeft().setEnabled(true);
+        //             tuile.getTopRight().setEnabled(true);
+        //             tuile.getBottomLeft().setEnabled(true);
+        //             tuile.getBottomRight().setEnabled(true);
+        //         }
+        //     }
+        // });
 
         panel.add(city);
         panel.add(village);
-        panel.add(route);
+        panel.add(this.route);
         panel.add(robber);
 
         panel.setOpaque(false);
@@ -158,33 +189,55 @@ public class SubMenuView extends JPanel{
         return panel;
     }
 
-    public JButton createbButton(String path) {
-        JButton button = new JButton(TuileView.createIcon(path, 40, 40));
+    public void createButton(String path) {
+        this.b1 = new JButton(TuileView.createIcon(path, 40, 40));
 
-        button.setOpaque(false);
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
+        this.b1.setOpaque(false);
+        this.b1.setContentAreaFilled(false);
+        this.b1.setBorderPainted(false);
 
-        button.setPreferredSize(new Dimension(60, 60));
-        button.setFocusPainted(false);        
-        return button;
+        this.b1.setPreferredSize(new Dimension(60, 60));
+        this.b1.setFocusPainted(false);        
     }
 
-    public void setSubMenuViewClass(Joueur joueur) {
+
+    public void createCancelButton(String path) {
+        this.b2 = new JButton(TuileView.createIcon(path, 40, 40));
+
+        this.b2.setOpaque(false);
+        this.b2.setContentAreaFilled(false);
+        this.b2.setBorderPainted(false);
+
+        this.b2.setPreferredSize(new Dimension(60, 60));
+        this.b2.setFocusPainted(false);        
+    }
+
+    public void setSubMenuViewClass(Joueur joueur, Window window) {
+        createCancelButton(CANCEL_ICON);
+        createButton(DICE_ICON);
+
         this.joueurModel = joueur;
         setNewFont();
         this.add(createMenuPanel(joueur));
 
-        Selection sel =  this.controller.new Selection(b1, DICE_ICON);
-        b1.addMouseListener(sel);
+        // Selection sel =  this.controller.new Selection(b1, DICE_ICON);
+        // b1.addMouseListener(sel);
         b1.addActionListener((event)-> {
-            this.controller.subMenuButtonPressed(b1,"DICE", aireDeJeuView, b1.getIcon().getIconWidth(), b1.getIcon().getIconHeight(), DICE_ICON);
+            this.controller.subMenuButtonPressed(window, b1,"DICE", aireDeJeuView, b1.getIcon().getIconWidth(), b1.getIcon().getIconHeight(), DICE_ICON);
         });
 
-        Selection sel2 =  this.controller.new Selection(b2, CANCEL_ICON);
-        b2.addMouseListener(sel2);
-        b2.addActionListener((event)-> {
-            this.controller.subMenuButtonPressed(b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
+        // Selection sel2 =  this.controller.new Selection(b2, CANCEL_ICON);
+        // b2.addMouseListener(sel2);
+        // b2.addActionListener((event)-> {
+        //     this.controller.subMenuButtonPressed(window, b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
+        // });
+
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                System.out.println("Next Round....");
+            }
         });
 
 
@@ -205,10 +258,12 @@ public class SubMenuView extends JPanel{
         this.controller = controller;
     }
 
-    public void updateActionsForPlayer(Joueur player, boolean robber, boolean dice, boolean cancel) {
-        if(player.peutAcheterRoute()) {
+    public void updateActionsForPlayer(Joueur player, boolean robber, boolean dice, boolean cancel, boolean addFreeRoute) {
+        if(player.peutAcheterRoute() || addFreeRoute) {
             this.route.setEnabled(true);
+            // System.out.println("line 211");
         } else {
+            // System.out.println("line 212");
             this.route.setEnabled(false);
         }
 

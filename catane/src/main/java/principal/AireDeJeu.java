@@ -297,35 +297,35 @@ public class AireDeJeu {
 
     public boolean isRouteValide(int idCroisementA, int idCroisementB) {
         if (idCroisementA < 0 || idCroisementB > ((this.horizontale + 1) * (this.verticale + 1))) {
-            //System.out.println("Cas 1");
+            System.out.println("Cas 1");
             return false;
         }        
         if (idCroisementA > ((this.horizontale + 1) * (this.verticale + 1))|| idCroisementB < 0) {
-            //System.out.println("Cas 2");
+            System.out.println("Cas 2");
             return false;
         }
         if (idCroisementA == idCroisementB) {
-            //System.out.println("Cas 3");
+            System.out.println("Cas 3");
             return false;
         }
         if (idCroisementA > idCroisementB) {
-            //System.out.println("Cas 4");
+            System.out.println("Cas 4");
             return false;
         }
         //cas ou B n'est pas sur le bord gauche dans le cas d'un segment horizontal
         if (idCroisementB == idCroisementA + 1 && idCroisementB % (horizontale + 1) == 0) {
-            //System.out.println("Cas 5");
+            System.out.println("Cas 5");
             return false;
         }
         if (idCroisementB == idCroisementA + 1) {
-            //System.out.println("Cas 6");
+            System.out.println("Cas 6");
             return true;
         }
         if (idCroisementB == idCroisementA + horizontale + 1) {
-            //System.out.println("Cas 7");
+            System.out.println("Cas 7");
             return true;
         }
-        //System.out.println("Cas non encore traite");
+        System.out.println("Cas non encore traite");
         return false;
     }
 
