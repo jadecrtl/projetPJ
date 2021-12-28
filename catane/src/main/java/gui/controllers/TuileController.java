@@ -16,8 +16,8 @@ public class TuileController {
     JButton previousJeton;
     public static String typeOfActionCroisement; // City; Village or Route
     public static int clickCounter = 0;
-    public int firstIdRoute;
-    public int secondIdRoute;
+    public static int firstIdRoute;
+    public static int secondIdRoute;
     
 
     public void croisementPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView, Selection selection) {
@@ -79,8 +79,8 @@ public class TuileController {
             int value = TuileController.clickCounter;
             if (value == 0) {
                 // First time clicking
-                this.firstIdRoute = Integer.valueOf(jbutton.getText());
-                System.out.println("A: "+firstIdRoute);
+                TuileController.firstIdRoute = Integer.valueOf(jbutton.getText());
+                System.out.println("A: "+ TuileController.firstIdRoute);
                 JButton other_button = new JButton();
                 String croisement = jbutton.getText();
                 for (TuileView tuileView : aireDeJeuView.getTuiles()) {
@@ -103,11 +103,12 @@ public class TuileController {
             }
             else if (value == 1) {
                 // Clicking for the second time
-                this.secondIdRoute = Integer.valueOf(jbutton.getText());
+                TuileController.secondIdRoute = Integer.valueOf(jbutton.getText());
                 JButton other_button = new JButton();
                 String croisement = jbutton.getText();
-                System.out.println("B:" +secondIdRoute);
-                System.out.println(subMenuView.joueurModel.placeRouteGratuite(aireDeJeuView.getAireDeJeuModel(), this.firstIdRoute, this.secondIdRoute));
+                System.out.println("A: "+TuileController.firstIdRoute);
+                System.out.println("B: " +TuileController.secondIdRoute);
+                System.out.println(subMenuView.joueurModel.placeRouteGratuite(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute));
                 System.out.println(subMenuView.joueurModel.getPointVictoire());
 
                 for (TuileView tuileView : aireDeJeuView.getTuiles()) {
