@@ -108,43 +108,50 @@ public class TuileController {
                 String croisement = jbutton.getText();
                 System.out.println("A: "+TuileController.firstIdRoute);
                 System.out.println("B: " +TuileController.secondIdRoute);
-                System.out.println(subMenuView.joueurModel.placeRouteGratuite(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute));
-                System.out.println(subMenuView.joueurModel.getPointVictoire());
+                boolean succs = subMenuView.joueurModel.placeRouteGratuite(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute);
+                if (succs) {
+                    System.out.println(subMenuView.joueurModel.getPointVictoire());
 
-                for (TuileView tuileView : aireDeJeuView.getTuiles()) {
-                    if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
-                        other_button = tuileView.getTopLeft();
+                    for (TuileView tuileView : aireDeJeuView.getTuiles()) {
+                        if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
+                            other_button = tuileView.getTopLeft();
+                        }
+                        if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(jbutton)) {
+                            other_button = tuileView.getTopRight();
+                        }
+                        if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(jbutton)) {
+                            other_button = tuileView.getBottomLeft();
+                        }
+                        if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(jbutton)) {
+                            other_button = tuileView.getBottomRight();
+                        }
+                        other_button.removeMouseListener(selection);
+                        jbutton.removeMouseListener(selection);
                     }
-                    if(tuileView.getTopRight().getText().equals(croisement)&&!tuileView.getTopRight().equals(jbutton)) {
-                        other_button = tuileView.getTopRight();
+                    
+                    TuileController.resetClickCounter();
+                    if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
+                        subMenuView.city.setEnabled(true);
+                        subMenuView.route.setEnabled(true);
+                        subMenuView.b1.setEnabled(true);
+                        subMenuView.b2.setEnabled(true);
+                        subMenuView.robber.setEnabled(true);
                     }
-                    if(tuileView.getBottomLeft().getText().equals(croisement)&&!tuileView.getBottomLeft().equals(jbutton)) {
-                        other_button = tuileView.getBottomLeft();
+    
+                    subMenuView.village.setEnabled(true);
+                    for (TuileView tuile : aireDeJeuView.getTuiles()) {
+                        tuile.getTopLeft().setEnabled(false);
+                        tuile.getTopRight().setEnabled(false);
+                        tuile.getBottomLeft().setEnabled(false);
+                        tuile.getBottomRight().setEnabled(false);
+                        tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
                     }
-                    if(tuileView.getBottomRight().getText().equals(croisement)&&!tuileView.getBottomRight().equals(jbutton)) {
-                        other_button = tuileView.getBottomRight();
-                    }
-                    other_button.removeMouseListener(selection);
-                    jbutton.removeMouseListener(selection);
-                }
-                
-                TuileController.resetClickCounter();
-                if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
-                    subMenuView.city.setEnabled(true);
+                }else {
+                    TuileController.resetClickCounter();
+                    System.out.println("Please select a valid coordinate");
                     subMenuView.route.setEnabled(true);
-                    subMenuView.b1.setEnabled(true);
-                    subMenuView.b2.setEnabled(true);
-                    subMenuView.robber.setEnabled(true);
                 }
 
-                subMenuView.village.setEnabled(true);
-                for (TuileView tuile : aireDeJeuView.getTuiles()) {
-                    tuile.getTopLeft().setEnabled(false);
-                    tuile.getTopRight().setEnabled(false);
-                    tuile.getBottomLeft().setEnabled(false);
-                    tuile.getBottomRight().setEnabled(false);
-                    tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
-                }
             }
         }
     }

@@ -31,9 +31,18 @@ public class PlayerHeaderView extends JPanel{
     }
 
 
+    public List<Joueur> getJoueurs() {
+        return joueurs;
+    }
+
+
+
+    public void setJoueurs(List<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
 
     public PlayerHeaderView(List<Joueur> joueurs) {
-        this.joueurs = joueurs;
+        this.setJoueurs(joueurs);
         // System.out.println(this.joueurs);
 
         this.setLayout(new BorderLayout()); // LEVEL 1
