@@ -105,13 +105,13 @@ public class SubMenuController {
         }
 
         public void mouseEntered(MouseEvent evt) {
-            // this.iconHeight = jButton.getIcon().getIconWidth();
-            // this.iconWidth = jButton.getIcon().getIconHeight();
-            // this.jButton.setIcon(TuileView.createIcon(this.iconPath, 55, 55));
+            this.iconHeight = jButton.getIcon().getIconWidth();
+            this.iconWidth = jButton.getIcon().getIconHeight();
+            this.jButton.setIcon(TuileView.createIcon(this.iconPath, 55, 55));
 
         }
         public void mouseExited(MouseEvent evt) {
-            // this.jButton.setIcon(TuileView.createIcon(this.iconPath, this.iconWidth, this.iconHeight));
+            this.jButton.setIcon(TuileView.createIcon(this.iconPath, this.iconWidth, this.iconHeight));
         }
     }
 

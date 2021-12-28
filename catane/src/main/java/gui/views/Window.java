@@ -188,8 +188,8 @@ public class Window extends JFrame{
 
     public void nextPlayerTurn(int[] playerList) {
         if(Window.gameStatus.equals("PREPARE_PARTIE")) {
-            if(Window.currentPosInList>=Window.numberOfPlayers) {
-                // System.out.println("Prepare Partie est fini");
+            if(Window.currentPosInList>=2*Window.numberOfPlayers) {
+                System.out.println("Prepare Partie est fini");
                 lancePartie();
             }else {
                 // System.out.println("here");

@@ -228,17 +228,17 @@ public class SubMenuView extends JPanel{
 
         // Selection sel2 =  this.controller.new Selection(b2, CANCEL_ICON);
         // b2.addMouseListener(sel2);
-        // b2.addActionListener((event)-> {
-        //     this.controller.subMenuButtonPressed(window, b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
-        // });
-
-        b2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                System.out.println("Next Round....");
-            }
+        b2.addActionListener((event)-> {
+            this.controller.subMenuButtonPressed(window, b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
         });
+
+        // b2.addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         // TODO Auto-generated method stub
+        //         System.out.println("Next Round....");
+        //     }
+        // });
 
 
         this.add(b1);
