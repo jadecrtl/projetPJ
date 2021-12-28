@@ -1,6 +1,7 @@
 package gui.views;
 
 import gui.controllers.SubMenuController;
+import gui.controllers.SubMenuController.Selection;
 // import gui.controllers.TuileController;
 // import gui.controllers.SubMenuController.Selection;
 import principal.Joueur;
@@ -220,14 +221,14 @@ public class SubMenuView extends JPanel{
         setNewFont();
         this.add(createMenuPanel(joueur));
 
-        // Selection sel =  this.controller.new Selection(b1, DICE_ICON);
-        // b1.addMouseListener(sel);
+        Selection sel =  this.controller.new Selection(b1, DICE_ICON);
+        b1.addMouseListener(sel);
         b1.addActionListener((event)-> {
             this.controller.subMenuButtonPressed(window, b1,"DICE", aireDeJeuView, b1.getIcon().getIconWidth(), b1.getIcon().getIconHeight(), DICE_ICON);
         });
 
-        // Selection sel2 =  this.controller.new Selection(b2, CANCEL_ICON);
-        // b2.addMouseListener(sel2);
+        Selection sel2 =  this.controller.new Selection(b2, CANCEL_ICON);
+        b2.addMouseListener(sel2);
         b2.addActionListener((event)-> {
             this.controller.subMenuButtonPressed(window, b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
         });
