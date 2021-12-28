@@ -232,12 +232,12 @@ public class TuileController {
                     other_button = tuileView.getBottomRight();
 
                 }
-                other_button.setForeground(new Color(249, 65, 68));
+                // other_button.setForeground(new Color(249, 65, 68));
                 other_button.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 20));
             }
 
             this.buttonSize = jButton.getFont().getSize();
-            this.jButton.setForeground(new Color(249, 65, 68));
+            // this.jButton.setForeground(new Color(249, 65, 68));
             this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 20));
         }
         public void mouseExited(MouseEvent evt) {
@@ -258,10 +258,10 @@ public class TuileController {
                     other_button = tuileView.getBottomRight();
 
                 }
-                other_button.setForeground(this.color);
+                // other_button.setForeground(this.color);
                 other_button.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
             }
-            this.jButton.setForeground(this.color);
+            // this.jButton.setForeground(this.color);
             this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
         }
     }

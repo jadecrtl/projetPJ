@@ -8,6 +8,7 @@ import java.io.File;
 import gui.controllers.TuileController;
 import gui.controllers.TuileController.Selection;
 import gui.controllers.TuileController.Selection2;
+import principal.Joueur;
 import principal.Tuile;
 
 public class TuileView extends JPanel {
@@ -89,6 +90,8 @@ public class TuileView extends JPanel {
         this.topLeftcroisement.setEnabled(false);
         this.bottomLeftcroisement.setEnabled(false);
         this.bottomRightcroisement.setEnabled(false);
+
+        updateIconOnCroisement(this.bottomRightcroisement);
     }
 
 
@@ -110,6 +113,8 @@ public class TuileView extends JPanel {
         this.bottomLeftcroisement.setOpaque(false);
         this.bottomLeftcroisement.setContentAreaFilled(false);
         this.bottomLeftcroisement.setBorderPainted(false);
+        updateIconOnCroisement(this.bottomLeftcroisement);
+
     }
 
 
@@ -130,6 +135,8 @@ public class TuileView extends JPanel {
         this.topRightcroisement.setOpaque(false);
         this.topRightcroisement.setContentAreaFilled(false);
         this.topRightcroisement.setBorderPainted(false);
+        updateIconOnCroisement(this.topRightcroisement);
+
     }
 
 
@@ -150,8 +157,36 @@ public class TuileView extends JPanel {
         this.topLeftcroisement.setOpaque(false);
         this.topLeftcroisement.setContentAreaFilled(false);
         this.topLeftcroisement.setBorderPainted(false);
+        updateIconOnCroisement(this.topLeftcroisement);
+
     }
 
+    private void updateIconOnCroisement(JButton button) {
+        int id = Integer.valueOf(button.getText());
+        String type = String.valueOf(aireDeJeuView.getAireDeJeuModel().getCroisements().get(id).getTypeCroisement());
+        if (type.equals("COLONIE")) {
+            button.setIcon(TuileView.createIcon("catane/src/static/colonie.png", 10, 10));
+        }else if (type.equals("VILLE")) {
+            button.setIcon(TuileView.createIcon("catane/src/static/city.png", 10, 10));
+        }
+
+        Joueur j = aireDeJeuView.getAireDeJeuModel().getCroisements().get(id).getProprietaire();
+        if(j!=null) {
+            if(!type.equals("null")) {
+                String color = String.valueOf(j.getCouleur());
+                if(color.equals("BLEU")) {
+                    button.setForeground(Color.BLUE);
+                }else if (color.equals("BLANC")) {
+                    button.setForeground(Color.WHITE);
+                }else if (color.equals("ROUGE")) {
+                    button.setForeground(Color.RED);
+                }else {
+                    button.setForeground(Color.YELLOW);
+                }
+            }
+        }
+
+    }
 
     private void setTextAndPosition() {
         /*
