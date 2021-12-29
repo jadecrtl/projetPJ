@@ -1,7 +1,10 @@
 package gui.views;
 import javax.swing.*;
+import javax.swing.border.Border;
 // import javax.swing.border.EmptyBorder;
-
+// import javax.swing.border.CompoundBorder;
+// import javax.swing.border.MatteBorder;
+// import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.io.File;
@@ -37,6 +40,11 @@ public class TuileView extends JPanel {
     private int rightBorder;
     private int bottomBorder;
     private int topBorder;
+
+    private String topColorBorder = "BLACK";
+    private String bottomColorBorder = "BLACK";
+    private String leftColorBorder = "BLACK";
+    private String rightColorBorder = "BLACK";
 
     static int BORDER_SIZE = 3;
 
@@ -254,7 +262,99 @@ public class TuileView extends JPanel {
         setCroisements();
         addComponents();
         drawRoutes();
-        this.setBorder(BorderFactory.createMatteBorder(this.topBorder, this.leftBorder, this.bottomBorder, this.rightBorder, Color.black));
+
+        Border borderTop = getBorderTop();
+        Border borderBottom = getBorderBottom();
+        Border borderLeft = getBorderLeft();
+        Border borderRight = getBorderRight();
+
+        Border comp1 = BorderFactory.createCompoundBorder(borderTop, borderBottom);
+        Border comp2 = BorderFactory.createCompoundBorder(borderLeft, borderRight);
+
+        Border comp3 = BorderFactory.createCompoundBorder(comp1, comp2);
+
+        this.setBorder(comp3);
+        // this.setBorder(BorderFactory.createMatteBorder(this.topBorder, this.leftBorder, this.bottomBorder, this.rightBorder, Color.black));
+    }
+
+    private Border getBorderTop() {
+        System.out.println(this.topColorBorder);
+        Border b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.BLACK);
+        switch(this.topColorBorder) {
+            case "BLUE":
+                b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.BLUE);
+                break;
+            case "YELLOW":
+                b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.YELLOW);
+                break;
+            case "RED":
+                b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.RED);
+                break;
+            case "WHITE":
+                b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.WHITE);
+                break;
+        }
+        return b; 
+    }
+
+    private Border getBorderBottom() {
+        System.out.println(this.bottomColorBorder);
+        Border b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.BLACK);
+        switch(this.bottomColorBorder) {
+            case "BLUE":
+                b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.BLUE);
+                break;
+            case "YELLOW":
+                b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.YELLOW);
+                break;
+            case "RED":
+                b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.RED);
+                break;
+            case "WHITE":
+                b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.WHITE);
+                break;
+        }
+        return b; 
+    }
+    
+    private Border getBorderLeft() {
+        System.out.println(this.leftColorBorder);
+        Border b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.BLACK);
+        switch(this.leftColorBorder) {
+            case "BLUE":
+                b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.BLUE);
+                break;
+            case "YELLOW":
+                b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.YELLOW);
+                break;
+            case "RED":
+                b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.RED);
+                break;
+            case "WHITE":
+                b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.WHITE);
+                break;
+        }
+        return b;
+    }
+
+    private Border getBorderRight() {
+        System.out.println(this.rightColorBorder);
+        Border b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.BLACK);
+        switch(this.rightColorBorder) {
+            case "BLUE":
+                b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.BLUE);
+                break;
+            case "YELLOW":
+                b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.YELLOW);
+                break;
+            case "RED":
+                b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.RED);
+                break;
+            case "WHITE":
+                b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.WHITE);
+                break;
+        }
+        return b;
     }
 
     public void drawRoutes() {
@@ -291,7 +391,11 @@ public class TuileView extends JPanel {
             System.out.println("CASE 4");
             this.bottomBorder = BORDER_SIZE;
         }
+
+        this.bottomColorBorder = setBorderColor(this.bottomLeftcroisement.getText(), this.bottomRightcroisement.getText());
     }
+
+
 
     private void checkCase3Route(String a, String b) {
         /**
@@ -304,9 +408,11 @@ public class TuileView extends JPanel {
             this.rightBorder = BORDER_SIZE;
         } else if (a.equals(this.bottomRightcroisement.getText()) && b.equals(this.topRightcroisement.getText())) {
             System.out.println("CASE 3");
-            this.rightBorder = BORDER_SIZE;
-            
+            this.rightBorder = BORDER_SIZE;   
         }
+
+        this.rightColorBorder = setBorderColor(this.topRightcroisement.getText(), this.bottomRightcroisement.getText());
+
     }
 
 
@@ -323,6 +429,9 @@ public class TuileView extends JPanel {
             System.out.println("CASE 2");
             this.leftBorder = BORDER_SIZE;
         }
+
+        this.leftColorBorder = setBorderColor(this.topLeftcroisement.getText(), this.bottomLeftcroisement.getText());
+
     }
 
 
@@ -340,6 +449,26 @@ public class TuileView extends JPanel {
             System.out.println("CASE 1");
             this.topBorder = BORDER_SIZE;
         }
+
+        this.topColorBorder = setBorderColor(this.topLeftcroisement.getText(), this.topRightcroisement.getText());
+    }
+
+
+    private String setBorderColor(String a, String b) {
+        Joueur j = this.aireDeJeuView.getAireDeJeuModel().getRoutesOccupeesParCroisements(Integer.valueOf(a), Integer.valueOf(b));
+        if(j!=null) { 
+            String color = String.valueOf(j.getCouleur());
+            if(color.equals("BLEU")) {
+                return "BLUE";
+            }else if (color.equals("BLANC")) {
+                return "WHITE";
+            }else if (color.equals("ROUGE")) {
+                return "RED";
+            }else {
+                return "YELLOW";
+            }
+        }
+        return "BLACK";
     }
 
 
