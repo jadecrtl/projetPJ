@@ -86,7 +86,7 @@ public class TuileController {
             if (value == 0) {
                 // First time clicking
                 TuileController.firstIdRoute = Integer.valueOf(jbutton.getText());
-                System.out.println("A: "+ TuileController.firstIdRoute);
+                // System.out.println("A: "+ TuileController.firstIdRoute);
                 JButton other_button = new JButton();
                 String croisement = jbutton.getText();
                 for (TuileView tuileView : aireDeJeuView.getTuiles()) {

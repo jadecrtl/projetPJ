@@ -1,14 +1,17 @@
 package gui.views;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+// import javax.swing.border.EmptyBorder;
+
 
 import java.awt.*;
 import java.io.File;
+// import java.util.List;
 
 import gui.controllers.TuileController;
 import gui.controllers.TuileController.Selection;
 import gui.controllers.TuileController.Selection2;
 import principal.Joueur;
+import principal.Route;
 import principal.Tuile;
 
 public class TuileView extends JPanel {
@@ -28,6 +31,14 @@ public class TuileView extends JPanel {
     private GridLayout tuileLayout = new GridLayout(0, 3);
     private Font customFont;
 
+    private JButton[] croisements = {topLeftcroisement, topRightcroisement, bottomLeftcroisement, bottomRightcroisement};
+
+    private int leftBorder;
+    private int rightBorder;
+    private int bottomBorder;
+    private int topBorder;
+
+    static int BORDER_SIZE = 3;
 
     public void updateJetonView() {
         // Called by controller 
@@ -235,12 +246,110 @@ public class TuileView extends JPanel {
 
         this.tuileModel = tuileModel;
         this.setLayout(tuileLayout);
-        int padding = 5;
-		this.setBorder(new EmptyBorder(padding, 0, 0, 0));
+        // int padding = 5;
+		// this.setBorder(new EmptyBorder(padding, 0, 0, 0));
+        // this.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, Color.red));
         setNewFont();
         setTextAndPosition();
         setCroisements();
         addComponents();
+        drawRoutes();
+        this.setBorder(BorderFactory.createMatteBorder(this.topBorder, this.leftBorder, this.bottomBorder, this.rightBorder, Color.black));
+    }
+
+    public void drawRoutes() {
+        for (Route r : this.aireDeJeuView.getAireDeJeuModel().getRoutesOccupees()) {
+            String a = String.valueOf(r.getIdCroisementA());
+            String b = String.valueOf(r.getIdCroisementB());
+            if(isIn(a) && isIn(b)){
+
+                System.out.println("a: "+a);
+                System.out.println("b: "+b);
+                System.out.print("Croisements-> BL:"+this.bottomLeftcroisement.getText());
+                System.out.print(" BR:"+this.bottomRightcroisement.getText());
+                System.out.print(" TL:"+this.topLeftcroisement.getText());
+                System.out.println(" TR:"+this.topRightcroisement.getText());
+
+                checkCase1Route(a, b);
+                checkCase2Route(a, b);
+                checkCase3Route(a, b);
+                checkCase4Route(a, b);
+            }
+        }
+    }
+
+    private void checkCase4Route(String a, String b) {
+        /**
+         * bottom left - bottom right
+         * Scenario 1: a == bottom left and b == bottom right
+         * Scenario 2: a == bottom right and a == bottom left
+         */
+        if(a.equals(this.bottomLeftcroisement.getText()) && b.equals(this.bottomRightcroisement.getText())) {
+            System.out.println("CASE 4");
+            this.bottomBorder = BORDER_SIZE;
+        }else if(a.equals(this.bottomRightcroisement.getText()) && b.equals(this.bottomLeftcroisement.getText())) {
+            System.out.println("CASE 4");
+            this.bottomBorder = BORDER_SIZE;
+        }
+    }
+
+    private void checkCase3Route(String a, String b) {
+        /**
+         * top right - bottom right
+         * Scenario 1: a == top right and b == bottom right;
+         * Scenario 2: a == bottom right and b == top right;
+         */
+        if(a.equals(this.topRightcroisement.getText()) && b.equals(this.bottomRightcroisement.getText())) {
+            System.out.println("CASE 3");
+            this.rightBorder = BORDER_SIZE;
+        } else if (a.equals(this.bottomRightcroisement.getText()) && b.equals(this.topRightcroisement.getText())) {
+            System.out.println("CASE 3");
+            this.rightBorder = BORDER_SIZE;
+            
+        }
+    }
+
+
+    private void checkCase2Route(String a, String b) {
+        /**
+         * top left - bottom left
+         * Scenario 1: a == top left and b == bottom left
+         * Scenario 2: a == bottom left and b == top left
+         */
+        if(a.equals(this.topLeftcroisement.getText()) && b.equals(this.bottomLeftcroisement.getText())){
+            System.out.println("CASE 2");
+            this.leftBorder = BORDER_SIZE;
+        }else if(a.equals(this.bottomLeftcroisement.getText()) && b.equals(this.topLeftcroisement.getText())) {
+            System.out.println("CASE 2");
+            this.leftBorder = BORDER_SIZE;
+        }
+    }
+
+
+    private void checkCase1Route(String a, String b) {
+        /**
+         * top left - top right
+         * Scenario 1: a == top left and b == top right
+         * Scenario 2: a == top right and b == top left
+         */
+
+        if(a.equals(this.topLeftcroisement.getText()) && b.equals(this.topRightcroisement.getText())) {
+            System.out.println("CASE 1");
+            this.topBorder = BORDER_SIZE;
+        }else if(a.equals(this.topRightcroisement.getText()) && b.equals(this.topLeftcroisement.getText())) {
+            System.out.println("CASE 1");
+            this.topBorder = BORDER_SIZE;
+        }
+    }
+
+
+    private boolean isIn(String id) {
+        for (JButton jb : this.croisements) {
+            if(id.equals(jb.getText())){
+                return true;
+            }
+        }
+        return false;
     }
     
 
