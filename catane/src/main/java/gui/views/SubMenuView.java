@@ -27,7 +27,7 @@ public class SubMenuView extends JPanel{
     private Font customFont;
 
     private Color backGroundColor = new Color(39, 125, 161);
-    private String CANCEL_ICON = "catane/src/static/cancel.png";
+    private String CANCEL_ICON = "catane/src/static/next.png";
     private String DICE_ICON = "catane/src/static/dice.png";
 
     public JButton city;
@@ -104,7 +104,7 @@ public class SubMenuView extends JPanel{
         JLabel label_name = new JLabel();
 
 
-        label.setText("Player:");
+        label.setText("Joueur:");
         label.setFont(this.customFont);
         label.setForeground(Color.BLACK);
 
@@ -130,12 +130,12 @@ public class SubMenuView extends JPanel{
         // Jpanel with 3 buttons;
         // TODO: use model to get user name and other data...
         this.route = new JButton("Route");
-        this.city = new JButton("City");
-        this.village = new JButton("Village");
-        this.robber = new JButton("Robber");
+        this.city = new JButton("Ville");
+        this.village = new JButton("Colonie");
+        this.robber = new JButton("Voleur");
 
         JPanel panel = new JPanel();
-        JLabel label = new JLabel("Add:");
+        JLabel label = new JLabel("Ajouter:");
 
         label.setFont(this.customFont);
         label.setForeground(Color.BLACK);

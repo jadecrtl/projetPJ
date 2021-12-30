@@ -62,6 +62,9 @@ public class Window extends JFrame{
         this.setIconImage(icon);
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        this.setUndecorated(true);
+
     }
 
     public void openHomePage() {
@@ -145,23 +148,27 @@ public class Window extends JFrame{
 		((JComponent) this.getContentPane()).setBorder(new EmptyBorder(padding, padding, padding, padding));
 
         this.getContentPane().add(boardView, BorderLayout.CENTER);
+        
+        String firstMessage = "Le jeu commencera, dans ce premier tour et ce deuxième tour, chaque joueur devra placer une route et une colonie sur le plateau";
+        String secondMessage = "Pour effectuer une action sélectionnez l'action souhaitée dans le menu action, pour passer votre tour cliquez sur la flèche à droite. Bon jeu! ";
     
-        int n = JOptionPane.showConfirmDialog(
-        this,
-        "Would you like to change the game setup? (Yes, redirect to form) (No, start Catan Game)",
-        "Catane asks...",
-        JOptionPane.YES_NO_OPTION); // FIXME
+        JOptionPane.showMessageDialog(this,
+        firstMessage);
+
+        JOptionPane.showMessageDialog(this,
+        secondMessage);
 
         this.revalidate();
 		this.repaint();
+        this.preparePartie();
 
-        if(n == 1) {
-            this.preparePartie();
-        }
+        // if(n == 1) {
+        //     this.preparePartie();
+        // }
 
-        else if (n == 0) {
-            this.openGameForm();
-        }
+        // else if (n == 0) {
+        //     this.openGameForm();
+        // }
         
     }
 
@@ -190,31 +197,36 @@ public class Window extends JFrame{
         if(Window.gameStatus.equals("PREPARE_PARTIE")) {
             if(Window.currentPosInList>=2*Window.numberOfPlayers) {
                 System.out.println("Prepare Partie est fini");
+                updateGame(playerList, 0, this.de1, false, false, false, false, false);
                 lancePartie();
             }else {
                 // System.out.println("here");
                 // System.out.println(playerList[Window.currentPosInList]);
-                updateSubMenuView(this.joueurs.get(playerList[Window.currentPosInList]), this.de1, false, false, false, true, true);
-                // aireDeJeuView Setters
-                updateAireDeJeuView();
-                // aireDeJeuController Setters
-                updateAireDeJeuController();
-                // subMenuController Setters
-                updateSubMenuController();
-                // SetAuxPanels config
-                setAuxPanels(widerPanel, menuHolderView);
-                // UpdateBordView
-                updatePlayersHeader();
-                updateBoardView();
-
-                this.getContentPane().removeAll();
-                this.getContentPane().setBackground(new Color(39, 125, 161));
-                this.getContentPane().add(boardView, BorderLayout.CENTER);
-                
-                this.revalidate();
-                this.repaint();
+                updateGame(playerList, Window.currentPosInList, this.de1, false, false, false, true, true);
             }
         }
+    }
+
+    private void updateGame(int[] playerList, int currentPos, De6Faces de, boolean roober, boolean dice, boolean cancel, boolean addFreeVillage, boolean addFreeRoute) {
+        updateSubMenuView(this.joueurs.get(playerList[currentPos]), de, roober,  dice, cancel, addFreeVillage, addFreeRoute);
+        // aireDeJeuView Setters
+        updateAireDeJeuView();
+        // aireDeJeuController Setters
+        updateAireDeJeuController();
+        // subMenuController Setters
+        updateSubMenuController();
+        // SetAuxPanels config
+        setAuxPanels(widerPanel, menuHolderView);
+        // UpdateBordView
+        updatePlayersHeader();
+        updateBoardView();
+
+        this.getContentPane().removeAll();
+        this.getContentPane().setBackground(new Color(39, 125, 161));
+        this.getContentPane().add(boardView, BorderLayout.CENTER);
+        
+        this.revalidate();
+        this.repaint();
     }
 
 

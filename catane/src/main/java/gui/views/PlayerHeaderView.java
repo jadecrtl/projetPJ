@@ -121,7 +121,7 @@ public class PlayerHeaderView extends JPanel{
         resourcesPanel.setOpaque(false);
         resourcesPanel.setLayout(new BorderLayout());
 
-        JLabel res = new JLabel("Resources: ");
+        JLabel res = new JLabel("Ressources: ");
         res.setFont(this.customFont);
         res.setForeground(Color.BLACK);
        
@@ -138,7 +138,7 @@ public class PlayerHeaderView extends JPanel{
         colorPanel.setOpaque(false);
         colorPanel.setLayout(new BorderLayout());
 
-        JLabel color = new JLabel("Color: ");
+        JLabel color = new JLabel("Couleur: ");
         color.setFont(this.customFont);
         color.setForeground(Color.WHITE);
 
