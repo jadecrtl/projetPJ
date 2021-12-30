@@ -149,7 +149,7 @@ public class Window extends JFrame{
 
         this.getContentPane().add(boardView, BorderLayout.CENTER);
         
-        String firstMessage = "Le jeu commencera, dans ce premier tour et ce deuxième tour, chaque joueur devra placer une route et une colonie sur le plateau";
+        String firstMessage = "Nous allons d'abord prépare la partie! Dans ce premier tour et dans le deuxième tour, chaque joueur devra placer une route et une colonie sur le plateau";
         String secondMessage = "Pour effectuer une action sélectionnez l'action souhaitée dans le menu action, pour passer votre tour cliquez sur la flèche à droite. Bon jeu! ";
     
         JOptionPane.showMessageDialog(this,
@@ -198,6 +198,9 @@ public class Window extends JFrame{
             if(Window.currentPosInList>=2*Window.numberOfPlayers) {
                 System.out.println("Prepare Partie est fini");
                 updateGame(playerList, 0, this.de1, false, false, false, false, false);
+                String firstMessage = "Tous les joueurs ont déjà placé 2 routes et 2 colonies sur le plateau, nous allons maintenant commencer le jeu. Bonne chance!";
+                JOptionPane.showMessageDialog(this,
+                firstMessage);
                 lancePartie();
             }else {
                 // System.out.println("here");

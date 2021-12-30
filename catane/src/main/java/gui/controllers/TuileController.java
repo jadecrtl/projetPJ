@@ -2,6 +2,8 @@ package gui.controllers;
 import java.awt.*;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import java.awt.event.*;
 
 import gui.views.AireDeJeuView;
@@ -76,7 +78,10 @@ public class TuileController {
                 }
             }else {
                 System.out.println("Please select a valid coordinate");
-                subMenuView.village.setEnabled(true);
+                String firstMessage = "Ce croisement n'est pas valable ! Choisissez-en un autre s'il vous plaît!";
+                JOptionPane.showMessageDialog(aireDeJeuView,
+                firstMessage);
+                // subMenuView.village.setEnabled(true);
             }
 
         } else if (typeOfActionCroisement.equals("ROUTE")) {
@@ -155,7 +160,10 @@ public class TuileController {
                 }else {
                     TuileController.resetClickCounter();
                     System.out.println("Please select a valid coordinate");
-                    subMenuView.route.setEnabled(true);
+                    String firstMessage = "Ce pair de croisement n'est pas valable ! Choisissez un autre pair s'il vous plaît!";
+                    JOptionPane.showMessageDialog(aireDeJeuView,
+                    firstMessage);
+                    // subMenuView.route.setEnabled(true);
                 }
 
             }
