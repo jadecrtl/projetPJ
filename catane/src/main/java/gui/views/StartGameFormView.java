@@ -1,6 +1,7 @@
 package gui.views;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import gui.controllers.StartGameFormController;
 
@@ -63,6 +64,13 @@ public class StartGameFormView extends JPanel{
     public JRadioButton typeChoiceFourJaune;
 
     Window window;
+
+    ButtonGroup gengpBlanc = new ButtonGroup();
+    ButtonGroup gengpBleu = new ButtonGroup();
+    ButtonGroup gengpRouge = new ButtonGroup();
+    ButtonGroup gengpJaune = new ButtonGroup();
+    
+
  
 
     public StartGameFormView(Window window) {
@@ -70,7 +78,7 @@ public class StartGameFormView extends JPanel{
         this.window = window;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(titlePanel());
-        this.add(gameAletoirePanel());
+        // this.add(gameAletoirePanel());
         this.add(numberPlayersPanel());
         this.add(gameSizePanel());
         this.add(playerNamesPanel());
@@ -82,7 +90,7 @@ public class StartGameFormView extends JPanel{
     public JPanel titlePanel() {
         JPanel panel = new JPanel();
 
-        this.title = new JLabel("Game Setup");
+        this.title = new JLabel("Configuration du jeu");
         this.title.setFont(getNewFont(40));
         this.title.setForeground(Color.WHITE);
 
@@ -94,24 +102,24 @@ public class StartGameFormView extends JPanel{
 
     public JPanel numberPlayersPanel() {
         JPanel panel = new JPanel();
-        JLabel title = new JLabel("Number of Players: ");
+        JLabel title = new JLabel("Nombre de joueurs: ");
         title.setForeground(Color.WHITE);
 
         title.setFont(getNewFont(25));
-        this.threePlayers = new JRadioButton("3 Players");
+        this.threePlayers = new JRadioButton("3");
         this.threePlayers.setFont(getNewFont(20));
         this.threePlayers.setFocusPainted(false); 
         this.threePlayers.setOpaque(false);
         this.threePlayers.setForeground(Color.BLACK);
 
-        this.fourPlayers = new JRadioButton("4 Players");
+        this.threePlayers.setSelected(true);
+
+
+        this.fourPlayers = new JRadioButton("4");
         this.fourPlayers.setFont(getNewFont(20));
         this.fourPlayers.setFocusPainted(false); 
         this.fourPlayers.setOpaque(false);
         this.fourPlayers.setForeground(Color.BLACK);
-
-
-
         
         ButtonGroup gengp = new ButtonGroup();
         gengp.add(threePlayers);
@@ -161,32 +169,32 @@ public class StartGameFormView extends JPanel{
 
     public JPanel gameSizePanel() {
         JPanel panel = new JPanel();
-        JLabel title = new JLabel("Game Size: ");
+        JLabel title = new JLabel("Taille du jeu: ");
         title.setForeground(Color.WHITE);
 
         title.setFont(getNewFont(25));  
         // Game size
-        this.sizeOptionOne = new JRadioButton("5x3 Board");
+        this.sizeOptionOne = new JRadioButton("5x3");
         this.sizeOptionOne.setFont(getNewFont(20));
         this.sizeOptionOne.setFocusPainted(false); 
         this.sizeOptionOne.setOpaque(false);
         this.sizeOptionOne.setForeground(Color.BLACK);
 
 
-        this.sizeOptionTwo = new JRadioButton("5x5 Board");
+        this.sizeOptionTwo = new JRadioButton("5x5");
         this.sizeOptionTwo.setFont(getNewFont(20));
         this.sizeOptionTwo.setFocusPainted(false); 
         this.sizeOptionTwo.setOpaque(false);
         this.sizeOptionTwo.setForeground(Color.BLACK);
 
-
+        this.sizeOptionTwo.setSelected(true);
         
         ButtonGroup gengp = new ButtonGroup();
         gengp.add(sizeOptionOne);
         gengp.add(sizeOptionTwo);
 
         panel.add(title);
-        panel.add(sizeOptionOne);
+        // panel.add(sizeOptionOne);
         panel.add(sizeOptionTwo);
         panel.setOpaque(false);
 
@@ -200,7 +208,7 @@ public class StartGameFormView extends JPanel{
         GridLayout layout = new GridLayout();
         layout.setHgap(5);
         panel.setLayout(layout);
-        JLabel title = new JLabel("Players ");
+        JLabel title = new JLabel("Joueurs: ");
         title.setFont(getNewFont(25));
         title.setForeground(Color.WHITE);
 
@@ -225,10 +233,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerOneName = new JTextField(" Player 1 ");
+        this.playerOneName = new JTextField(" Joueur 1 ");
         this.playerOneName.setFont(getNewFont(15));
         this.playerOneName.setOpaque(false);
         this.playerOneName.setForeground(Color.BLACK);
+        this.playerOneName.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.playerOneName.setHorizontalAlignment(JTextField.CENTER);
 
         this.playerOneAge = new JTextField("20");
         this.playerOneAge.setFont(getNewFont(15));
@@ -243,11 +253,14 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceOneAi.setForeground(Color.BLACK);
 
 
-        this.typeChoiceOneHuman = new JRadioButton("Human");
+        this.typeChoiceOneHuman = new JRadioButton("Humain");
         this.typeChoiceOneHuman.setFont(getNewFont(15));
         this.typeChoiceOneHuman.setFocusPainted(false); 
         this.typeChoiceOneHuman.setOpaque(false);
         this.typeChoiceOneHuman.setForeground(Color.BLACK);
+
+        this.typeChoiceOneHuman.setSelected(true);
+
 
         ButtonGroup gengp = new ButtonGroup();
         gengp.add(typeChoiceOneAi);
@@ -264,6 +277,9 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceOneBlue.setFocusPainted(false); 
         this.typeChoiceOneBlue.setOpaque(false);
         this.typeChoiceOneBlue.setForeground(Color.BLACK);
+
+        this.typeChoiceOneBlue.setSelected(true);
+
 
         this.typeChoiceOneBlanc = new JRadioButton("BLANC");
         this.typeChoiceOneBlanc.setFont(getNewFont(15));
@@ -289,6 +305,12 @@ public class StartGameFormView extends JPanel{
         gengp2.add(typeChoiceOneRouge);
         gengp2.add(typeChoiceOneJaune);
 
+        this.gengpBlanc.add(typeChoiceOneBlanc);
+        this.gengpBleu.add(typeChoiceOneBlue);
+        this.gengpRouge.add(typeChoiceOneRouge);
+        this.gengpJaune.add(typeChoiceOneJaune);
+
+
         JPanel colorPanel = new JPanel();
         colorPanel.setOpaque(false);
         colorPanel.add(typeChoiceOneBlue);
@@ -297,7 +319,7 @@ public class StartGameFormView extends JPanel{
         colorPanel.add(typeChoiceOneJaune);
 
         playerQuestions.add(this.playerOneName);
-        playerQuestions.add(this.playerOneAge);
+        // playerQuestions.add(this.playerOneAge);
         playerQuestions.add(aiHumanPanel);
         playerQuestions.add(colorPanel);
 
@@ -309,10 +331,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerTwoName = new JTextField(" Player 2 ");
+        this.playerTwoName = new JTextField(" Joueur 2 ");
         this.playerTwoName.setFont(getNewFont(15));
         this.playerTwoName.setOpaque(false);
         this.playerTwoName.setForeground(Color.BLACK);
+        this.playerTwoName.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.playerTwoName.setHorizontalAlignment(JTextField.CENTER);
 
         this.playerTwoAge = new JTextField("20");
         this.playerTwoAge.setFont(getNewFont(15));
@@ -327,11 +351,14 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceTwoAi.setForeground(Color.BLACK);
 
 
-        this.typeChoiceTwoHuman = new JRadioButton("Human");
+        this.typeChoiceTwoHuman = new JRadioButton("Humain");
         this.typeChoiceTwoHuman.setFont(getNewFont(15));
         this.typeChoiceTwoHuman.setFocusPainted(false); 
         this.typeChoiceTwoHuman.setOpaque(false);
         this.typeChoiceTwoHuman.setForeground(Color.BLACK);
+
+        this.typeChoiceTwoHuman.setSelected(true);
+
 
         ButtonGroup gengp = new ButtonGroup();
         gengp.add(typeChoiceTwoAi);
@@ -361,6 +388,9 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceTwoRouge.setOpaque(false);
         this.typeChoiceTwoRouge.setForeground(Color.BLACK);
 
+        this.typeChoiceTwoRouge.setSelected(true);
+
+
         this.typeChoiceTwoJaune = new JRadioButton("JAUNE");
         this.typeChoiceTwoJaune.setFont(getNewFont(15));
         this.typeChoiceTwoJaune.setFocusPainted(false); 
@@ -373,6 +403,12 @@ public class StartGameFormView extends JPanel{
         gengp2.add(typeChoiceTwoRouge);
         gengp2.add(typeChoiceTwoJaune);
 
+        this.gengpBlanc.add(typeChoiceTwoBlanc);
+        this.gengpBleu.add(typeChoiceTwoBlue);
+        this.gengpRouge.add(typeChoiceTwoRouge);
+        this.gengpJaune.add(typeChoiceTwoJaune);
+
+
         JPanel colorPanel = new JPanel();
         colorPanel.setOpaque(false);
         colorPanel.add(typeChoiceTwoBlue);
@@ -381,7 +417,7 @@ public class StartGameFormView extends JPanel{
         colorPanel.add(typeChoiceTwoJaune);
 
         playerQuestions.add(this.playerTwoName);
-        playerQuestions.add(this.playerTwoAge);
+        // playerQuestions.add(this.playerTwoAge);
         playerQuestions.add(aiHumanPanel);
         playerQuestions.add(colorPanel);
 
@@ -394,10 +430,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerThreeName = new JTextField(" Player 3 ");
+        this.playerThreeName = new JTextField(" Joueur 3 ");
         this.playerThreeName.setFont(getNewFont(15));
         this.playerThreeName.setOpaque(false);
         this.playerThreeName.setForeground(Color.BLACK);
+        this.playerThreeName.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.playerThreeName.setHorizontalAlignment(JTextField.CENTER);
 
         this.playerThreeAge = new JTextField("20");
         this.playerThreeAge.setFont(getNewFont(15));
@@ -412,11 +450,14 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceThreeAi.setForeground(Color.BLACK);
 
 
-        this.typeChoiceThreeHuman = new JRadioButton("Human");
+        this.typeChoiceThreeHuman = new JRadioButton("Humain");
         this.typeChoiceThreeHuman.setFont(getNewFont(15));
         this.typeChoiceThreeHuman.setFocusPainted(false); 
         this.typeChoiceThreeHuman.setOpaque(false);
         this.typeChoiceThreeHuman.setForeground(Color.BLACK);
+
+        this.typeChoiceThreeHuman.setSelected(true);
+
 
         ButtonGroup gengp = new ButtonGroup();
         gengp.add(typeChoiceThreeAi);
@@ -452,11 +493,21 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceThreeJaune.setOpaque(false);
         this.typeChoiceThreeJaune.setForeground(Color.BLACK);
 
+
+        this.typeChoiceThreeJaune.setSelected(true);
+
+
         ButtonGroup gengp2 = new ButtonGroup();
         gengp2.add(typeChoiceThreeBlue);
         gengp2.add(typeChoiceThreeBlanc);
         gengp2.add(typeChoiceThreeRouge);
         gengp2.add(typeChoiceThreeJaune);
+
+        this.gengpBlanc.add(typeChoiceThreeBlanc);
+        this.gengpBleu.add(typeChoiceThreeBlue);
+        this.gengpRouge.add(typeChoiceThreeRouge);
+        this.gengpJaune.add(typeChoiceThreeJaune);
+
 
         JPanel colorPanel = new JPanel();
         colorPanel.setOpaque(false);
@@ -466,7 +517,7 @@ public class StartGameFormView extends JPanel{
         colorPanel.add(typeChoiceThreeJaune);
 
         playerQuestions.add(this.playerThreeName);
-        playerQuestions.add(this.playerThreeAge);
+        // playerQuestions.add(this.playerThreeAge);
         playerQuestions.add(aiHumanPanel);
         playerQuestions.add(colorPanel);
 
@@ -480,10 +531,12 @@ public class StartGameFormView extends JPanel{
         playerQuestions.setLayout(new BoxLayout(playerQuestions, BoxLayout.Y_AXIS));
         playerQuestions.setOpaque(false);
 
-        this.playerFourName = new JTextField(" Player 4 ");
+        this.playerFourName = new JTextField(" Joueur 4 ");
         this.playerFourName.setFont(getNewFont(15));
         this.playerFourName.setOpaque(false);
         this.playerFourName.setForeground(Color.BLACK);
+        this.playerFourName.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.playerFourName.setHorizontalAlignment(JTextField.CENTER);
 
         this.playerFourAge = new JTextField("20");
         this.playerFourAge.setFont(getNewFont(15));
@@ -498,11 +551,13 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceFourAi.setForeground(Color.BLACK);
 
 
-        this.typeChoiceFourHuman = new JRadioButton("Human");
+        this.typeChoiceFourHuman = new JRadioButton("Humain");
         this.typeChoiceFourHuman.setFont(getNewFont(15));
         this.typeChoiceFourHuman.setFocusPainted(false); 
         this.typeChoiceFourHuman.setOpaque(false);
         this.typeChoiceFourHuman.setForeground(Color.BLACK);
+
+        this.typeChoiceFourHuman.setSelected(true);
 
         ButtonGroup gengp = new ButtonGroup();
         gengp.add(typeChoiceFourAi);
@@ -526,6 +581,9 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceFourBlanc.setOpaque(false);
         this.typeChoiceFourBlanc.setForeground(Color.BLACK);
 
+        this.typeChoiceFourBlanc.setSelected(true);
+
+
         this.typeChoiceFourRouge = new JRadioButton("ROUGE");
         this.typeChoiceFourRouge.setFont(getNewFont(15));
         this.typeChoiceFourRouge.setFocusPainted(false); 
@@ -544,6 +602,13 @@ public class StartGameFormView extends JPanel{
         gengp2.add(typeChoiceFourRouge);
         gengp2.add(typeChoiceFourJaune);
 
+
+        this.gengpBlanc.add(typeChoiceFourBlanc);
+        this.gengpBleu.add(typeChoiceFourBlue);
+        this.gengpRouge.add(typeChoiceFourRouge);
+        this.gengpJaune.add(typeChoiceFourJaune);
+
+
         JPanel colorPanel = new JPanel();
         colorPanel.setOpaque(false);
         colorPanel.add(typeChoiceFourBlue);
@@ -552,7 +617,7 @@ public class StartGameFormView extends JPanel{
         colorPanel.add(typeChoiceFourJaune);
 
         playerQuestions.add(this.playerFourName);
-        playerQuestions.add(this.playerFourAge);
+        // playerQuestions.add(this.playerFourAge);
         playerQuestions.add(aiHumanPanel);
         playerQuestions.add(colorPanel);
 
