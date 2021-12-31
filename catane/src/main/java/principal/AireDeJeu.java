@@ -414,10 +414,10 @@ public class AireDeJeu {
     public Integer choisiNouvelleTuileVoleur() {
         Dialogue dialogue = new Dialogue();
         terminal.println(Couleur.VERT.getStabilo(), "Deplacer le pion voleur avec les instructions suivantes : ");
-        int idCroisementA = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un des croisements de la tuile ou vous voulez deplacer le voleur.");
-        int idCroisementB = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
-        int idCroisementC = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez encore un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
-        int idCroisementD = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez le dernier des croisements de la tuile ou vous voulez deplacer le voleur.");
+        Integer idCroisementA = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un des croisements de la tuile ou vous voulez deplacer le voleur.");
+        Integer idCroisementB = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
+        Integer idCroisementC = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez encore un autre des quatres croisements de la tuile ou vous voulez deplacer le voleur.");
+        Integer idCroisementD = dialogue.demandeInt(Couleur.VERT.getCrayon(), "Indiquez le dernier des croisements de la tuile ou vous voulez deplacer le voleur.");
         List<Integer> croisementVoleur = new ArrayList<>();
         croisementVoleur.add(idCroisementA);
         croisementVoleur.add(idCroisementB);
@@ -425,12 +425,13 @@ public class AireDeJeu {
         croisementVoleur.add(idCroisementD);
         Integer idTuileVoleur = getIdTuileParCroisementVoisins(croisementVoleur);
         if (!(idTuileVoleur == null)) {
+            //System.out.println("Cas direct de choisiTuileVoleur");
             return idTuileVoleur;
         }
         else {
-            choisiNouvelleTuileVoleur();
+            //System.out.println("Cas de la recursivité de choisiTuileVoleur");
+            return choisiNouvelleTuileVoleur();
         }
-        return null;
     }
 
     public void deplaceVoleur(int idTuileVoleur) {
