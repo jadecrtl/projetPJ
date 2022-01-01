@@ -12,7 +12,7 @@ public class Joueur03AcheteRouteUTest {
     @Test
     public void acheterRouteHorizontale() {
         AireDeJeu aire = new AireDeJeu(5, 3, null);
-        Joueur j1 = new Joueur("j1", 21, TypeJoueur.HUMAIN, Couleur.BLEU);
+        Joueur j1 = new Joueur("j1", TypeJoueur.HUMAIN, Couleur.BLEU);
 
         j1.ajouterRessources(1, Production.BOIS);
         j1.ajouterRessources(1, Production.ARGILE);
@@ -56,7 +56,7 @@ public class Joueur03AcheteRouteUTest {
     @Test
     public void acheterRouteVerticale() {
         AireDeJeu aire = new AireDeJeu(5, 3, null);
-        Joueur j1 = new Joueur("j1", 21, TypeJoueur.HUMAIN, Couleur.BLEU);
+        Joueur j1 = new Joueur("j1", TypeJoueur.HUMAIN, Couleur.BLEU);
 
         j1.ajouterRessources(1, Production.BOIS);
         j1.ajouterRessources(1, Production.ARGILE);

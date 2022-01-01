@@ -11,10 +11,10 @@ public class AireDeJeu04DessineDansConsoleUTest {
     @Test
     public void dessineAireDeJeu() {
         AireDeJeu aire = new AireDeJeu(7, 5, null);
-        Joueur j1 = new Joueur("j1", 50, TypeJoueur.HUMAIN, Couleur.BLEU);
-        Joueur j2 = new Joueur("j2", 50, TypeJoueur.HUMAIN, Couleur.BLANC);
-        Joueur j3 = new Joueur("j3", 50, TypeJoueur.HUMAIN, Couleur.ROUGE);
-        Joueur j4 = new Joueur("j4", 50, TypeJoueur.HUMAIN, Couleur.VERT);
+        Joueur j1 = new Joueur("j1", TypeJoueur.HUMAIN, Couleur.BLEU);
+        Joueur j2 = new Joueur("j2", TypeJoueur.HUMAIN, Couleur.BLANC);
+        Joueur j3 = new Joueur("j3", TypeJoueur.HUMAIN, Couleur.ROUGE);
+        Joueur j4 = new Joueur("j4", TypeJoueur.HUMAIN, Couleur.VERT);
         aire.getCroisements().get(0).setProprietaire(j1, TypeCroisement.COLONIE);
         aire.getCroisements().get(1).setProprietaire(j2, TypeCroisement.COLONIE);
         aire.getCroisements().get(2).setProprietaire(j3, TypeCroisement.COLONIE);

@@ -74,7 +74,7 @@ public class CataneGui {
                 couleur = Couleur.JAUNE;
             }
 
-            Joueur j = new Joueur(playerName.getText(), Integer.valueOf(playerAge.getText()), type, couleur);
+            Joueur j = new Joueur(playerName.getText(), type, couleur);
             return j;
     }
 
