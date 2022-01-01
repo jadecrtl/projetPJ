@@ -197,13 +197,10 @@ public class TuileController {
     public void jetonPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView, Selection2 selection) {
         //  TODO: Insert Robber if possible in this Tuile (Call model and insert robber if possible)
         // TODO: Tell tuile to check model if has a robber and update the jeton with either a robber or the number
-        subMenuView.city.setEnabled(true);
-        subMenuView.route.setEnabled(true);
-        subMenuView.village.setEnabled(true);
-        subMenuView.b1.setEnabled(true);
-        subMenuView.b2.setEnabled(true);
-
+        int idTuile = this.tuileModel.getIdTuile();
+        aireDeJeuView.getAireDeJeuModel().deplaceVoleur(idTuile);
         jbutton.removeMouseListener(selection);
+        aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
 
         for (TuileView tuile : aireDeJeuView.getTuiles()) {
             tuile.getJetonButton().setEnabled(false);
@@ -311,13 +308,13 @@ public class TuileController {
         }
 
         public void mouseEntered(MouseEvent evt) {
-            // this.buttonSize = jButton.getFont().getSize();
-            // this.jButton.setForeground(new Color(243, 114, 44));
-            // this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 25));
+            this.buttonSize = jButton.getFont().getSize();
+            this.jButton.setForeground(new Color(243, 114, 44));
+            this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, 25));
         }
         public void mouseExited(MouseEvent evt) {
-            // this.jButton.setForeground(this.color);
-            // this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
+            this.jButton.setForeground(this.color);
+            this.jButton.setFont(new Font(TuileController.this.tuileView.getCustomFont().getFontName(), Font.PLAIN, this.buttonSize));
         }
     }
 }

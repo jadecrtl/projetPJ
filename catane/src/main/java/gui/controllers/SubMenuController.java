@@ -25,7 +25,11 @@ public class SubMenuController {
                 // TODO: hen do something in the game... (ask jade)
 
                 //---------------------------------------------------
-                if(res == 7 ) res = 5; // TEMPORARY JUST FOR TESTING !!!!!!!!
+                if(res == 7 ) {
+                    aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), true, false, false, false);
+                    String numberPath = getNumberIconPath(String.valueOf(res));
+                    button.setIcon(TuileView.createIcon(numberPath, iconWidth, iconHeight));
+                } 
                 //---------------------------------------------------
 
                 if(res != 7) {

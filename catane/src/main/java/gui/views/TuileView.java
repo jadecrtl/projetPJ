@@ -226,6 +226,7 @@ public class TuileView extends JPanel {
         this.jetonLabel.addMouseListener(jetonListener);
         this.jetonLabel.addActionListener((event)-> {this.tuilleController.jetonPressed(jetonLabel, this.aireDeJeuView, this.aireDeJeuView.getSub(), jetonListener);});
         this.jetonLabel.setEnabled(false);
+        updateJetonIcon(this.jetonLabel);
 
         try {
 
@@ -240,6 +241,12 @@ public class TuileView extends JPanel {
         this.terrain.setHorizontalAlignment(JLabel.CENTER);
        
 
+    }
+
+    public void updateJetonIcon(JButton button) {
+        if(this.tuileModel.isVoleurPresent()) {
+            button.setIcon(TuileView.createIcon("catane/src/static/robber.png", 10, 10));
+        }
     }
 
     public void setAireDeJeu(AireDeJeuView air) {
