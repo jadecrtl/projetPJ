@@ -46,6 +46,8 @@ public class Window extends JFrame{
     boolean routeStatus = false;
     public static int[] preparePartiePlayers3 = {0, 1, 2, 2, 1, 0};
     public static int[] preparePartiePlayers4 = {0, 1, 2, 3, 3, 2, 1, 0};
+    public static int[] threePlayersList = {0, 1, 2};
+    public static int[] fourPlayersList = {0, 1, 2, 4};
     public static int currentPosInList = 0;
     public static String gameStatus;
 
@@ -172,6 +174,16 @@ public class Window extends JFrame{
         
     }
 
+    
+    public void lancePartie() {
+        // Change game status
+        Window.gameStatus = "LANCE_PARTIE";
+        Window.currentPosInList = 0;
+        int[] playerList = this.joueurs.size() == 3 ? Window.threePlayersList : Window.fourPlayersList;
+        nextPlayerTurn(playerList);
+        // Update current player
+    }
+
 
     public void preparePartie() {
 
@@ -207,6 +219,13 @@ public class Window extends JFrame{
                 // System.out.println(playerList[Window.currentPosInList]);
                 updateGame(playerList, Window.currentPosInList, this.de1, false, false, false, true, true);
             }
+        }else if(Window.gameStatus.equals("LANCE_PARTIE")) {
+            if(this.currentJeu.joueurVainqueur() == null) {
+                System.out.println("INSIDE LANCE PARTIE");
+                updateGame(playerList, Window.currentPosInList, this.de1, false, false, false, false, false);
+            }else {
+                System.out.println("game over");
+            }
         }
     }
 
@@ -233,31 +252,6 @@ public class Window extends JFrame{
     }
 
 
-    public void lancePartie() {
-
-    }
-
-    // private void updateWindow(Joueur joueur, De6Faces de, boolean roober, boolean dice, boolean cancel, boolean addFreeVillage, boolean addFreeRoute) {
-
-    //     updateSubMenuView(joueur, de, roober, dice, cancel, addFreeVillage, addFreeRoute);
-    //     // aireDeJeuView Setters
-    //     updateAireDeJeuView();
-    //     // aireDeJeuController Setters
-    //     updateAireDeJeuController();
-    //     // subMenuController Setters
-    //     updateSubMenuController();
-    //     // SetAuxPanels config
-    //     setAuxPanels(this.widerPanel, this.menuHolderView);
-    //     // UpdateBordView
-    //     updateBoardView();
-
-    //     this.getContentPane().removeAll();
-    //     this.getContentPane().setBackground(new Color(39, 125, 161));
-
-    //     this.getContentPane().add(boardView, BorderLayout.CENTER);
-    //     this.revalidate();
-	// 	this.repaint();
-    // }
 
     private void updateBoardView() {
         // Add Content to Board
