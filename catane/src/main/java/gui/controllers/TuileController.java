@@ -31,15 +31,16 @@ public class TuileController {
             boolean succ = subMenuView.joueurModel.placeColonieGratuite(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
             if(succ) {
                 System.out.println(subMenuView.joueurModel.getPointVictoire());
-
                 System.out.println("Croisement Pressed");
                 if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
-                    subMenuView.city.setEnabled(true);
-                    subMenuView.village.setEnabled(true);
-                    subMenuView.b1.setEnabled(true);
-                    subMenuView.b2.setEnabled(true);
-                    subMenuView.robber.setEnabled(true);
-                    subMenuView.route.setEnabled(true);
+                    // subMenuView.city.setEnabled(true);
+                    // subMenuView.village.setEnabled(true);
+                    // subMenuView.b1.setEnabled(true);
+                    // subMenuView.b2.setEnabled(true);
+                    // subMenuView.robber.setEnabled(true);
+                    // subMenuView.route.setEnabled(true);
+                    aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
+
                 }
     
                 if(Window.gameStatus.equals("PREPARE_PARTIE")) {
@@ -119,7 +120,12 @@ public class TuileController {
                 String croisement = jbutton.getText();
                 System.out.println("A: "+TuileController.firstIdRoute);
                 System.out.println("B: " +TuileController.secondIdRoute);
-                boolean succs = subMenuView.joueurModel.placeRouteGratuite(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute);
+                boolean succs;
+                if(Window.gameStatus.equals("LANCE_PARTIE")) {
+                    succs = subMenuView.joueurModel.lanceAcheteRouteGui(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute);
+                }else {
+                    succs = subMenuView.joueurModel.placeRouteGratuite(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute);
+                }
                 if (succs) {
                     System.out.println(subMenuView.joueurModel.getPointVictoire());
 
@@ -142,14 +148,18 @@ public class TuileController {
                     
                     TuileController.resetClickCounter();
                     if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
-                        subMenuView.city.setEnabled(true);
-                        subMenuView.route.setEnabled(true);
-                        subMenuView.b1.setEnabled(true);
-                        subMenuView.b2.setEnabled(true);
-                        subMenuView.robber.setEnabled(true);
+                        // subMenuView.city.setEnabled(true);
+                        // subMenuView.route.setEnabled(true);
+                        // subMenuView.b1.setEnabled(true);
+                        // subMenuView.b2.setEnabled(true);
+                        // subMenuView.robber.setEnabled(true);
+                        aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
                     }
-    
-                    subMenuView.village.setEnabled(true);
+
+                    if(Window.gameStatus.equals("PREPARE_PARTIE")) {
+                        subMenuView.village.setEnabled(true);
+                    }
+
                     for (TuileView tuile : aireDeJeuView.getTuiles()) {
                         tuile.getTopLeft().setEnabled(false);
                         tuile.getTopRight().setEnabled(false);

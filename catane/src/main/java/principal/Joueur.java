@@ -634,6 +634,34 @@ public class Joueur {
         acheteRoute(jeu.getAire(), route);
     }
 
+
+    public boolean lanceAcheteRouteGui(AireDeJeu air, int idCroisementA, int idCroisementB) {
+        if (peutAcheterRoute() == false) {
+            // terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        // int idCroisementA = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point de depart : ");
+        // int idCroisementB = dialogue.demandeInt(this.getCouleur().getCrayon(), "Point d'arrivee : ");
+        if (idCroisementA > idCroisementB) {
+            int tmp = idCroisementA;
+            idCroisementA = idCroisementB;
+            idCroisementB = tmp;
+        }
+        Route route = new Route(idCroisementA, idCroisementB);
+        if (!air.isRouteValide(route.getIdCroisementA(), route.getIdCroisementB())) {
+            // terminal.println(Couleur.VERT.getStabilo(), "La route n'est pas valide");            
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        if (!(air.getProprietaireRoute(route) == null)) {
+            // terminal.println(Couleur.VERT.getStabilo(), "La route est deja occupee");
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        return acheteRoute(air, route);
+    }
+
     public void lanceAcheteColonie(Jeu jeu) {
         if (peutAcheterColonie() == false) {
             terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");

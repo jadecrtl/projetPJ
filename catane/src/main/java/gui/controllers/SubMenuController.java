@@ -23,9 +23,20 @@ public class SubMenuController {
                 int val2 = subMenuView.getDe().getValeurDe();
                 int res = val + val2; 
                 // TODO: hen do something in the game... (ask jade)
-                String numberPath = getNumberIconPath(String.valueOf(res));
-                // System.out.println(numberPath);
-                button.setIcon(TuileView.createIcon(numberPath, iconWidth, iconHeight));
+
+                //---------------------------------------------------
+                if(res == 7 ) res = 5; // TEMPORARY JUST FOR TESTING !!!!!!!!
+                //---------------------------------------------------
+
+                if(res != 7) {
+                    System.out.println(res);
+                    window.currentJeu.assigneRessourceTirageDes(res);
+                    window.updatePlayersHeader();
+                    aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
+                    String numberPath = getNumberIconPath(String.valueOf(res));
+                    button.setIcon(TuileView.createIcon(numberPath, iconWidth, iconHeight));
+                }
+                
             }
         } else if (type.equals("CANCEL")) {
             System.out.println("Next Round....");
@@ -33,6 +44,10 @@ public class SubMenuController {
                 Window.currentPosInList++;
                 // System.out.println(Window.currentPosInList);
                 int[] playerList = Window.numberOfPlayers == 3 ? Window.preparePartiePlayers3 : Window.preparePartiePlayers4;
+                window.nextPlayerTurn(playerList);
+            }else if(Window.gameStatus.equals("LANCE_PARTIE")) {
+                Window.currentPosInList++;
+                int[] playerList = Window.numberOfPlayers == 3 ? Window.threePlayersList : Window.fourPlayersList;
                 window.nextPlayerTurn(playerList);
             }
         }

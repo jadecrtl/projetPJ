@@ -19,9 +19,9 @@ public class Window extends JFrame{
     static final int HEIGHT = 700;
 
     // Models
-    Jeu currentJeu;
+    public Jeu currentJeu;
     AireDeJeu aireDeJeuModel;
-    List<Joueur> joueurs;
+    public static List<Joueur> joueurs;
     De6Faces de1;
     public static int numberOfPlayers;
 
@@ -116,8 +116,8 @@ public class Window extends JFrame{
 
         // 3. Models
         this.aireDeJeuModel = jeu.getAire();    
-        this.joueurs = jeu.getJoueurs();
-        Window.numberOfPlayers = this.joueurs.size();
+        Window.joueurs = jeu.getJoueurs();
+        Window.numberOfPlayers = Window.joueurs.size();
         this.de1 = new De6Faces(); // FIXME 
 
 
@@ -132,7 +132,7 @@ public class Window extends JFrame{
         this.subMenuController = new SubMenuController();
 
         // SubMenuView setters
-        updateSubMenuView(this.joueurs.get(0), this.de1, false, false, false, false, false);
+        updateSubMenuView(Window.joueurs.get(0), this.de1, false, false, false, false, false);
         // aireDeJeuView Setters
         updateAireDeJeuView();
         // aireDeJeuController Setters
@@ -179,7 +179,7 @@ public class Window extends JFrame{
         // Change game status
         Window.gameStatus = "LANCE_PARTIE";
         Window.currentPosInList = 0;
-        int[] playerList = this.joueurs.size() == 3 ? Window.threePlayersList : Window.fourPlayersList;
+        int[] playerList = Window.joueurs.size() == 3 ? Window.threePlayersList : Window.fourPlayersList;
         nextPlayerTurn(playerList);
         // Update current player
     }
@@ -199,7 +199,7 @@ public class Window extends JFrame{
             2. Repeat 1. from last to first.
         
         */
-        int[] playerList = this.joueurs.size() == 3 ? Window.preparePartiePlayers3 : Window.preparePartiePlayers4;
+        int[] playerList = Window.joueurs.size() == 3 ? Window.preparePartiePlayers3 : Window.preparePartiePlayers4;
         Window.gameStatus = "PREPARE_PARTIE";
         nextPlayerTurn(playerList);
     }
@@ -221,8 +221,11 @@ public class Window extends JFrame{
             }
         }else if(Window.gameStatus.equals("LANCE_PARTIE")) {
             if(this.currentJeu.joueurVainqueur() == null) {
+                if(Window.currentPosInList > Window.numberOfPlayers-1) {
+                    Window.currentPosInList = 0;
+                }
                 System.out.println("INSIDE LANCE PARTIE");
-                updateGame(playerList, Window.currentPosInList, this.de1, false, false, false, false, false);
+                updateGame(playerList, Window.currentPosInList, this.de1, false, true, false, false, false);
             }else {
                 System.out.println("game over");
             }
@@ -230,7 +233,7 @@ public class Window extends JFrame{
     }
 
     private void updateGame(int[] playerList, int currentPos, De6Faces de, boolean roober, boolean dice, boolean cancel, boolean addFreeVillage, boolean addFreeRoute) {
-        updateSubMenuView(this.joueurs.get(playerList[currentPos]), de, roober,  dice, cancel, addFreeVillage, addFreeRoute);
+        updateSubMenuView(Window.joueurs.get(playerList[currentPos]), de, roober,  dice, cancel, addFreeVillage, addFreeRoute);
         // aireDeJeuView Setters
         updateAireDeJeuView();
         // aireDeJeuController Setters
@@ -309,7 +312,7 @@ public class Window extends JFrame{
         menuHolderView.add(this.subMenuView, BorderLayout.CENTER);
     }
 
-    private void updatePlayersHeader() {
-        this.playerHeaderView = new PlayerHeaderView(this.joueurs);
+    public void updatePlayersHeader() {
+        this.playerHeaderView = new PlayerHeaderView(Window.joueurs);
     }
 }
