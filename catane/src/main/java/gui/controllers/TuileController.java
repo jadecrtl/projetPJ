@@ -23,14 +23,25 @@ public class TuileController {
     
 
     public void croisementPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView, Selection selection) {
+        boolean succ = false;
         // TODO: Before doing any insertion, verify with model methods if this spot is allow to be inserted such element
         if (typeOfActionCroisement.equals("CITY") || typeOfActionCroisement.equals("VILLAGE")) {
+            if(typeOfActionCroisement.equals("VILLAGE")) {
+                if(Window.gameStatus.equals("PREPARE_PARTIE")) {
+                    succ = subMenuView.joueurModel.placeColonieGratuite(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
+                }else if(Window.gameStatus.equals("LANCE_PARTIE")) {
+                    succ = subMenuView.joueurModel.lanceAcheteColonieGui(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
+                }
+            }else if(typeOfActionCroisement.equals("CITY")){
+                if(Window.gameStatus.equals("LANCE_PARTIE")) {
+                    succ = subMenuView.joueurModel.lanceAcheteVilleGui(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
+                }
+            }
             //  TODO: Insert City if possible in this Tuile (Call model and insert robber if possible)
             // TODO: Tell tuile to check model if has a city and update the croisement with either a city icon or the number
-            System.out.println("A Village pos: "+jbutton.getText());
-            boolean succ = subMenuView.joueurModel.placeColonieGratuite(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
+            // System.out.println("A Village pos: "+jbutton.getText());
             if(succ) {
-                System.out.println(subMenuView.joueurModel.getPointVictoire());
+                // System.out.println(subMenuView.joueurModel.getPointVictoire());
                 System.out.println("Croisement Pressed");
                 if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
                     // subMenuView.city.setEnabled(true);

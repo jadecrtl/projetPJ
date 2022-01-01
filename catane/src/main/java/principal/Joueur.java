@@ -681,6 +681,24 @@ public class Joueur {
         }
         acheteColonie(jeu.getAire(), idCroisement);
     }
+    public boolean lanceAcheteColonieGui(AireDeJeu air, int idCroisement) {
+        if (peutAcheterColonie() == false) {
+            // terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        if (air.isCroisementValidePourUnJoueur(idCroisement, this)) {
+            // terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        if (!(air.getCroisements().get(idCroisement).getProprietaire() == null)) {
+            // terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        return acheteColonie(air, idCroisement);
+    }
 
     public void lanceAcheteVille(Jeu jeu) {
         if (peutAcheterVille() == false) {
@@ -700,6 +718,25 @@ public class Joueur {
             return;
         }
         acheteVille(jeu.getAire(), idCroisement);
+    }
+
+    public boolean lanceAcheteVilleGui(AireDeJeu air, int idCroisement) {
+        if (peutAcheterVille() == false) {
+            // terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        if (!air.isCroisementValidePourUnJoueur(idCroisement, this)) {
+            // terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        if (!(air.getCroisements().get(idCroisement).getProprietaire() == this)) {
+            // terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            // dialogue.appuyerSurEntree();
+            return false;
+        }
+        return acheteVille(air, idCroisement);
     }
 
     public void lanceCommerceSansPort(Jeu jeu) {
