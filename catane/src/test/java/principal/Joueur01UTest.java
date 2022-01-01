@@ -8,23 +8,18 @@ public class Joueur01UTest {
     
     @Test
     public void creationJoueurSansRien() {
-        assertThatThrownBy(() -> new Joueur(null, 0, null, null)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new Joueur(null, null, null)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    public void creationJoueurAgeNegatif() {
-        assertThatThrownBy(() -> new Joueur("Jade", -1, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC)).isInstanceOf(IllegalArgumentException.class);
-    }    
-
-    @Test
     public void creationJoueurScoreZero() {
-        Joueur jade = new Joueur("Jade", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        Joueur jade = new Joueur("Jade", enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
         assertThat(jade.getPointVictoire()).isEqualTo(0);
     }    
 
     @Test
     public void modifierPointVictoire() {
-        Joueur paris = new Joueur("Paris", 22, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        Joueur paris = new Joueur("Paris", enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
         assertThat(paris.getPointVictoire()).isEqualTo(0);
         paris.ajouterPointVictoire(7);
         assertThat(paris.getPointVictoire()).isEqualTo(7);

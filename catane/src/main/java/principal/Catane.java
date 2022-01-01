@@ -33,10 +33,9 @@ public class Catane {
         
         for (int i = 1; i <= nbJoueurs; i++) {
             String nom = dialogue.demandeString(Couleur.MAUVE.getCrayon(), "Joueur "+ i +" quel est votre prenom? ");
-            int age = dialogue.demandeInt(Couleur.MAUVE.getCrayon(), "Quel est votre age? ");
             TypeJoueur typeJoueur = TypeJoueur.valueOf(dialogue.demandeStringPrecis(Couleur.MAUVE.getCrayon(), "Quel type de joueur etes-vous ? ", Arrays.asList("HUMAIN", "IA")));
             Couleur couleur = Couleur.valueOf(dialogue.demandeStringPrecis(Couleur.MAUVE.getCrayon(), "De quelle couleur etes-vous ? ", Arrays.asList("BLEU", "BLANC", "ROUGE", "JAUNE")));
-            joueurs.add(new Joueur(nom, age, typeJoueur, couleur));
+            joueurs.add(new Joueur(nom, typeJoueur, couleur));
             terminal.nouvelleLigne();
         }
         if (dialogue.demandeStringPrecis(Couleur.VERT.getCrayon(), "Jeu aleatoire ? ", Arrays.asList("O", "N")).equals("N")) {

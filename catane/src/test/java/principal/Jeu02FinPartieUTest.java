@@ -17,9 +17,9 @@ public class Jeu02FinPartieUTest {
 
     @Test
     public void victoireJeuTroisJoueurs() {
-        Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
-        Joueur j3 = new Joueur("j3", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        Joueur j1 = new Joueur("j1", enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        Joueur j2 = new Joueur("j2", enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        Joueur j3 = new Joueur("j3", enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
         List<Joueur> joueurs = new LinkedList<Joueur>();
         joueurs.add(j1);
         joueurs.add(j2); 
@@ -37,10 +37,10 @@ public class Jeu02FinPartieUTest {
 
     @Test
     public void victoireJeuQuatreJoueurs() {
-        Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
-        Joueur j3 = new Joueur("j3", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
-        Joueur j4 = new Joueur("j4", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.VERT);
+        Joueur j1 = new Joueur("j1", enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        Joueur j2 = new Joueur("j2", enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        Joueur j3 = new Joueur("j3", enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        Joueur j4 = new Joueur("j4", enums.TypeJoueur.HUMAIN, enums.Couleur.VERT);
         List<Joueur> joueurs = new LinkedList<Joueur>();
         joueurs.add(j1);
         joueurs.add(j2); 

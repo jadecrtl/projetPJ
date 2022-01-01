@@ -19,8 +19,8 @@ public class Jeu01CreationUTest {
 
     @Test
     public void creationJeuDeuxJoueursSansLesDes() {
-        Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        Joueur j1 = new Joueur("j1", enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        Joueur j2 = new Joueur("j2", enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
         List<Joueur> joueurs = new LinkedList<Joueur>();
         joueurs.add(j1);
         joueurs.add(j2); 
@@ -29,9 +29,9 @@ public class Jeu01CreationUTest {
 
     @Test
     public void creationJeuTroisJoueursAvecPlateauEtDeuxDes() {
-        Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
-        Joueur j3 = new Joueur("j3", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        Joueur j1 = new Joueur("j1", enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        Joueur j2 = new Joueur("j2", enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        Joueur j3 = new Joueur("j3", enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
         List<Joueur> joueurs = new LinkedList<Joueur>();
         De6Faces de1 = new De6Faces();
         De6Faces de2 = new De6Faces();
@@ -45,10 +45,10 @@ public class Jeu01CreationUTest {
 
     @Test
     public void creationJeuQuatreJoueurs() {
-        Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
-        Joueur j3 = new Joueur("j3", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
-        Joueur j4 = new Joueur("j4", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.VERT);
+        Joueur j1 = new Joueur("j1", enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        Joueur j2 = new Joueur("j2", enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        Joueur j3 = new Joueur("j3", enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        Joueur j4 = new Joueur("j4", enums.TypeJoueur.HUMAIN, enums.Couleur.VERT);
         List<Joueur> joueurs = new LinkedList<Joueur>();
         De6Faces de1 = new De6Faces();
         De6Faces de2 = new De6Faces();
@@ -63,11 +63,11 @@ public class Jeu01CreationUTest {
 
     @Test
     public void creationJeuCinqJoueurs() {
-        Joueur j1 = new Joueur("j1", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
-        Joueur j2 = new Joueur("j2", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
-        Joueur j3 = new Joueur("j3", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
-        Joueur j4 = new Joueur("j4", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.VERT);
-        Joueur j5 = new Joueur("j5", 19, enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        Joueur j1 = new Joueur("j1", enums.TypeJoueur.HUMAIN, enums.Couleur.ROUGE);
+        Joueur j2 = new Joueur("j2", enums.TypeJoueur.HUMAIN, enums.Couleur.BLANC);
+        Joueur j3 = new Joueur("j3", enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
+        Joueur j4 = new Joueur("j4", enums.TypeJoueur.HUMAIN, enums.Couleur.VERT);
+        Joueur j5 = new Joueur("j5", enums.TypeJoueur.HUMAIN, enums.Couleur.BLEU);
         List<Joueur> joueurs = new LinkedList<Joueur>();
         De6Faces de1 = new De6Faces();
         De6Faces de2 = new De6Faces();

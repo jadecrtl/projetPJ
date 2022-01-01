@@ -15,7 +15,6 @@ import enums.TypeCroisement;
 public class Joueur {
     
     private String nom;
-    private int age;
     private TypeJoueur typeJoueur;
     private Couleur couleur;
     private int pointVictoire;
@@ -28,12 +27,11 @@ public class Joueur {
     private Dialogue dialogue = new Dialogue();
     private TerminalCouleur terminal = new TerminalCouleur();
 
-    public Joueur(String nom, int age, TypeJoueur typeJoueur, Couleur couleur) {
-        if (nom == null || age == 0 || typeJoueur == null || couleur == null || age < 0) {
+    public Joueur(String nom, TypeJoueur typeJoueur, Couleur couleur) {
+        if (nom == null || typeJoueur == null || couleur == null) {
             throw new IllegalArgumentException("Erreur lors de la creation du joueur.");
         }
         this.setNom(nom);
-        this.setAge(age);
         this.setTypeJoueur(typeJoueur);
         this.setCouleur(couleur);
         this.setPointVictoire(0);
@@ -64,14 +62,6 @@ public class Joueur {
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public TypeJoueur getTypeJoueur() {
