@@ -30,7 +30,10 @@ public class TuileController {
                 if(Window.gameStatus.equals("PREPARE_PARTIE")) {
                     succ = subMenuView.joueurModel.placeColonieGratuite(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
                 }else if(Window.gameStatus.equals("LANCE_PARTIE")) {
+                    System.out.println("acheter colonie");
+                    System.out.println("position: "+Integer.valueOf(jbutton.getText()));
                     succ = subMenuView.joueurModel.lanceAcheteColonieGui(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
+                    System.out.println(succ);
                 }
             }else if(typeOfActionCroisement.equals("CITY")){
                 if(Window.gameStatus.equals("LANCE_PARTIE")) {

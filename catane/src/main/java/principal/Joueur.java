@@ -683,17 +683,17 @@ public class Joueur {
     }
     public boolean lanceAcheteColonieGui(AireDeJeu air, int idCroisement) {
         if (peutAcheterColonie() == false) {
-            // terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas les ressources necessaires");
             // dialogue.appuyerSurEntree();
             return false;
         }
-        if (air.isCroisementValidePourUnJoueur(idCroisement, this)) {
-            // terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
+        if (!air.isCroisementValidePourUnJoueur(idCroisement, this)) {
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement n'est pas valide");            
             // dialogue.appuyerSurEntree();
             return false;
         }
         if (!(air.getCroisements().get(idCroisement).getProprietaire() == null)) {
-            // terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
+            terminal.println(Couleur.VERT.getStabilo(), "L'emplacement est deja occupe");
             // dialogue.appuyerSurEntree();
             return false;
         }

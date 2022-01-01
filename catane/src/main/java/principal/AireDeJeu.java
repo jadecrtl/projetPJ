@@ -331,9 +331,11 @@ public class AireDeJeu {
 
     public boolean isCroisementValidePourUnJoueur(int idCroisement, Joueur joueur) {
         if (idCroisement < 0) {
+            System.out.println("case fail 1");
             return false;
         }
         if (idCroisement >= getCroisements().size()) {
+            System.out.println("case fail 2");
             return false;
         }
         if (idCroisement == 0 || idCroisement == horizontale || idCroisement == (horizontale + 1) * verticale || idCroisement == (horizontale + 1) * (verticale + 1)) {
@@ -366,15 +368,19 @@ public class AireDeJeu {
         }
         
         if (getRoutesOccupeesParCroisements(idCroisement, idCroisement + 1) == joueur) {
+            System.out.println("valide 1");
             return true;
         }
         if (getRoutesOccupeesParCroisements(idCroisement - 1, idCroisement) == joueur) {
+            System.out.println("valide 2");
             return true;
         }
         if (getRoutesOccupeesParCroisements(idCroisement, idCroisement + horizontale + 1) == joueur) {
+            System.out.println("valide 3");
             return true;
         }
         if (getRoutesOccupeesParCroisements(idCroisement, idCroisement - horizontale - 1) == joueur) {
+            System.out.println("valide 4");
             return true;
         }
         terminal.println(Couleur.VERT.getStabilo(), "Aucune route n'arrive a cet emplacement");
