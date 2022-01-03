@@ -29,6 +29,7 @@ public class SubMenuView extends JPanel{
     private Color backGroundColor = new Color(39, 125, 161);
     private String CANCEL_ICON = "catane/src/static/next.png";
     private String DICE_ICON = "catane/src/static/dice.png";
+    private String CHEVALIER_ICON = "catane/src/static/chevalier.png";
 
     public JButton city;
     public JButton village;
@@ -37,7 +38,9 @@ public class SubMenuView extends JPanel{
 
     public JButton b1; 
     public JButton b2; 
-
+    public JButton chevalierButton;
+    public static boolean sevenDice = false;
+    
     List<Joueur> joueurs = new ArrayList<>();
 
 
@@ -201,6 +204,17 @@ public class SubMenuView extends JPanel{
         this.b1.setFocusPainted(false);        
     }
 
+    public void createChevalierButton(String path) {
+        this.chevalierButton= new JButton(TuileView.createIcon(path, 40, 40));
+
+        this.chevalierButton.setOpaque(false);
+        this.chevalierButton.setContentAreaFilled(false);
+        this.chevalierButton.setBorderPainted(false);
+
+        this.chevalierButton.setPreferredSize(new Dimension(60, 60));
+        this.chevalierButton.setFocusPainted(false);        
+    }
+
 
     public void createCancelButton(String path) {
         this.b2 = new JButton(TuileView.createIcon(path, 40, 40));
@@ -216,9 +230,24 @@ public class SubMenuView extends JPanel{
     public void setSubMenuViewClass(Joueur joueur, Window window) {
         createCancelButton(CANCEL_ICON);
         createButton(DICE_ICON);
-
+        createChevalierButton(CHEVALIER_ICON);
+        /**
+         * 1. Criar butão - OK
+         * 2. Adicionar MouseListener - Ok
+         * 3. Adicionar ActionListener 
+         * 4. Add ao panel principal - Ok
+         * 5. Ativar apenas se poder comprar 
+         */
         this.joueurModel = joueur;
         setNewFont();
+
+        Selection sel3 =  this.controller.new Selection(this.chevalierButton, CHEVALIER_ICON);
+        this.chevalierButton.addMouseListener(sel3);
+        this.chevalierButton.addActionListener((event)-> {
+            this.controller.acheterChevalierPressed(window, this);
+        });
+
+        this.add(this.chevalierButton);
         this.add(createMenuPanel(joueur));
 
         Selection sel =  this.controller.new Selection(b1, DICE_ICON);
@@ -232,16 +261,6 @@ public class SubMenuView extends JPanel{
         b2.addActionListener((event)-> {
             this.controller.subMenuButtonPressed(window, b2, "CANCEL", aireDeJeuView, b2.getIcon().getIconWidth(), b2.getIcon().getIconHeight(), CANCEL_ICON);
         });
-
-        // b2.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         // TODO Auto-generated method stub
-        //         System.out.println("Next Round....");
-        //     }
-        // });
-
-
         this.add(b1);
         this.add(b2);
         this.setBackground(this.backGroundColor);
@@ -280,7 +299,7 @@ public class SubMenuView extends JPanel{
             this.city.setEnabled(false);
         }
 
-        if(robber) {
+        if(robber || player.peutUtiliserCarteChevalier()) {
             this.robber.setEnabled(true);
         } else {
             this.robber.setEnabled(false);
@@ -297,9 +316,12 @@ public class SubMenuView extends JPanel{
         } else {
             this.b2.setEnabled(false);
         }
+
+        if(player.peutAcheterCarteChevalier()) {
+            this.chevalierButton.setEnabled(true);
+        }else {
+            this.chevalierButton.setEnabled(false);
+        }
         
     }
-
-    
-
 }

@@ -2,6 +2,7 @@ package gui.controllers;
 import java.awt.event.*;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import gui.views.AireDeJeuView;
 import gui.views.SubMenuView;
@@ -29,6 +30,7 @@ public class SubMenuController {
                     aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), true, false, false, false);
                     String numberPath = getNumberIconPath(String.valueOf(res));
                     button.setIcon(TuileView.createIcon(numberPath, iconWidth, iconHeight));
+                    SubMenuView.sevenDice = true;
                 } 
                 //---------------------------------------------------
 
@@ -54,6 +56,27 @@ public class SubMenuController {
                 int[] playerList = Window.numberOfPlayers == 3 ? Window.threePlayersList : Window.fourPlayersList;
                 window.nextPlayerTurn(playerList);
             }
+        }
+    }
+
+    public void acheterChevalierPressed(Window window, SubMenuView subMenu) {
+        /**
+         * 1. Pegar a window e mostrar uma mensagem dialog perguntando se quer comprar msm
+         * 2. Sim, pegar player e comprar carta
+         * 3. Atualizar acoes do jogador
+         */
+        int answer = JOptionPane.showConfirmDialog(
+        window,
+        "Voudriez-vous acheter la carte chevalier ?",
+        "Une question...",
+        JOptionPane.YES_NO_OPTION);
+
+        if(answer == 0) {
+            System.out.println("Yes!");
+            subMenu.joueurModel.acheteCarteChevalier();
+            subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
+        }else {
+            System.out.println("Okay...");
         }
     }
 

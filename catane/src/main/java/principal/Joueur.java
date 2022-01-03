@@ -485,6 +485,20 @@ public class Joueur {
         this.enleverCarteChevalier(1);
     }
 
+    public boolean utiliserCarteChevalierGui(Integer nouvelleIdTuileVoleur, AireDeJeu air){
+        if (peutUtiliserCarteChevalier() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous n'avez pas de carte chevalier");
+            return false;
+        }
+        faireCarteChevalierGui(air, nouvelleIdTuileVoleur);
+        return true;
+    }
+    
+    public void faireCarteChevalierGui(AireDeJeu air, int idTuile) {        
+        air.deplaceVoleur(idTuile);
+        this.enleverCarteChevalier(1);
+    }
+
  
     public void joue(Jeu jeu) {
         int actionChoisie;

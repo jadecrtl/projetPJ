@@ -197,15 +197,21 @@ public class TuileController {
     public void jetonPressed(JButton jbutton, AireDeJeuView aireDeJeuView, SubMenuView subMenuView, Selection2 selection) {
         //  TODO: Insert Robber if possible in this Tuile (Call model and insert robber if possible)
         // TODO: Tell tuile to check model if has a robber and update the jeton with either a robber or the number
+
         int idTuile = this.tuileModel.getIdTuile();
-        aireDeJeuView.getAireDeJeuModel().deplaceVoleur(idTuile);
+        if(!SubMenuView.sevenDice) {
+            subMenuView.joueurModel.utiliserCarteChevalierGui(idTuile, aireDeJeuView.getAireDeJeuModel());
+        }else {
+            aireDeJeuView.getAireDeJeuModel().deplaceVoleur(idTuile);
+            SubMenuView.sevenDice = false;
+        }
         jbutton.removeMouseListener(selection);
         aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
-
         for (TuileView tuile : aireDeJeuView.getTuiles()) {
             tuile.getJetonButton().setEnabled(false);
             tuile.updateJetonView(); // Ask view to look into model and update the value of the "jeton" with or without robber.
         }
+
     }
     public void setModel(Tuile tuileModel) {
         this.tuileModel = tuileModel;
