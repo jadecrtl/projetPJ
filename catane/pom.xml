@@ -94,6 +94,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--<main.class>gui.CataneGui</main.class>-->
         <main.class>principal.Catane</main.class>
         <java.version>11</java.version>
         <junit.jupiter.version>5.4.2</junit.jupiter.version>
