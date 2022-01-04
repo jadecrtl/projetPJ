@@ -65,7 +65,7 @@ public class Window extends JFrame{
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        this.setUndecorated(true);
+        // this.setUndecorated(true);
 
     }
 
@@ -208,7 +208,7 @@ public class Window extends JFrame{
     public void nextPlayerTurn(int[] playerList) {
         if(Window.gameStatus.equals("PREPARE_PARTIE")) {
             if(Window.currentPosInList>=2*Window.numberOfPlayers) {
-                System.out.println("Prepare Partie est fini");
+                // System.out.println("Prepare Partie est fini");
                 updateGame(playerList, 0, this.de1, false, false, false, false, false);
                 String firstMessage = "Tous les joueurs ont déjà placé 2 routes et 2 colonies sur le plateau, nous allons maintenant commencer le jeu. Bonne chance!";
                 JOptionPane.showMessageDialog(this,
@@ -224,10 +224,10 @@ public class Window extends JFrame{
                 if(Window.currentPosInList > Window.numberOfPlayers-1) {
                     Window.currentPosInList = 0;
                 }
-                System.out.println("INSIDE LANCE PARTIE");
+                // System.out.println("INSIDE LANCE PARTIE");
                 updateGame(playerList, Window.currentPosInList, this.de1, false, true, false, false, false);
             }else {
-                System.out.println("game over");
+                // System.out.println("game over");
             }
         }
     }

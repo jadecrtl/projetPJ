@@ -19,7 +19,7 @@ public class StartGameFormController {
     public void playPressed(StartGameFormView form, Window window) {
         // Handle Form and Start game (call backend Method and initialize board...etc)
         setView(form);
-        System.out.println("Start Game!");
+        // System.out.println("Start Game!");
         CataneGui cataneGui = new CataneGui();
         Jeu jeu = cataneGui.initializeJeu(form);
         window.setGame(jeu);

@@ -14,6 +14,9 @@ import principal.Jeu;
 import principal.Joueur;
 import utils.De6Faces;
 
+import java.awt.EventQueue;
+
+
 public class CataneGui {
     Jeu jeuCataneGui;
     List<Joueur> joueurs = new LinkedList<>();
@@ -91,7 +94,10 @@ public class CataneGui {
         7. For the first and second round do a routine where it forces the player to do some stuf (preparePartie)
         8. Let the game run in a loop until there is a winner, once there is a winner, pop a message and redirect to homepage.(LancePartie)
     */
-        new Window();
+        EventQueue.invokeLater(()-> {
+            new Window();
+        });
+        
     }
 
 }

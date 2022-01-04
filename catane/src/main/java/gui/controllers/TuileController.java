@@ -30,10 +30,10 @@ public class TuileController {
                 if(Window.gameStatus.equals("PREPARE_PARTIE")) {
                     succ = subMenuView.joueurModel.placeColonieGratuite(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
                 }else if(Window.gameStatus.equals("LANCE_PARTIE")) {
-                    System.out.println("acheter colonie");
-                    System.out.println("position: "+Integer.valueOf(jbutton.getText()));
+                    // System.out.println("acheter colonie");
+                    // System.out.println("position: "+Integer.valueOf(jbutton.getText()));
                     succ = subMenuView.joueurModel.lanceAcheteColonieGui(aireDeJeuView.getAireDeJeuModel(), Integer.valueOf(jbutton.getText()));
-                    System.out.println(succ);
+                    // System.out.println(succ);
                 }
             }else if(typeOfActionCroisement.equals("CITY")){
                 if(Window.gameStatus.equals("LANCE_PARTIE")) {
@@ -45,7 +45,7 @@ public class TuileController {
             // System.out.println("A Village pos: "+jbutton.getText());
             if(succ) {
                 // System.out.println(subMenuView.joueurModel.getPointVictoire());
-                System.out.println("Croisement Pressed");
+                // System.out.println("Croisement Pressed");
                 if(!Window.gameStatus.equals("PREPARE_PARTIE")) {
                     // subMenuView.city.setEnabled(true);
                     // subMenuView.village.setEnabled(true);
@@ -92,7 +92,7 @@ public class TuileController {
                     tuile.updateCroisementView(typeOfActionCroisement); // Ask view to look into model and update the value of the "jeton" with or without robber.
                 }
             }else {
-                System.out.println("Please select a valid coordinate");
+                // System.out.println("Please select a valid coordinate");
                 String firstMessage = "Ce croisement n'est pas valable ! Choisissez-en un autre s'il vous plaît!";
                 JOptionPane.showMessageDialog(aireDeJeuView,
                 firstMessage);
@@ -132,8 +132,8 @@ public class TuileController {
                 TuileController.secondIdRoute = Integer.valueOf(jbutton.getText());
                 JButton other_button = new JButton();
                 String croisement = jbutton.getText();
-                System.out.println("A: "+TuileController.firstIdRoute);
-                System.out.println("B: " +TuileController.secondIdRoute);
+                // System.out.println("A: "+TuileController.firstIdRoute);
+                // System.out.println("B: " +TuileController.secondIdRoute);
                 boolean succs;
                 if(Window.gameStatus.equals("LANCE_PARTIE")) {
                     succs = subMenuView.joueurModel.lanceAcheteRouteGui(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute);
@@ -141,7 +141,7 @@ public class TuileController {
                     succs = subMenuView.joueurModel.placeRouteGratuite(aireDeJeuView.getAireDeJeuModel(), TuileController.firstIdRoute, TuileController.secondIdRoute);
                 }
                 if (succs) {
-                    System.out.println(subMenuView.joueurModel.getPointVictoire());
+                    // System.out.println(subMenuView.joueurModel.getPointVictoire());
 
                     for (TuileView tuileView : aireDeJeuView.getTuiles()) {
                         if(tuileView.getTopLeft().getText().equals(croisement) && !tuileView.getTopLeft().equals(jbutton)) {
@@ -183,7 +183,7 @@ public class TuileController {
                     }
                 }else {
                     TuileController.resetClickCounter();
-                    System.out.println("Please select a valid coordinate");
+                    // System.out.println("Please select a valid coordinate");
                     String firstMessage = "Ce pair de croisement n'est pas valable ! Choisissez un autre pair s'il vous plaît!";
                     JOptionPane.showMessageDialog(aireDeJeuView,
                     firstMessage);

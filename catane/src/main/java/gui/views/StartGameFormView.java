@@ -305,10 +305,10 @@ public class StartGameFormView extends JPanel{
         gengp2.add(typeChoiceOneRouge);
         gengp2.add(typeChoiceOneJaune);
 
-        this.gengpBlanc.add(typeChoiceOneBlanc);
-        this.gengpBleu.add(typeChoiceOneBlue);
-        this.gengpRouge.add(typeChoiceOneRouge);
-        this.gengpJaune.add(typeChoiceOneJaune);
+        // this.gengpBlanc.add(typeChoiceOneBlanc);
+        // this.gengpBleu.add(typeChoiceOneBlue);
+        // this.gengpRouge.add(typeChoiceOneRouge);
+        // this.gengpJaune.add(typeChoiceOneJaune);
 
 
         JPanel colorPanel = new JPanel();
@@ -398,15 +398,16 @@ public class StartGameFormView extends JPanel{
         this.typeChoiceTwoJaune.setForeground(Color.BLACK);
 
         ButtonGroup gengp2 = new ButtonGroup();
+
+        // this.gengpBlanc.add(typeChoiceTwoBlanc);
+        // this.gengpBleu.add(typeChoiceTwoBlue);
+        // this.gengpRouge.add(typeChoiceTwoRouge);
+        // this.gengpJaune.add(typeChoiceTwoJaune);
+
         gengp2.add(typeChoiceTwoBlue);
         gengp2.add(typeChoiceTwoBlanc);
         gengp2.add(typeChoiceTwoRouge);
         gengp2.add(typeChoiceTwoJaune);
-
-        this.gengpBlanc.add(typeChoiceTwoBlanc);
-        this.gengpBleu.add(typeChoiceTwoBlue);
-        this.gengpRouge.add(typeChoiceTwoRouge);
-        this.gengpJaune.add(typeChoiceTwoJaune);
 
 
         JPanel colorPanel = new JPanel();
@@ -503,10 +504,10 @@ public class StartGameFormView extends JPanel{
         gengp2.add(typeChoiceThreeRouge);
         gengp2.add(typeChoiceThreeJaune);
 
-        this.gengpBlanc.add(typeChoiceThreeBlanc);
-        this.gengpBleu.add(typeChoiceThreeBlue);
-        this.gengpRouge.add(typeChoiceThreeRouge);
-        this.gengpJaune.add(typeChoiceThreeJaune);
+        // this.gengpBlanc.add(typeChoiceThreeBlanc);
+        // this.gengpBleu.add(typeChoiceThreeBlue);
+        // this.gengpRouge.add(typeChoiceThreeRouge);
+        // this.gengpJaune.add(typeChoiceThreeJaune);
 
 
         JPanel colorPanel = new JPanel();
@@ -603,10 +604,10 @@ public class StartGameFormView extends JPanel{
         gengp2.add(typeChoiceFourJaune);
 
 
-        this.gengpBlanc.add(typeChoiceFourBlanc);
-        this.gengpBleu.add(typeChoiceFourBlue);
-        this.gengpRouge.add(typeChoiceFourRouge);
-        this.gengpJaune.add(typeChoiceFourJaune);
+        // this.gengpBlanc.add(typeChoiceFourBlanc);
+        // this.gengpBleu.add(typeChoiceFourBlue);
+        // this.gengpRouge.add(typeChoiceFourRouge);
+        // this.gengpJaune.add(typeChoiceFourJaune);
 
 
         JPanel colorPanel = new JPanel();

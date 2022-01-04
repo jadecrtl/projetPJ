@@ -30,6 +30,7 @@ public class SubMenuView extends JPanel{
     private String CANCEL_ICON = "catane/src/static/next.png";
     private String DICE_ICON = "catane/src/static/dice.png";
     private String CHEVALIER_ICON = "catane/src/static/chevalier.png";
+    private String COMMERCE_ICON = "catane/src/static/commerce.png";
 
     public JButton city;
     public JButton village;
@@ -39,6 +40,7 @@ public class SubMenuView extends JPanel{
     public JButton b1; 
     public JButton b2; 
     public JButton chevalierButton;
+    public JButton commerceSansPortButton;
     public static boolean sevenDice = false;
     
     List<Joueur> joueurs = new ArrayList<>();
@@ -161,28 +163,6 @@ public class SubMenuView extends JPanel{
         this.route.addActionListener((event)-> {this.controller.addRoutePressed(aireDeJeuView, "ROUTE");});
         this.robber.addActionListener((event)-> {this.controller.addRobberPressed(aireDeJeuView);});
 
-        // this.route.addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         System.out.println("Route added...");
-        //         TuileController.settypeOfActionCroisement("ROUTE");
-        
-        //         robber.setEnabled(false);
-        //         route.setEnabled(false);
-        //         village.setEnabled(false);
-        //         city.setEnabled(false);
-        //         b1.setEnabled(false);
-        //         b2.setEnabled(false);
-        
-        //         for (TuileView tuile : aireDeJeuView.getTuiles()) {
-        //             tuile.getTopLeft().setEnabled(true);
-        //             tuile.getTopRight().setEnabled(true);
-        //             tuile.getBottomLeft().setEnabled(true);
-        //             tuile.getBottomRight().setEnabled(true);
-        //         }
-        //     }
-        // });
-
         panel.add(city);
         panel.add(village);
         panel.add(this.route);
@@ -215,6 +195,16 @@ public class SubMenuView extends JPanel{
         this.chevalierButton.setFocusPainted(false);        
     }
 
+    public void createCommerceSansPortButton(String path) {
+        this.commerceSansPortButton= new JButton(TuileView.createIcon(path, 40, 40));
+
+        this.commerceSansPortButton.setOpaque(false);
+        this.commerceSansPortButton.setContentAreaFilled(false);
+        this.commerceSansPortButton.setBorderPainted(false);
+
+        this.commerceSansPortButton.setPreferredSize(new Dimension(60, 60));
+        this.commerceSansPortButton.setFocusPainted(false);        
+    }
 
     public void createCancelButton(String path) {
         this.b2 = new JButton(TuileView.createIcon(path, 40, 40));
@@ -231,6 +221,7 @@ public class SubMenuView extends JPanel{
         createCancelButton(CANCEL_ICON);
         createButton(DICE_ICON);
         createChevalierButton(CHEVALIER_ICON);
+        createCommerceSansPortButton(COMMERCE_ICON);
         /**
          * 1. Criar butão - OK
          * 2. Adicionar MouseListener - Ok
@@ -241,12 +232,19 @@ public class SubMenuView extends JPanel{
         this.joueurModel = joueur;
         setNewFont();
 
+        Selection sel4 =  this.controller.new Selection(this.commerceSansPortButton, COMMERCE_ICON);
+        this.commerceSansPortButton.addMouseListener(sel4);
+        this.commerceSansPortButton.addActionListener((event)-> {
+            this.controller.commerceSansPortPressed(window, this);
+        });
+
         Selection sel3 =  this.controller.new Selection(this.chevalierButton, CHEVALIER_ICON);
         this.chevalierButton.addMouseListener(sel3);
         this.chevalierButton.addActionListener((event)-> {
             this.controller.acheterChevalierPressed(window, this);
         });
 
+        this.add(this.commerceSansPortButton);
         this.add(this.chevalierButton);
         this.add(createMenuPanel(joueur));
 
@@ -321,6 +319,12 @@ public class SubMenuView extends JPanel{
             this.chevalierButton.setEnabled(true);
         }else {
             this.chevalierButton.setEnabled(false);
+        }
+
+        if(player.peutCommerceSansPort()){
+            this.commerceSansPortButton.setEnabled(true);
+        }else {
+            this.commerceSansPortButton.setEnabled(false);
         }
         
     }

@@ -285,7 +285,7 @@ public class TuileView extends JPanel {
     }
 
     private Border getBorderTop() {
-        System.out.println(this.topColorBorder);
+        // System.out.println(this.topColorBorder);
         Border b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.BLACK);
         switch(this.topColorBorder) {
             case "BLUE":
@@ -305,7 +305,7 @@ public class TuileView extends JPanel {
     }
 
     private Border getBorderBottom() {
-        System.out.println(this.bottomColorBorder);
+        // System.out.println(this.bottomColorBorder);
         Border b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.BLACK);
         switch(this.bottomColorBorder) {
             case "BLUE":
@@ -325,7 +325,7 @@ public class TuileView extends JPanel {
     }
     
     private Border getBorderLeft() {
-        System.out.println(this.leftColorBorder);
+        // System.out.println(this.leftColorBorder);
         Border b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.BLACK);
         switch(this.leftColorBorder) {
             case "BLUE":
@@ -345,7 +345,7 @@ public class TuileView extends JPanel {
     }
 
     private Border getBorderRight() {
-        System.out.println(this.rightColorBorder);
+        // System.out.println(this.rightColorBorder);
         Border b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.BLACK);
         switch(this.rightColorBorder) {
             case "BLUE":
@@ -370,12 +370,12 @@ public class TuileView extends JPanel {
             String b = String.valueOf(r.getIdCroisementB());
             if(isIn(a) && isIn(b)){
 
-                System.out.println("a: "+a);
-                System.out.println("b: "+b);
-                System.out.print("Croisements-> BL:"+this.bottomLeftcroisement.getText());
-                System.out.print(" BR:"+this.bottomRightcroisement.getText());
-                System.out.print(" TL:"+this.topLeftcroisement.getText());
-                System.out.println(" TR:"+this.topRightcroisement.getText());
+                // System.out.println("a: "+a);
+                // System.out.println("b: "+b);
+                // System.out.print("Croisements-> BL:"+this.bottomLeftcroisement.getText());
+                // System.out.print(" BR:"+this.bottomRightcroisement.getText());
+                // System.out.print(" TL:"+this.topLeftcroisement.getText());
+                // System.out.println(" TR:"+this.topRightcroisement.getText());
 
                 checkCase1Route(a, b);
                 checkCase2Route(a, b);
@@ -392,10 +392,10 @@ public class TuileView extends JPanel {
          * Scenario 2: a == bottom right and a == bottom left
          */
         if(a.equals(this.bottomLeftcroisement.getText()) && b.equals(this.bottomRightcroisement.getText())) {
-            System.out.println("CASE 4");
+            // System.out.println("CASE 4");
             this.bottomBorder = BORDER_SIZE;
         }else if(a.equals(this.bottomRightcroisement.getText()) && b.equals(this.bottomLeftcroisement.getText())) {
-            System.out.println("CASE 4");
+            // System.out.println("CASE 4");
             this.bottomBorder = BORDER_SIZE;
         }
 
@@ -411,10 +411,10 @@ public class TuileView extends JPanel {
          * Scenario 2: a == bottom right and b == top right;
          */
         if(a.equals(this.topRightcroisement.getText()) && b.equals(this.bottomRightcroisement.getText())) {
-            System.out.println("CASE 3");
+            // System.out.println("CASE 3");
             this.rightBorder = BORDER_SIZE;
         } else if (a.equals(this.bottomRightcroisement.getText()) && b.equals(this.topRightcroisement.getText())) {
-            System.out.println("CASE 3");
+            // System.out.println("CASE 3");
             this.rightBorder = BORDER_SIZE;   
         }
 
@@ -430,10 +430,10 @@ public class TuileView extends JPanel {
          * Scenario 2: a == bottom left and b == top left
          */
         if(a.equals(this.topLeftcroisement.getText()) && b.equals(this.bottomLeftcroisement.getText())){
-            System.out.println("CASE 2");
+            // System.out.println("CASE 2");
             this.leftBorder = BORDER_SIZE;
         }else if(a.equals(this.bottomLeftcroisement.getText()) && b.equals(this.topLeftcroisement.getText())) {
-            System.out.println("CASE 2");
+            // System.out.println("CASE 2");
             this.leftBorder = BORDER_SIZE;
         }
 
@@ -450,10 +450,10 @@ public class TuileView extends JPanel {
          */
 
         if(a.equals(this.topLeftcroisement.getText()) && b.equals(this.topRightcroisement.getText())) {
-            System.out.println("CASE 1");
+            // System.out.println("CASE 1");
             this.topBorder = BORDER_SIZE;
         }else if(a.equals(this.topRightcroisement.getText()) && b.equals(this.topLeftcroisement.getText())) {
-            System.out.println("CASE 1");
+            // System.out.println("CASE 1");
             this.topBorder = BORDER_SIZE;
         }
 

@@ -200,6 +200,27 @@ public class Joueur {
         return res;
     }
 
+    public List<String> getListCommerceGui() {
+        List<String> res = new LinkedList<>();
+        if (getInventaireArgile() >= 4) {
+            res.add(Production.ARGILE.getLabelProduction());
+        }
+        if (getInventaireBle() >= 4) {
+            res.add(Production.BLE.getLabelProduction());
+        }
+        if (getInventaireBois() >= 4) {
+            res.add(Production.BOIS.getLabelProduction());
+        }
+        if (getInventaireLaine() >= 4) {
+            res.add(Production.LAINE.getLabelProduction());
+        }
+        if (getInventaireMinerai() >= 4) {
+            res.add(Production.MINERAI.getLabelProduction());
+        }
+        // res.add(Production.RIEN.getLabelProduction());//On peut selectionner rien pour pouvoir annuler la transaction
+        return res;
+    }
+
  
     public void ajouterPointVictoire(int i) {
         this.setPointVictoire(pointVictoire + i);
@@ -768,6 +789,36 @@ public class Joueur {
         if (ressourceEchangee == Production.RIEN.getIdProduction() || ressourceProposee == Production.RIEN.getIdProduction()) {
             terminal.println(Couleur.VERT.getStabilo(), "Vous ne pouvez pas echanger avec rien");
             dialogue.appuyerSurEntree();
+            return;
+        }
+        faireCommerceSansPort(Production.getProductionParId(ressourceProposee),Production.getProductionParId(ressourceEchangee));
+    }
+
+    public void lanceCommerceSansPortGui(int ressourceProposee, int ressourceEchangee) {
+        if (peutCommerceSansPort() == false) {
+            terminal.println(Couleur.VERT.getStabilo(), "Il vous faut au moins 4 fois la meme ressource");
+            // dialogue.appuyerSurEntree();
+            return;
+        }
+        // afficheProduction(getListCommerce());
+        // int ressourceProposee = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Que voulez-vous echanger ? ", getListCommerce());
+        // List<Integer> touteLesIdProductions = new LinkedList<>();
+        // touteLesIdProductions.add(0);
+        // touteLesIdProductions.add(1);
+        // touteLesIdProductions.add(2);
+        // touteLesIdProductions.add(3);
+        // touteLesIdProductions.add(4);
+        // touteLesIdProductions.add(99);
+        // afficheProduction(touteLesIdProductions);
+        // int ressourceEchangee = dialogue.demandeIntPrecis(this.getCouleur().getCrayon(), "Contre quoi ? ", touteLesIdProductions);
+        if (ressourceEchangee == ressourceProposee) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous ne pouvez pas echanger avec la meme ressource");
+            // dialogue.appuyerSurEntree();
+            return;
+        }
+        if (ressourceEchangee == Production.RIEN.getIdProduction() || ressourceProposee == Production.RIEN.getIdProduction()) {
+            terminal.println(Couleur.VERT.getStabilo(), "Vous ne pouvez pas echanger avec rien");
+            // dialogue.appuyerSurEntree();
             return;
         }
         faireCommerceSansPort(Production.getProductionParId(ressourceProposee),Production.getProductionParId(ressourceEchangee));

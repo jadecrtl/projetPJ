@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import enums.Production;
 import gui.views.AireDeJeuView;
 import gui.views.SubMenuView;
 import gui.views.TuileView;
@@ -14,10 +15,10 @@ public class SubMenuController {
     int counterClick = 0;
         
     public void subMenuButtonPressed(Window window, JButton button, String type, AireDeJeuView aireDeJeuView, int iconWidth, int iconHeight, String path){
-        System.out.println(counterClick);
+        // System.out.println(counterClick);
         counterClick++;
         if (type.equals("DICE")) {
-            System.out.println("Throw dice....");
+            // System.out.println("Throw dice....");
 
             if (this.subMenuView != null) {
                 int val = subMenuView.getDe().getValeurDe();
@@ -35,7 +36,7 @@ public class SubMenuController {
                 //---------------------------------------------------
 
                 if(res != 7) {
-                    System.out.println(res);
+                    // System.out.println(res);
                     window.currentJeu.assigneRessourceTirageDes(res);
                     window.updatePlayersHeader();
                     aireDeJeuView.subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
@@ -45,7 +46,7 @@ public class SubMenuController {
                 
             }
         } else if (type.equals("CANCEL")) {
-            System.out.println("Next Round....");
+            // System.out.println("Next Round....");
             if(Window.gameStatus.equals("PREPARE_PARTIE")) {
                 Window.currentPosInList++;
                 // System.out.println(Window.currentPosInList);
@@ -72,16 +73,16 @@ public class SubMenuController {
         JOptionPane.YES_NO_OPTION);
 
         if(answer == 0) {
-            System.out.println("Yes!");
+            // System.out.println("Yes!");
             subMenu.joueurModel.acheteCarteChevalier();
             subMenuView.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
         }else {
-            System.out.println("Okay...");
+            // System.out.println("Okay...");
         }
     }
 
     public void addCityOrVillagePressed(AireDeJeuView aireDeJeuView, String type) {
-        System.out.println("pressed city / village");
+        // System.out.println("pressed city / village");
         TuileController.settypeOfActionCroisement(type);
         this.subMenuView.robber.setEnabled(false);
         this.subMenuView.route.setEnabled(false);
@@ -99,7 +100,7 @@ public class SubMenuController {
     }
 
     public void addRoutePressed(AireDeJeuView aireDeJeuView, String type) {
-        System.out.println("Route added...");
+        // System.out.println("Route added...");
         TuileController.settypeOfActionCroisement(type);
 
         this.subMenuView.robber.setEnabled(false);
@@ -119,7 +120,7 @@ public class SubMenuController {
     }
 
     public void addRobberPressed(AireDeJeuView aireDeJeuView) {
-        System.out.println("Robber added...");
+        // System.out.println("Robber added...");
         this.subMenuView.city.setEnabled(false);
         this.subMenuView.route.setEnabled(false);
         this.subMenuView.village.setEnabled(false);
@@ -204,4 +205,48 @@ public class SubMenuController {
         }
         return path;
     }
+
+    public void commerceSansPortPressed(Window window, SubMenuView subMenuView2) {
+
+        Object[] possibilities = subMenuView2.joueurModel.getListCommerceGui().toArray();
+        String s = (String)JOptionPane.showInputDialog(
+        window,
+        "Que voulez-vous echanger ?\n"
+        ,"Commerce Sans Port",
+        JOptionPane.PLAIN_MESSAGE,
+        TuileView.createIcon("catane/src/static/commerce.png", 10, 10),
+        possibilities,
+        possibilities[0]);
+
+        
+        
+        //If a string was returned, say so.
+        if ((s != null) && (s.length() > 0)) {
+            String[] possibilities2 = {"Bois", "Argile", "Laine", "Ble", "Minerai"};
+            String[] filterPossibilites = new String[4];
+            int counter = 0;
+
+            for (String str : possibilities2) {
+                if(!str.equals(s)){
+                    filterPossibilites[counter] = str;
+                    counter++;
+                }
+            }
+            String s2 = (String)JOptionPane.showInputDialog(
+            window,
+            "Contre quoi ? \n"
+            ,"Commerce Sans Port",
+            JOptionPane.PLAIN_MESSAGE,
+            TuileView.createIcon("catane/src/static/commerce.png", 10, 10),
+            filterPossibilites,
+            filterPossibilites[0]);
+
+            if ((s2 != null) && (s2.length() > 0)) {
+                subMenuView2.joueurModel.faireCommerceSansPort(Production.getProductionParLabel(s),Production.getProductionParLabel(s2));
+                subMenuView2.updateActionsForPlayer(Window.joueurs.get(Window.currentPosInList), false, false, true, false);
+            }
+
+        }
+    }
 }
+

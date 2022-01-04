@@ -33,4 +33,13 @@ public enum Production {
         return null;
     }
 
+    public static Production getProductionParLabel(String labelProduction) {
+        for (Production production : Production.values()) {
+            if (production.getLabelProduction().equals(labelProduction)) {
+                return production;
+            }
+        }
+        return null;
+    }
+
 }

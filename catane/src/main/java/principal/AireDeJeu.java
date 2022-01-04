@@ -297,45 +297,45 @@ public class AireDeJeu {
 
     public boolean isRouteValide(int idCroisementA, int idCroisementB) {
         if (idCroisementA < 0 || idCroisementB > ((this.horizontale + 1) * (this.verticale + 1))) {
-            System.out.println("Cas 1");
+            // System.out.println("Cas 1");
             return false;
         }        
         if (idCroisementA > ((this.horizontale + 1) * (this.verticale + 1))|| idCroisementB < 0) {
-            System.out.println("Cas 2");
+            // System.out.println("Cas 2");
             return false;
         }
         if (idCroisementA == idCroisementB) {
-            System.out.println("Cas 3");
+            // System.out.println("Cas 3");
             return false;
         }
         if (idCroisementA > idCroisementB) {
-            System.out.println("Cas 4");
+            // System.out.println("Cas 4");
             return false;
         }
         //cas ou B n'est pas sur le bord gauche dans le cas d'un segment horizontal
         if (idCroisementB == idCroisementA + 1 && idCroisementB % (horizontale + 1) == 0) {
-            System.out.println("Cas 5");
+            // System.out.println("Cas 5");
             return false;
         }
         if (idCroisementB == idCroisementA + 1) {
-            System.out.println("Cas 6");
+            // System.out.println("Cas 6");
             return true;
         }
         if (idCroisementB == idCroisementA + horizontale + 1) {
-            System.out.println("Cas 7");
+            // System.out.println("Cas 7");
             return true;
         }
-        System.out.println("Cas non encore traite");
+        // System.out.println("Cas non encore traite");
         return false;
     }
 
     public boolean isCroisementValidePourUnJoueur(int idCroisement, Joueur joueur) {
         if (idCroisement < 0) {
-            System.out.println("case fail 1");
+            // System.out.println("case fail 1");
             return false;
         }
         if (idCroisement >= getCroisements().size()) {
-            System.out.println("case fail 2");
+            // System.out.println("case fail 2");
             return false;
         }
         if (idCroisement == 0 || idCroisement == horizontale || idCroisement == (horizontale + 1) * verticale || idCroisement == (horizontale + 1) * (verticale + 1)) {
@@ -368,19 +368,19 @@ public class AireDeJeu {
         }
         
         if (getRoutesOccupeesParCroisements(idCroisement, idCroisement + 1) == joueur) {
-            System.out.println("valide 1");
+            // System.out.println("valide 1");
             return true;
         }
         if (getRoutesOccupeesParCroisements(idCroisement - 1, idCroisement) == joueur) {
-            System.out.println("valide 2");
+            // System.out.println("valide 2");
             return true;
         }
         if (getRoutesOccupeesParCroisements(idCroisement, idCroisement + horizontale + 1) == joueur) {
-            System.out.println("valide 3");
+            // System.out.println("valide 3");
             return true;
         }
         if (getRoutesOccupeesParCroisements(idCroisement, idCroisement - horizontale - 1) == joueur) {
-            System.out.println("valide 4");
+            // System.out.println("valide 4");
             return true;
         }
         terminal.println(Couleur.VERT.getStabilo(), "Aucune route n'arrive a cet emplacement");
