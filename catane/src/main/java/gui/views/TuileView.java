@@ -196,7 +196,7 @@ public class TuileView extends JPanel {
                 if(color.equals("BLEU")) {
                     button.setForeground(Color.BLUE);
                 }else if (color.equals("BLANC")) {
-                    button.setForeground(Color.WHITE);
+                    button.setForeground(Color.PINK);
                 }else if (color.equals("ROUGE")) {
                     button.setForeground(Color.RED);
                 }else {
@@ -298,7 +298,7 @@ public class TuileView extends JPanel {
                 b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.RED);
                 break;
             case "WHITE":
-                b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.WHITE);
+                b = BorderFactory.createMatteBorder(this.topBorder, 0, 0, 0, Color.PINK);
                 break;
         }
         return b; 
@@ -318,7 +318,7 @@ public class TuileView extends JPanel {
                 b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.RED);
                 break;
             case "WHITE":
-                b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.WHITE);
+                b = BorderFactory.createMatteBorder(0, 0, this.bottomBorder, 0, Color.PINK);
                 break;
         }
         return b; 
@@ -338,7 +338,7 @@ public class TuileView extends JPanel {
                 b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.RED);
                 break;
             case "WHITE":
-                b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.WHITE);
+                b = BorderFactory.createMatteBorder(0, this.leftBorder, 0, 0, Color.PINK);
                 break;
         }
         return b;
@@ -358,7 +358,7 @@ public class TuileView extends JPanel {
                 b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.RED);
                 break;
             case "WHITE":
-                b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.WHITE);
+                b = BorderFactory.createMatteBorder(0, 0, 0, this.rightBorder, Color.PINK);
                 break;
         }
         return b;

@@ -26,6 +26,7 @@ public class PlayerHeaderView extends JPanel{
         } catch (Exception e) {
 
             this.customFont = new Font(Font.SERIF, Font.PLAIN,  10);
+            System.out.println("SOMETHING WENT WRONG");
         }
        
     }
@@ -45,7 +46,7 @@ public class PlayerHeaderView extends JPanel{
         this.setJoueurs(joueurs);
         // System.out.println(this.joueurs);
 
-        this.setLayout(new BorderLayout()); // LEVEL 1
+        this.setLayout(new FlowLayout()); // LEVEL 1
         this.setOpaque(false);
 
         JPanel widerPanel = new JPanel(); // LEVEL 2
@@ -121,7 +122,7 @@ public class PlayerHeaderView extends JPanel{
         resourcesPanel.setOpaque(false);
         resourcesPanel.setLayout(new BorderLayout());
 
-        JLabel res = new JLabel("Ressources: ");
+        JLabel res = new JLabel("Res:");
         res.setFont(this.customFont);
         res.setForeground(Color.BLACK);
        
@@ -163,12 +164,12 @@ public class PlayerHeaderView extends JPanel{
 
     private String getResourcesString(Joueur player) {
         String s="";
-        s+="Minerai: "+player.getInventaireMinerai();
-        s+="; Argile: "+player.getInventaireArgile();
-        s+="; Ble: "+player.getInventaireBle();
-        s+="; Bois: "+player.getInventaireBois();
-        s+="; Chevalier: "+player.getInventaireChevalier();
-        s+="; Laine: "+player.getInventaireLaine();
+        s+="Min:"+player.getInventaireMinerai();
+        s+="; Arg:"+player.getInventaireArgile();
+        s+="; Ble:"+player.getInventaireBle();
+        s+="; Bois:"+player.getInventaireBois();
+        s+="; Chev:"+player.getInventaireChevalier();
+        s+="; Lai:"+player.getInventaireLaine();
         return s;
     }
 

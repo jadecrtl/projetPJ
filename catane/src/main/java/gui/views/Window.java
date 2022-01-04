@@ -4,7 +4,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.List;
+// import java.awt.event.ActionEvent;
+// import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
+// import gui.CataneGui;
 import gui.controllers.AireDeJeuController;
 import gui.controllers.HomeController;
 import gui.controllers.SubMenuController;
@@ -73,6 +77,7 @@ public class Window extends JFrame{
         // This will quick start as the landing page 
         // User clicks either play or quit
         // If play, this method calls openGameForm
+        this.getContentPane().removeAll();
         HomeView homeView = new HomeView(this);
         HomeController controller = new HomeController();
         homeView.setController(controller);
@@ -93,6 +98,7 @@ public class Window extends JFrame{
 
         StartGameFormView form = new StartGameFormView(this);
         this.getContentPane().removeAll();
+        // this.setJMenuBar(null);
 		this.getContentPane().add(form);
         this.revalidate();
 		this.repaint();
@@ -227,7 +233,12 @@ public class Window extends JFrame{
                 // System.out.println("INSIDE LANCE PARTIE");
                 updateGame(playerList, Window.currentPosInList, this.de1, false, true, false, false, false);
             }else {
-                // System.out.println("game over");
+                Joueur j = this.currentJeu.joueurVainqueur();
+                System.out.println("game over");
+                String firstMessage = "Félicitation au Joueur: "+j.getNom()+"! Vous avez gagné la partie!";
+                JOptionPane.showMessageDialog(this,
+                firstMessage);
+                this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
             }
         }
     }
@@ -245,11 +256,11 @@ public class Window extends JFrame{
         // UpdateBordView
         updatePlayersHeader();
         updateBoardView();
-
+        // JMenuBar menuBar = createMenuBar(createMenuOpenFolder("Start New Game"));
         this.getContentPane().removeAll();
         this.getContentPane().setBackground(new Color(39, 125, 161));
         this.getContentPane().add(boardView, BorderLayout.CENTER);
-        
+        // this.setJMenuBar(menuBar);
         this.revalidate();
         this.repaint();
     }
@@ -315,4 +326,26 @@ public class Window extends JFrame{
     public void updatePlayersHeader() {
         this.playerHeaderView = new PlayerHeaderView(Window.joueurs);
     }
+
+    // private JMenu createMenuOpenFolder(String title) {
+	// 	JMenu menu = new JMenu("Menu");
+	// 	JMenuItem menuItem = new JMenuItem(title);
+	// 	menuItem.addActionListener(new ActionListener() {
+	// 		@Override
+	// 		public void actionPerformed(ActionEvent e) {
+    //             // System.out.println("Return to home");
+    //             // Window.this.openHomePage(); //FIXME
+	// 		}
+	// 	});
+	// 	menu.add(menuItem);
+	// 	return menu;
+	// }
+
+    // private static JMenuBar createMenuBar(JMenu openProject) {
+    //     JMenuBar menu = new JMenuBar();
+    //     menu.add(openProject);
+    //     return menu;
+    // }
+
+
 }
