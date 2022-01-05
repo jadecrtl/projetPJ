@@ -23,8 +23,8 @@ public class Catane {
         terminal.println(Couleur.MAUVE.getCrayon(), "*****Bonjour voici Catane!*****");
         terminal.println(Couleur.MAUVE.getCrayon(), "*******************");
 
-        int tailleHorizontale = dialogue.demandeInt(Couleur.MAUVE.getCrayon(), "Donner la taille horizontale du plateau ");
-        int tailleVerticale = dialogue.demandeInt(Couleur.MAUVE.getCrayon(), "Donner la taille verticale du plateau ");
+        int tailleHorizontale = dialogue.demandeIntPrecis(Couleur.MAUVE.getCrayon(), "Donner la taille horizontale du plateau ", Arrays.asList(5,7,9));
+        int tailleVerticale = dialogue.demandeIntPrecis(Couleur.MAUVE.getCrayon(), "Donner la taille verticale du plateau ", Arrays.asList(5,7));
 
         De6Faces de1 = new De6Faces();
         De6Faces de2 = new De6Faces();
