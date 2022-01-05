@@ -5,13 +5,7 @@ public class Route {
     private int idCroisementB;
     private Joueur proprietaire;
 
-    public Route(int idCroisementA, int idCroisementB) {//, Joueur proprietaire) {
-        if (idCroisementA < 0 || idCroisementB < 0) {
-            throw new IllegalArgumentException("Pas d'id croisement négatif!");
-        }
-        if (idCroisementA == idCroisementB) {
-            throw new IllegalArgumentException("Les idCroisement doivent etre different!");
-        }
+    public Route(int idCroisementA, int idCroisementB) {
         if (idCroisementA > idCroisementB) {
             this.setIdCroisementA(idCroisementB);
             this.setIdCroisementB(idCroisementA);
@@ -20,7 +14,6 @@ public class Route {
             this.idCroisementA = idCroisementA;
             this.idCroisementB = idCroisementB;
         }
-        //this.proprietaire = proprietaire;
     }
 
     public int getIdCroisementA() {
