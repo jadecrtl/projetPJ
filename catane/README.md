@@ -29,9 +29,9 @@ Pour tester notre jeu veuillez proceder aux etapes suivantes :
     Si vous voulez lancer la version interface graphique mettez en commentaire (<!-- la ligne pour la version terminal -->) et vice versa.
 
     Maintenant pour lancer le jeu suivre ces instructions :
-    - Se mettre a la racine de catane/
+    - Se mettre a la racine du sous repertoire catane/
     - Faire la commande "mvn package"
-    - Se placer a la racine de target/ (un sous reperoire de catane/) 
+    - Se placer a la racine du sous repertoire target/ (un sous reperoire de catane/) 
     - Faire la commande "java -jar catane-1.0.0-SNAPSHOT.jar"
 
     
